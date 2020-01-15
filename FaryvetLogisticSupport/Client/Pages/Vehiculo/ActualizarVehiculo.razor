@@ -1,5 +1,23 @@
-﻿<h3>ActualizarVehiculo</h3>
+﻿@page "/ActualizarVehiculo/{placa}"
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+    <FormularioVehiculo textoBoton="Actualizar Vehiculo"
+                        textoTitulo="Actualizar el Vehiculo"
+                        metodo="@actualizarVehiculo"
+                        vehiculo="@vehiculo" />
 
 @code {
+    [Parameter] public string placa { get; set; }
+    Vehiculo vehiculo = new Vehiculo();
+    protected async override Task OnParametersSetAsync()
+    {
+        vehiculo = await Http.GetJsonAsync<Vehiculo>($"Vehiculo/{placa}");
+    }
 
+    async Task actualizarVehiculo()
+    {
+        await Http.PutJsonAsync("Vehiculo", vehiculo);
+        Navigation.NavigateTo("Vehiculo");
+    }
 }

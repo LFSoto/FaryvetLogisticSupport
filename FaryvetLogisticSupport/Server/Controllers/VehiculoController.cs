@@ -40,5 +40,22 @@ namespace FaryvetLogisticSupport.Server.Controllers
         {
             return await context.FLS_Vehiculos.FirstOrDefaultAsync(x => x.placa == placa);
         }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(Vehiculo vehiculo)
+        {
+            context.Entry(vehiculo).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var vehiculo = new Vehiculo { placa = id };
+            context.Remove(vehiculo);
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

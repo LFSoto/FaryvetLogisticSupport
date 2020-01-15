@@ -1,5 +1,127 @@
-﻿<h3>FormularioVehiculo</h3>
+﻿
+    <EditForm Model="@vehiculo" OnValidSubmit="@metodo">
+        <div class="card card-body">
+            <h3 class="card-title text-center">@textoTitulo</h3>
+            <div>
+                <a style="color:red">*</a>
+                <label> Placa </label>
+                <InputText @bind-Value="@vehiculo.placa" />
+                <ValidationMessage For="@(() => vehiculo.placa)" />
+            </div>
+
+            <div>
+                <a style="color:red">*</a>
+                <label> Capacidad de Carga (Kg) </label>
+                <InputNumber @bind-Value="@vehiculo.capacidadCarga" />
+                <ValidationMessage For="@(() => vehiculo.capacidadCarga)" />
+            </div>
+
+            <div>
+                <a style="color:red">*</a>
+                <label> Estado </label>
+                <InputSelect @bind-Value="@vehiculo.estado">
+                    <option value="">Seleccione una opción</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="Realizando Entrega">Realizando Entrega</option>
+                    <option value="En Mantenimiento">En Mantenimiento</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => vehiculo.estado)" />
+            </div>
+
+            <div>
+                <a style="color:red">*</a>
+                <label> CVO de Senasa </label>
+                <InputCheckbox @bind-Value="@vehiculo.CVOSenasa" />
+                <ValidationMessage For="@(() => vehiculo.CVOSenasa)" />
+            </div>
+
+            <div>
+                <label> Fecha de Vencimiento CVO de Senasa </label>
+                @if (vehiculo.CVOSenasa)
+                {
+                    <InputDate @bind-Value="@vehiculo.fechaVencimientoCVOSenasa" />
+                }
+                else
+                {
+                    <InputDate readonly @bind-Value="@vehiculo.fechaVencimientoCVOSenasa" />
+                }
+                <ValidationMessage For="@(() => vehiculo.fechaVencimientoCVOSenasa)" />
+            </div>
+
+            <div>
+                <a style="color:red">*</a>
+                <label> Marca </label>
+                <InputText @bind-Value="@vehiculo.marca" />
+                <ValidationMessage For="@(() => vehiculo.marca)" />
+            </div>
+
+            <div>
+                <a style="color:red">*</a>
+                <label> Modelo </label>
+                <InputText @bind-Value="@vehiculo.modelo" />
+                <ValidationMessage For="@(() => vehiculo.modelo)" />
+            </div>
+
+            <div>
+                <a style="color:red">*</a>
+                <label> Año de Fabricación </label>
+                <InputNumber @bind-Value="@vehiculo.annioFabricacion" />
+                <ValidationMessage For="@(() => vehiculo.annioFabricacion)" />
+            </div>
+
+            <div>
+                <a style="color:red">*</a>
+                <label> Licencia </label>
+                <InputSelect @bind-Value="@vehiculo.licenciaRequerida">
+                    <option value="">Seleccione una Licencia</option>
+                    <option value="A1">A1</option>
+                    <option value="A2">A2</option>
+                    <option value="A3">A3</option>
+                    <option value="B1">B1</option>
+                    <option value="B2">B2</option>
+                    <option value="B3">B3</option>
+                    <option value="B4">B4</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => vehiculo.licenciaRequerida)" />
+            </div>
+
+            <div>
+                <a style="color:red">*</a>
+                <label> Permiso de Salida del País </label>
+                <InputCheckbox @bind-Value="@vehiculo.salidaPais" />
+                <ValidationMessage For="@(() => vehiculo.salidaPais)" />
+            </div>
+
+            <div>
+                <label> Fecha de Vencimiento del Permiso de Salida del País </label>
+                @if (vehiculo.salidaPais)
+                {
+                    <InputDate @bind-Value="@vehiculo.fechaVencimientoSalidaPais" />
+                }
+                else
+                {
+                    <InputDate readonly @bind-Value="@vehiculo.fechaVencimientoSalidaPais" />
+                }
+                <ValidationMessage For="@(() => vehiculo.fechaVencimientoSalidaPais)" />
+            </div>
+
+            <div>
+                <a style="color:red">*</a>
+                <label> ¿Es un vehiculo de reparto? </label>
+                <InputCheckbox @bind-Value="@vehiculo.isReparto" />
+                <ValidationMessage For="@(() => vehiculo.isReparto)" />
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-success">@textoBoton</button>
+            </div>
+        </div>
+        <DataAnnotationsValidator />
+    </EditForm>
 
 @code {
-
+    [Parameter] public  Vehiculo vehiculo { get; set; } = new Vehiculo();
+    [Parameter] public String textoBoton { get; set; } = "Guardar Cambios";
+    [Parameter] public String textoTitulo { get; set; } = "Formulario Vehiculo";
+    [Parameter] public EventCallback metodo { get; set; }
 }

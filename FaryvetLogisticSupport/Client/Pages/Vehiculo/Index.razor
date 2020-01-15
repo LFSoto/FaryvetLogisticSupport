@@ -30,6 +30,7 @@ else
             <td> Permiso de Salida del País </td>
             <td> Fecha de Vencimiento Salida del País </td>
             <td> Vehiculo de Reparto </td>
+            <td>&nbsp;</td>
         </tr>
     </thead>
     @foreach (var vehiculo in vehiculos)
@@ -46,6 +47,10 @@ else
     <td> @vehiculo.salidaPais </td>
     <td> @vehiculo.fechaVencimientoSalidaPais.ToString("dd/MM/yyyy") </td>
     <td> @vehiculo.isReparto </td>
+    <td>
+        <a class="btn btn-success" href="ActualizarVehiculo/@vehiculo.placa"> Actualizar </a>
+        <button class="btn btn-danger" @onclick="(() => BorrarVehiculo(vehiculo.placa)) "> Borrar </button>
+    </td>
 </tr>
     }
 </table>
@@ -62,5 +67,11 @@ else
     async Task cargarVehiculos()
     {
         vehiculos = await Http.GetJsonAsync<Vehiculo[]>("Vehiculo");
+    }
+
+    async Task BorrarVehiculo(string placa)
+    {
+        await Http.DeleteAsync($"Vehiculo/{placa}");
+        await cargarVehiculos();
     }
 }
