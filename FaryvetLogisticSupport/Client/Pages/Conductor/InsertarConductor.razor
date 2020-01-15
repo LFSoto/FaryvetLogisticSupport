@@ -1,0 +1,17 @@
+﻿@page "/insertarConductor"
+@inject HttpClient _http
+@inject NavigationManager navMan
+
+<h3>Insertar Conductor</h3>
+
+<FormularioConductor textoBoton="Insertar Conductor" metodo="@InsertConductor" conductor="@conduct" />
+
+@code {
+    Conductor conduct = new Conductor();
+
+    async Task InsertConductor()
+    {
+        await _http.PostJsonAsync("Conductor", conduct);
+        navMan.NavigateTo("conductores");
+    }
+}

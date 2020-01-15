@@ -1,0 +1,72 @@
+﻿@page "/conductores"
+@inject HttpClient _http
+
+<h3>Conductores</h3>
+
+<div>
+    <a class="btn btn-primary" href="insertarConductor"> Insertar Conductor </a>
+</div>
+
+@if (conductores == null)
+{
+    <text> Cargando.... </text>
+}
+else if (conductores.Length == 0)
+{
+    <text> No hay conductores en el sistema </text>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th> Cedula </th>
+                <th> Nombre </th>
+                <th> Apellido Paterno </th>
+                <th> Apellido Materno </th>
+                <th> Licencia B </th>
+                <th> Fecha Vencimiento Licencia B </th>
+                <th> Licencia A </th>
+                <th> Fecha Vencimiento Licencia B </th>
+                <th> Estado </th>
+                <th> Fecha de contratacion </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var conduct in conductores)
+            {
+                <tr>
+                    <td> @conduct.cedula </td>
+                    <td> @conduct.nombre </td>
+                    <td> @conduct.apellido1 </td>
+                    <td> @conduct.apellido2 </td>
+                    <td> @conduct.licenciaB </td>
+                    <td> @conduct.fechaVencimientoB.ToString("dd/MM/yyyy") </td>
+                    <td> @conduct.licenciaA </td>
+                    <td> @conduct.fechaVencimientoA.ToString("dd/MM/yyyy") </td>
+                    <td> @conduct.estado </td>
+                    <td> @conduct.fechaDeContratacion.ToString("dd/MM/yyyy") </td>
+                    <td>
+                        <a class="btn btn-success">Editar</a>
+                        <button class="bnt btn-danger">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    public Conductor[] conductores { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await cargarConductores();
+    }
+
+    async Task cargarConductores()
+    {
+        conductores = await _http.GetJsonAsync<Conductor[]>("Conductor");
+    }
+}

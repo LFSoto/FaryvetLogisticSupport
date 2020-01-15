@@ -10,20 +10,26 @@ namespace FaryvetLogisticSupport.Shared.Models
     [Table("FLS_Conductores")]
     public class Conductor
     {
+
+        public Conductor()
+        {
+            Entregas = new HashSet<Entrega>();
+        }
+
         [Key]
-        [Required]
+        [Required(ErrorMessage = "El campo cedula es requerido")]
         public string cedula { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El campo nombre es requerido")]
         public string nombre { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El campo apellido paterno es requerido")]
         public string apellido1 { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El campo apellido materno es requerido")]
         public string apellido2 { get; set; }
-        [Range(0, 4, ErrorMessage = "Licencia no valida")]
+        [Range(0, 4, ErrorMessage = "Licencia no valida, El valor se debe encontrar dentro del rango: 0-4")]
         public int licenciaB { get; set; }
         [Column(TypeName = "date")]
         public DateTime fechaVencimientoB { get; set; }
-        [Range(0, 3, ErrorMessage = "Licencia no valida")]
+        [Range(0, 3, ErrorMessage = "Licencia no valida, El valor se debe encontrar dentro del rango: 0-3")]
         public int licenciaA { get; set; }
         [Column(TypeName = "date")]
         public DateTime fechaVencimientoA { get; set; }
@@ -32,7 +38,7 @@ namespace FaryvetLogisticSupport.Shared.Models
         [Required]
         [Column(TypeName = "date")]
         [CustomDataAnnotationDate]
-        public DateTime fechaContrado { get; set; }
+        public DateTime fechaDeContratacion { get; set; }
 
         public virtual ICollection<Entrega> Entregas { get; set; }
     }
