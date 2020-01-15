@@ -99,6 +99,7 @@
                 @if (textoTitulo == "Agregar nuevo Vehiculo")
                 {
                     <InputNumber @bind-Value="@vehiculo.annioFabricacion" />
+                    <h6>El año de fabricación debe ser mayor a 1970</h6>
                 }
                 else
                 {
