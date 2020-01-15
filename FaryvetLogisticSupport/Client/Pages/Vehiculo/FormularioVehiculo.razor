@@ -5,26 +5,43 @@
             <div>
                 <a style="color:red">*</a>
                 <label> Placa </label>
-                <InputText @bind-Value="@vehiculo.placa" />
+                @if (textoTitulo == "Agregar nuevo Vehiculo")
+                {
+                    <InputText @bind-Value="@vehiculo.placa" />
+                }
+                else
+                {
+                    <InputText readonly @bind-Value="@vehiculo.placa" />
+                }
                 <ValidationMessage For="@(() => vehiculo.placa)" />
             </div>
 
             <div>
                 <a style="color:red">*</a>
                 <label> Capacidad de Carga (Kg) </label>
-                <InputNumber @bind-Value="@vehiculo.capacidadCarga" />
+                @if (textoTitulo == "Agregar nuevo Vehiculo")
+                {
+                    <InputNumber @bind-Value="@vehiculo.capacidadCarga" />
+                }
+                else
+                {
+                    <InputNumber readonly @bind-Value="@vehiculo.capacidadCarga" />
+                }
                 <ValidationMessage For="@(() => vehiculo.capacidadCarga)" />
             </div>
 
             <div>
-                <a style="color:red">*</a>
-                <label> Estado </label>
-                <InputSelect @bind-Value="@vehiculo.estado">
-                    <option value="">Seleccione una opción</option>
-                    <option value="Disponible">Disponible</option>
-                    <option value="Realizando Entrega">Realizando Entrega</option>
-                    <option value="En Mantenimiento">En Mantenimiento</option>
-                </InputSelect>
+                @if (textoTitulo != "Agregar nuevo Vehiculo")
+                {
+                    <a style="color:red">*</a>
+                    <label> Estado </label>
+                    <InputSelect @bind-Value="@vehiculo.estado">
+                        <option value="">Seleccione una opción</option>
+                        <option value="Disponible">Disponible</option>
+                        <option value="Realizando Entrega">Realizando Entrega</option>
+                        <option value="En Mantenimiento">En Mantenimiento</option>
+                    </InputSelect>
+                }
                 <ValidationMessage For="@(() => vehiculo.estado)" />
             </div>
 
@@ -51,37 +68,65 @@
             <div>
                 <a style="color:red">*</a>
                 <label> Marca </label>
-                <InputText @bind-Value="@vehiculo.marca" />
+                @if (textoTitulo == "Agregar nuevo Vehiculo")
+                {
+                    <InputText @bind-Value="@vehiculo.marca" />
+                }
+                else
+                {
+                    <InputText readonly @bind-Value="@vehiculo.marca" />
+                }
                 <ValidationMessage For="@(() => vehiculo.marca)" />
             </div>
 
             <div>
                 <a style="color:red">*</a>
                 <label> Modelo </label>
-                <InputText @bind-Value="@vehiculo.modelo" />
+                @if (textoTitulo == "Agregar nuevo Vehiculo")
+                {
+                    <InputText @bind-Value="@vehiculo.modelo" />
+                }
+                else
+                {
+                    <InputText readonly @bind-Value="@vehiculo.modelo" />
+                }
                 <ValidationMessage For="@(() => vehiculo.modelo)" />
             </div>
 
             <div>
                 <a style="color:red">*</a>
                 <label> Año de Fabricación </label>
-                <InputNumber @bind-Value="@vehiculo.annioFabricacion" />
+                @if (textoTitulo == "Agregar nuevo Vehiculo")
+                {
+                    <InputNumber @bind-Value="@vehiculo.annioFabricacion" />
+                }
+                else
+                {
+                    <InputNumber readonly @bind-Value="@vehiculo.annioFabricacion" />
+                }
                 <ValidationMessage For="@(() => vehiculo.annioFabricacion)" />
             </div>
 
             <div>
                 <a style="color:red">*</a>
                 <label> Licencia </label>
-                <InputSelect @bind-Value="@vehiculo.licenciaRequerida">
-                    <option value="">Seleccione una Licencia</option>
-                    <option value="A1">A1</option>
-                    <option value="A2">A2</option>
-                    <option value="A3">A3</option>
-                    <option value="B1">B1</option>
-                    <option value="B2">B2</option>
-                    <option value="B3">B3</option>
-                    <option value="B4">B4</option>
-                </InputSelect>
+                @if (textoTitulo == "Agregar nuevo Vehiculo")
+                {
+                    <InputSelect @bind-Value="@vehiculo.licenciaRequerida">
+                        <option value="">Seleccione una Licencia</option>
+                        <option value="A1">A1</option>
+                        <option value="A2">A2</option>
+                        <option value="A3">A3</option>
+                        <option value="B1">B1</option>
+                        <option value="B2">B2</option>
+                        <option value="B3">B3</option>
+                        <option value="B4">B4</option>
+                    </InputSelect>
+                }
+                else
+                {
+                    <InputText readonly @bind-Value="@vehiculo.licenciaRequerida" />
+                }
                 <ValidationMessage For="@(() => vehiculo.licenciaRequerida)" />
             </div>
 

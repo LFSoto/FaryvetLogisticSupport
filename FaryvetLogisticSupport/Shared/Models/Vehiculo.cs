@@ -13,6 +13,9 @@ namespace FaryvetLogisticSupport.Shared.Models
         public Vehiculo()
         {
             Entregas = new HashSet<Entrega>();
+            annioFabricacion = 1970;
+            fechaVencimientoCVOSenasa = DateTime.Now;
+            fechaVencimientoSalidaPais = DateTime.Now;
         }
         [Key]
         [Required (ErrorMessage = "La placa es requerida")]

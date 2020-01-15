@@ -39,18 +39,37 @@ else
     <td> @vehiculo.placa </td>
     <td> @vehiculo.capacidadCarga </td>
     <td> @vehiculo.estado </td>
-    <td> @vehiculo.CVOSenasa </td>
-    <td> @vehiculo.fechaVencimientoCVOSenasa.ToString("dd/MM/yyyy") </td>
+    <td> <input type="checkbox" disabled @bind="@vehiculo.CVOSenasa" /> </td>
+    <td>
+        @if (vehiculo.CVOSenasa)
+        {
+            @vehiculo.fechaVencimientoCVOSenasa.ToString("dd/MM/yyyy")
+        }
+        else
+        {
+            <text> N/A </text>
+        }
+    </td>
     <td> @vehiculo.marca </td>
     <td> @vehiculo.modelo </td>
     <td> @vehiculo.annioFabricacion </td>
-    <td> @vehiculo.salidaPais </td>
-    <td> @vehiculo.fechaVencimientoSalidaPais.ToString("dd/MM/yyyy") </td>
-    <td> @vehiculo.isReparto </td>
+    <td> <input type="checkbox" disabled @bind="@vehiculo.salidaPais" /> </td>
     <td>
-        <a class="btn btn-success" href="ActualizarVehiculo/@vehiculo.placa"> Actualizar </a>
-        <button class="btn btn-danger" @onclick="(() => BorrarVehiculo(vehiculo.placa)) "> Borrar </button>
+        @if (vehiculo.salidaPais)
+        {
+            @vehiculo.fechaVencimientoSalidaPais.ToString("dd/MM/yyyy")
+        }
+        else
+        {
+            <text> N/A </text>
+        }
     </td>
+    <td> <input type="checkbox" disabled @bind="@vehiculo.isReparto" /> </td>
+    <td>
+        <a class=" btn btn-success" href="ActualizarVehiculo/@vehiculo.placa">
+    Actualizar </a>
+    <button class="btn btn-danger" @onclick="(() => BorrarVehiculo(vehiculo.placa)) "> Borrar </button>
+</td>
 </tr>
     }
 </table>
