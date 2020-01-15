@@ -1,7 +1,6 @@
 ﻿@page "/AgregarVehiculo"
 @inject HttpClient Http
 @inject NavigationManager Navigation
-@inject IJSRuntime JS
 
 <EditForm Model="@vehiculo" OnValidSubmit="@agregarVehiculo">
     <div class="card card-body">
@@ -91,7 +90,6 @@
 
     async Task agregarVehiculo()
     {
-
         await Http.PostJsonAsync("Vehiculo", vehiculo);
 
         Navigation.NavigateTo("Vehiculo");
