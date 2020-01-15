@@ -1,0 +1,66 @@
+﻿@page "/Vehiculo"
+@inject HttpClient Http
+
+<h3>Vehiculos</h3>
+<div>
+    <a class="btn btn-primary" href="AgregarVehiculo"> Agregar Vehiculo </a>
+</div>
+
+@if (vehiculos == null)
+{
+    <text> Cargando </text>
+}
+else if (vehiculos.Length == 0)
+{
+    <text> No hay vehiculos disponibles </text>
+}
+else
+{
+<table>
+    <thead>
+        <tr>
+            <td> Placa </td>
+            <td> Capacidad de Carga </td>
+            <td> Estado </td>
+            <td> CVO de Senasa </td>
+            <td> Fecha de Vencimiento CVO Senasa </td>
+            <td> Marca </td>
+            <td> Modelo </td>
+            <td> Año de Fabricación </td>
+            <td> Permiso de Salida del País </td>
+            <td> Fecha de Vencimiento Salida del País </td>
+            <td> Vehiculo de Reparto </td>
+        </tr>
+    </thead>
+    @foreach (var vehiculo in vehiculos)
+    {
+<tr>
+    <td> @vehiculo.placa </td>
+    <td> @vehiculo.capacidadCarga </td>
+    <td> @vehiculo.estado </td>
+    <td> @vehiculo.CVOSenasa </td>
+    <td> @vehiculo.fechaVencimientoCVOSenasa.ToString("dd/MM/yyyy") </td>
+    <td> @vehiculo.marca </td>
+    <td> @vehiculo.modelo </td>
+    <td> @vehiculo.annioFabricacion </td>
+    <td> @vehiculo.salidaPais </td>
+    <td> @vehiculo.fechaVencimientoSalidaPais.ToString("dd/MM/yyyy") </td>
+    <td> @vehiculo.isReparto </td>
+</tr>
+    }
+</table>
+}
+
+@code {
+    public Vehiculo[] vehiculos { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await cargarVehiculos();
+    }
+
+    async Task cargarVehiculos()
+    {
+        vehiculos = await Http.GetJsonAsync<Vehiculo[]>("Vehiculo");
+    }
+}

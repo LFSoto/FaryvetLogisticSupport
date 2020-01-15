@@ -1,0 +1,99 @@
+﻿@page "/AgregarVehiculo"
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+<EditForm Model="@vehiculo" OnValidSubmit="@agregarVehiculo">
+    <div class="card card-body">
+        <h3 class="card-title text-center">Agregar un Vehiculo</h3>
+        <div>
+            <label> Placa </label>
+            <InputText @bind-Value="@vehiculo.placa" />
+        </div>
+
+        <div>
+            <label> Capacidad de Carga (Kg) </label>
+            <InputNumber @bind-Value="@vehiculo.capacidadCarga" />
+        </div>
+
+        <div>
+            <label> Estado </label>
+            <InputSelect @bind-Value="@vehiculo.estado">
+                <option value="">Seleccione una opción</option>
+                <option value="Disponible">Disponible</option>
+                <option value="Realizando Entrega">Realizando Entrega</option>
+                <option value="En Mantenimiento">En Mantenimiento</option>
+            </InputSelect>
+        </div>
+
+        <div>
+            <label> CVO de Senasa </label>
+            <InputCheckbox @bind-Value="@vehiculo.CVOSenasa" />
+        </div>
+
+        <div>
+            <label> Fecha de Vencimiento CVO de Senasa </label>
+            <InputDate @bind-Value="@vehiculo.fechaVencimientoCVOSenasa" />
+        </div>
+
+        <div>
+            <label> Marca </label>
+            <InputText @bind-Value="@vehiculo.marca" />
+        </div>
+
+        <div>
+            <label> Modelo </label>
+            <InputText @bind-Value="@vehiculo.modelo" />
+        </div>
+
+        <div>
+            <label> Año de Fabricación </label>
+            <InputNumber @bind-Value="@vehiculo.annioFabricacion" />
+        </div>
+
+        <div>
+            <label> Licencia </label>
+            <InputSelect @bind-Value="@vehiculo.licenciaRequerida">
+                <option value="">Seleccione una Licencia</option>
+                <option value="A1">A1</option>
+                <option value="A2">A2</option>
+                <option value="A3">A3</option>
+                <option value="B1">B1</option>
+                <option value="B2">B2</option>
+                <option value="B3">B3</option>
+                <option value="B4">B4</option>
+            </InputSelect>
+        </div>
+
+        <div>
+            <label> Permiso de Salida del País </label>
+            <InputCheckbox @bind-Value="@vehiculo.salidaPais" />
+        </div>
+
+        <div>
+            <label> Fecha de Vencimiento del Permiso de Salida del País </label>
+            <InputDate @bind-Value="@vehiculo.fechaVencimientoSalidaPais" />
+        </div>
+
+        <div>
+            <label> ¿Es un vehiculo de reparto? </label>
+            <InputCheckbox @bind-Value="@vehiculo.isReparto" />
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success">Agregar Vehiculo</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    public Vehiculo vehiculo = new Vehiculo();
+
+    async Task agregarVehiculo()
+    {
+
+        await Http.PostJsonAsync("Vehiculo", vehiculo);
+
+        Navigation.NavigateTo("Vehiculo");
+    }
+}

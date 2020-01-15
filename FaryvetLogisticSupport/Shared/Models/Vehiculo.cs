@@ -10,6 +10,10 @@ namespace FaryvetLogisticSupport.Shared.Models
     [Table("FLS_Vehiculos")]
     public class Vehiculo
     {
+        public Vehiculo()
+        {
+            Entregas = new HashSet<Entrega>();
+        }
         [Key]
         [Required]
         public string placa { get; set; }
