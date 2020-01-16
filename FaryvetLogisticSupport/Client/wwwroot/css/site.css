@@ -1,5 +1,14 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+/*Estilos de Scrappy*/
+
+.main-title
+{
+    text-align: center
+}
+
+/*Fin de los estilos de Scrappy*/
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
