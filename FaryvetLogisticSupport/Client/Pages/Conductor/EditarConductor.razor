@@ -1,5 +1,32 @@
-﻿<h3>EditarConductor</h3>
+﻿@page "/editarConductor/{cedulaConductor}"
+@inject HttpClient _http
+@inject NavigationManager navMan
+@inject IJSRuntime _js
+<h3>Editar Conductor</h3>
+
+<FormularioConductor textoBoton="Guardar Cambios" 
+                     metodo="@editConductor" 
+                     conductor="@conduct" 
+                     opcion="@FormularioConductor.editar"/>
 
 @code {
+    [Parameter] public string cedulaConductor { get; set; }
+    Conductor conduct = new Conductor();
 
+    protected async override Task OnParametersSetAsync()
+    {
+        conduct = await _http.GetJsonAsync<Conductor>($"Conductor/{cedulaConductor}");
+    }
+
+    async Task editConductor()
+    {
+        string mensajeConfirmacion = $"Confirmar cambios para conductor con cedula {conduct.cedula}";
+
+        if (await _js.InvokeAsync<bool>("confirm", mensajeConfirmacion))
+        {
+            await _http.PutJsonAsync("Conductor", conduct);
+
+        }
+        navMan.NavigateTo("conductores");
+    }
 }

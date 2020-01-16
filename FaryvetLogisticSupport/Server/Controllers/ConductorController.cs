@@ -40,5 +40,22 @@ namespace FaryvetLogisticSupport.Server.Controllers
         {
             return await context.FLS_Conductores.FirstOrDefaultAsync(x => x.cedula == cedula);
         }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(Conductor conductor)
+        {
+            context.Entry(conductor).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{cedul}")]
+        public async Task<ActionResult> Delete(string cedul)
+        {
+            var conductor = new Conductor { cedula = cedul };
+            context.Remove(conductor);
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

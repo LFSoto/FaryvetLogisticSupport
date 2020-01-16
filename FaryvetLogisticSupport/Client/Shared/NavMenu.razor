@@ -1,12 +1,12 @@
 ﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">FaryvetLogisticSupport</a>
+    <a class="navbar-brand" href="">Faryvet Logistic Support</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
+    <ul class="nav nav-tabs flex-row ">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
@@ -21,7 +21,7 @@
         @*Conductores*@
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="conductores">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Conductores
+                <span class="oi oi-person" aria-hidden="true"></span> Conductores
             </NavLink>
         </li>
         <li class="nav-item px-3">
