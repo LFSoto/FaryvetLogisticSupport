@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FaryvetLogisticSupport.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200116150121_Initial")]
+    [Migration("20200116215750_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,14 +146,18 @@ namespace FaryvetLogisticSupport.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("direccion")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("entrega")
+                    b.Property<int?>("entrega")
                         .HasColumnType("int");
 
                     b.Property<string>("estado")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("fecha")
+                        .HasColumnType("date");
 
                     b.Property<string>("formaCobro")
                         .IsRequired()
@@ -256,9 +260,7 @@ namespace FaryvetLogisticSupport.Server.Migrations
                 {
                     b.HasOne("FaryvetLogisticSupport.Shared.Models.Entrega", "EntregaNavigation")
                         .WithMany("Facturas")
-                        .HasForeignKey("entrega")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("entrega");
 
                     b.HasOne("FaryvetLogisticSupport.Shared.Models.DivisionGeografica", "DivisionGeograficaNavigation")
                         .WithMany("Facturas")

@@ -124,7 +124,8 @@ namespace FaryvetLogisticSupport.Server.Migrations
                     comentarios = table.Column<string>(nullable: true),
                     estado = table.Column<string>(nullable: false),
                     ubicacion = table.Column<int>(nullable: false),
-                    direccion = table.Column<string>(nullable: true)
+                    direccion = table.Column<string>(nullable: false),
+                    fecha = table.Column<DateTime>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,7 +136,7 @@ namespace FaryvetLogisticSupport.Server.Migrations
                         principalSchema: "FARYVET",
                         principalTable: "FLS_Entregas",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FLS_Facturas_FLS_DisionesGeograficas_ubicacion",
                         column: x => x.ubicacion,

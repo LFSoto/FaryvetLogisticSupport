@@ -39,7 +39,11 @@ namespace FaryvetLogisticSupport.Shared.Models
         public string estado { get; set; }
         [Required]
         public int ubicacion { get; set; }
+        [Required]
         public string direccion { get; set; }
+        [Required]
+        [Column(TypeName = "date")]
+        public DateTime fecha { get; set; }
         [ForeignKey("entrega")]
         public virtual Entrega EntregaNavigation { get; set; }
         [ForeignKey("ubicacion")]
