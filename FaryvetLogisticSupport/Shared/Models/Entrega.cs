@@ -9,6 +9,10 @@ namespace FaryvetLogisticSupport.Shared.Models
     [Table("FLS_Entregas")]
     public class Entrega
     {
+        public Entrega()
+        {
+            Facturas = new HashSet<Factura>();
+        }
         [Key]
         [Required]
         public int id { get; set; }

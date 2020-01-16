@@ -24,7 +24,7 @@ namespace FaryvetLogisticSupport.Server.Migrations
                     licenciaA = table.Column<int>(nullable: false),
                     fechaVencimientoA = table.Column<DateTime>(type: "date", nullable: false),
                     estado = table.Column<string>(nullable: false),
-                    fechaContrado = table.Column<DateTime>(type: "date", nullable: false)
+                    fechaDeContratacion = table.Column<DateTime>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,7 +114,7 @@ namespace FaryvetLogisticSupport.Server.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(nullable: false),
-                    entrega = table.Column<int>(nullable: false),
+                    entrega = table.Column<int>(nullable: true),
                     formaDespacho = table.Column<string>(nullable: false),
                     pesoTotal = table.Column<float>(nullable: false),
                     formaCobro = table.Column<string>(nullable: false),

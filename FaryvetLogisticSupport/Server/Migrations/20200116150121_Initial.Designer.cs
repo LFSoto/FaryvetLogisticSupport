@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FaryvetLogisticSupport.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200114020412_Initial")]
+    [Migration("20200116150121_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,7 @@ namespace FaryvetLogisticSupport.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("fechaContrado")
+                    b.Property<DateTime>("fechaDeContratacion")
                         .HasColumnType("date");
 
                     b.Property<DateTime>("fechaVencimientoA")

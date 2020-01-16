@@ -1,0 +1,68 @@
+﻿@page "/Factura"
+@inject HttpClient Http
+@inject IJSRuntime JS
+
+<body onbeforeunload="DataTableRemove()">
+    <h3>Facturas</h3>
+    @if (facturas == null)
+    {
+        <text> Cargando... </text>
+    }
+    else if (facturas.Length == 0)
+    {
+        <text> No hay facturas </text>
+    }
+    else
+    {
+        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <td> Id </td>
+                    <td> Forma de Despacho</td>
+                    <td> Peso Total</td>
+                    <td> Forma de Cobro</td>
+                    <td> Moneda </td>
+                    <td> Monto Total</td>
+                    <td> Nombre del Cliente </td>
+                    <td> Estado </td>
+                    <td> Ubicación </td>
+                    <td> Dirección </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var factura in facturas)
+                {
+                    <tr>
+                        <td> @factura.id </td>
+                        <td> @factura.formaDespacho </td>
+                        <td> @factura.pesoTotal </td>
+                        <td> @factura.formaCobro </td>
+                        <td> @factura.moneda </td>
+                        <td> @factura.montoTotal </td>
+                        <td> @factura.nombreCliente </td>
+                        <td> @factura.estado </td>
+                        <td> @factura.ubicacion @factura.DivisionGeograficaNavigation.ubicacion </td>
+                        <td> @factura.direccion </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</body>
+
+@code {
+    public Factura[] facturas { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await cargarFacturas();
+        await JS.InvokeAsync<object>("DataTableAdd");
+    }
+
+    async Task cargarFacturas()
+    {
+        facturas = await Http.GetJsonAsync<Factura[]>("Factura");
+        Console.WriteLine("Cargue ");
+        Console.WriteLine(facturas.Length);
+    }
+}

@@ -9,11 +9,17 @@ namespace FaryvetLogisticSupport.Shared.Models
     [Table("FLS_Facturas")]
     public class Factura
     {
+        public Factura()
+        {
+            entrega = 0;
+            comentarios = "";
+            EntregaNavigation = new Entrega();
+            DivisionGeograficaNavigation = new DivisionGeografica();
+        }
         [Key]
         [Required]
         public string id { get; set; }
-        [Required]
-        public int entrega { get; set; }
+        public int? entrega { get; set; }
         [Required]
         public string formaDespacho { get; set; }
         [Required]

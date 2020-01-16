@@ -9,6 +9,10 @@ namespace FaryvetLogisticSupport.Shared.Models
     [Table("FLS_DisionesGeograficas")]
     public class DivisionGeografica
     {
+        public DivisionGeografica()
+        {
+            Facturas = new HashSet<Factura>();
+        }
         [Key]
         [Required]
         public int codigoPostal { get; set; }

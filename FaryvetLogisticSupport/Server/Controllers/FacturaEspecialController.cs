@@ -12,11 +12,11 @@ namespace FaryvetLogisticSupport.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class FacturaController : Controller
+    public class FacturaEspecialController : Controller
     {
         private readonly ApplicationDbContext context;
 
-        public FacturaController(ApplicationDbContext context)
+        public FacturaEspecialController(ApplicationDbContext context)
         {
             this.context = context;
         }
@@ -24,7 +24,7 @@ namespace FaryvetLogisticSupport.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Factura>>> Get()
         {
-            return await context.FLS_Facturas.Where(F => F.formaDespacho == "CAMION").ToListAsync();
+            return await context.FLS_Facturas.Where(F => F.formaDespacho != "CAMION").ToListAsync();
         }
     }
 }
