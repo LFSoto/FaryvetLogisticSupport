@@ -1,79 +1,85 @@
 ﻿@page "/Vehiculo"
 @inject HttpClient Http
+@inject IJSRuntime JS
 
-<h3>Vehiculos</h3>
-<div>
-    <a class="btn btn-primary" href="AgregarVehiculo"> Agregar Vehiculo </a>
-</div>
+<body onbeforeunload="DataTableRemove()">
+    <h3>Vehiculos</h3>
+    <div>
+        <a class="btn btn-primary" href="AgregarVehiculo"> Agregar Vehiculo </a>
+    </div>
 
-@if (vehiculos == null)
-{
-    <text> Cargando... </text>
-}
-else if (vehiculos.Length == 0)
-{
-    <text> No hay vehiculos disponibles </text>
-}
-else
-{
-<table>
-    <thead>
-        <tr>
-            <td> Placa </td>
-            <td> Capacidad de Carga </td>
-            <td> Estado </td>
-            <td> CVO de Senasa </td>
-            <td> Fecha de Vencimiento CVO Senasa </td>
-            <td> Marca </td>
-            <td> Modelo </td>
-            <td> Año de Fabricación </td>
-            <td> Permiso de Salida del País </td>
-            <td> Fecha de Vencimiento Salida del País </td>
-            <td> Vehiculo de Reparto </td>
-            <td>&nbsp;</td>
-        </tr>
-    </thead>
-    @foreach (var vehiculo in vehiculos)
+    @if (vehiculos == null)
     {
-<tr>
-    <td> @vehiculo.placa </td>
-    <td> @vehiculo.capacidadCarga </td>
-    <td> @vehiculo.estado </td>
-    <td> <input type="checkbox" disabled @bind="@vehiculo.CVOSenasa" /> </td>
-    <td>
-        @if (vehiculo.CVOSenasa)
-        {
-            @vehiculo.fechaVencimientoCVOSenasa.ToString("dd/MM/yyyy")
-        }
-        else
-        {
-            <text> N/A </text>
-        }
-    </td>
-    <td> @vehiculo.marca </td>
-    <td> @vehiculo.modelo </td>
-    <td> @vehiculo.annioFabricacion </td>
-    <td> <input type="checkbox" disabled @bind="@vehiculo.salidaPais" /> </td>
-    <td>
-        @if (vehiculo.salidaPais)
-        {
-            @vehiculo.fechaVencimientoSalidaPais.ToString("dd/MM/yyyy")
-        }
-        else
-        {
-            <text> N/A </text>
-        }
-    </td>
-    <td> <input type="checkbox" disabled @bind="@vehiculo.isReparto" /> </td>
-    <td>
-        <a class=" btn btn-success" href="ActualizarVehiculo/@vehiculo.placa">
-    Actualizar </a>
-    <button class="btn btn-danger" @onclick="(() => BorrarVehiculo(vehiculo.placa)) "> Borrar </button>
-</td>
-</tr>
+        <text> Cargando... </text>
     }
-</table>
-}
+    else if (vehiculos.Length == 0)
+    {
+        <text> No hay vehiculos disponibles </text>
+    }
+    else
+    {
+        <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <td> Placa </td>
+                    <td> Capacidad de Carga </td>
+                    <td> Estado </td>
+                    <td> CVO de Senasa </td>
+                    <td> Fecha de Vencimiento CVO Senasa </td>
+                    <td> Marca </td>
+                    <td> Modelo </td>
+                    <td> Año de Fabricación </td>
+                    <td> Permiso de Salida del País </td>
+                    <td> Fecha de Vencimiento Salida del País </td>
+                    <td> Vehiculo de Reparto </td>
+                    <td>&nbsp;</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var vehiculo in vehiculos)
+                {
+                    <tr>
+                        <td> @vehiculo.placa </td>
+                        <td> @vehiculo.capacidadCarga </td>
+                        <td> @vehiculo.estado </td>
+                        <td> <input type="checkbox" disabled @bind="@vehiculo.CVOSenasa" /> </td>
+                        <td>
+                            @if (vehiculo.CVOSenasa)
+                            {
+                                @vehiculo.fechaVencimientoCVOSenasa.ToString("dd/MM/yyyy")
+                            }
+                            else
+                            {
+                                <text> N/A </text>
+                            }
+                        </td>
+                        <td> @vehiculo.marca </td>
+                        <td> @vehiculo.modelo </td>
+                        <td> @vehiculo.annioFabricacion </td>
+                        <td> <input type="checkbox" disabled @bind="@vehiculo.salidaPais" /> </td>
+                        <td>
+                            @if (vehiculo.salidaPais)
+                            {
+                                @vehiculo.fechaVencimientoSalidaPais.ToString("dd/MM/yyyy")
+                            }
+                            else
+                            {
+                                <text> N/A </text>
+                            }
+                        </td>
+                        <td> <input type="checkbox" disabled @bind="@vehiculo.isReparto" /> </td>
+                        <td>
+                            <a class=" btn btn-success" href="ActualizarVehiculo/@vehiculo.placa">
+                                Actualizar
+                            </a>
+                            <button class="btn btn-danger" @onclick="(() => BorrarVehiculo(vehiculo.placa)) "> Borrar </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</body>
 
 @code {
     public Vehiculo[] vehiculos { get; set; }
@@ -81,6 +87,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         await cargarVehiculos();
+        await JS.InvokeAsync<object>("DataTableAdd");
     }
 
     async Task cargarVehiculos()
