@@ -1,72 +1,145 @@
-﻿<h3>FormConductor</h3>
+﻿<h3>Formulario Conductor</h3>
 
 <div class="border">
     <EditForm Model="@conductor" OnValidSubmit="metodo">
         <div class="form-field">
-
-            <div class="col-6">
+            @if (opcion == insertar)
+            {
                 <div>
+                    <a style="color:red">*</a>
                     <label>Cedula:</label>
                     <InputText @bind-Value="@conductor.cedula" />
                     <ValidationMessage For="@(() => conductor.cedula)" />
                 </div>
-            </div>
-            <div>
-                <label>Nombre:</label>
-                <InputText @bind-Value="@conductor.nombre" />
-                <ValidationMessage For="@(() => conductor.nombre)" />
-            </div>
-            <div>
-                <label>Apellido Paterno:</label>
-                <InputText @bind-Value="@conductor.apellido1" />
-                <ValidationMessage For="@(() => conductor.apellido1)" />
-            </div>
-            <div>
-                <label>Apellido Materno:</label>
-                <InputText @bind-Value="@conductor.apellido2" />
-                <ValidationMessage For="@(() => conductor.apellido2)" />
-            </div>
-            <div>
+
                 <div>
-                    <label>Licencia tipo B:</label>
-                    <InputNumber @bind-Value="@conductor.licenciaB" />
-                    <ValidationMessage For="@(() => conductor.licenciaB)" />
+                    <a style="color:red">*</a>
+                    <label>Nombre:</label>
+                    <InputText @bind-Value="@conductor.nombre" />
+                    <ValidationMessage For="@(() => conductor.nombre)" />
                 </div>
                 <div>
-                    <label>Fecha Vencimiento:</label>
-                    <InputDate @bind-Value="@conductor.fechaVencimientoB" />
-                    <ValidationMessage For="@(() => conductor.fechaVencimientoB)" />
-                </div>
-            </div>
-            <div>
-                <div>
-                    <label>Licencia tipo A:</label>
-                    <InputNumber @bind-Value="@conductor.licenciaA" />
-                    <ValidationMessage For="@(() => conductor.licenciaA)" />
+                    <a style="color:red">*</a>
+                    <label>Apellido Paterno:</label>
+                    <InputText @bind-Value="@conductor.apellido1" />
+                    <ValidationMessage For="@(() => conductor.apellido1)" />
                 </div>
                 <div>
-                    <label>Fecha Vencimiento:</label>
-                    <InputDate @bind-Value="@conductor.fechaVencimientoA" />
-                    <ValidationMessage For="@(() => conductor.fechaVencimientoA)" />
+                    <a style="color:red">*</a>
+                    <label>Apellido Materno:</label>
+                    <InputText @bind-Value="@conductor.apellido2" />
+                    <ValidationMessage For="@(() => conductor.apellido2)" />
                 </div>
-            </div>
+                <div>
+                    <div>
 
-            <div>
-                <label>Fecha de contratacion:</label>
-                <InputDate @bind-Value="@conductor.fechaDeContratacion" />
-                <ValidationMessage For="@(() => conductor.fechaDeContratacion)" />
-            </div>
+                        <label>Licencia tipo B:</label>
+                        <InputNumber @bind-Value="@conductor.licenciaB" />
+                        <ValidationMessage For="@(() => conductor.licenciaB)" />
+                    </div>
+                    <div>
+                        <label>Fecha Vencimiento:</label>
+                        <InputDate @bind-Value="@conductor.fechaVencimientoB" />
+                        <ValidationMessage For="@(() => conductor.fechaVencimientoB)" />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label>Licencia tipo A:</label>
+                        <InputNumber @bind-Value="@conductor.licenciaA" />
+                        <ValidationMessage For="@(() => conductor.licenciaA)" />
+                    </div>
+                    <div>
+                        <label>Fecha Vencimiento:</label>
+                        <InputDate @bind-Value="@conductor.fechaVencimientoA" />
+                        <ValidationMessage For="@(() => conductor.fechaVencimientoA)" />
+                    </div>
+                </div>
 
-            <div>
-                <label>Estado:</label>
-                <InputText @bind-Value="@conductor.estado" />
-                <ValidationMessage For="@(() => conductor.estado)" />
-            </div>
+                <div>
+                    <a style="color:red">*</a>
+                    <label>Fecha de contratacion:</label>
+                    <InputDate @bind-Value="@conductor.fechaDeContratacion" />
+                    <ValidationMessage For="@(() => conductor.fechaDeContratacion)" />
+                </div>
 
+                <div>
+                    <a style="color:red">*</a>
+                    <label>Estado:</label>
+                    <InputText @bind-Value="@conductor.estado" />
+                    <ValidationMessage For="@(() => conductor.estado)" />
+                </div>
+            }
+            else
+            {
+                <div>
+                    <a style="color:red">*</a>
+                    <label>Cedula:</label>
+                    <InputText readonly disabled @bind-Value="@conductor.cedula" />
+                    <ValidationMessage For="@(() => conductor.cedula)" />
+                </div>
 
+                <div>
+                    <a style="color:red">*</a>
+                    <label>Nombre:</label>
+                    <InputText @bind-Value="@conductor.nombre" />
+                    <ValidationMessage For="@(() => conductor.nombre)" />
+                </div>
+                <div>
+                    <a style="color:red">*</a>
+                    <label>Apellido Paterno:</label>
+                    <InputText @bind-Value="@conductor.apellido1" />
+                    <ValidationMessage For="@(() => conductor.apellido1)" />
+                </div>
+                <div>
+                    <a style="color:red">*</a>
+                    <label>Apellido Materno:</label>
+                    <InputText @bind-Value="@conductor.apellido2" />
+                    <ValidationMessage For="@(() => conductor.apellido2)" />
+                </div>
+                <div>
+                    <div>
+                        <label>Licencia tipo B:</label>
+                        <InputNumber @bind-Value="@conductor.licenciaB" />
+                        <ValidationMessage For="@(() => conductor.licenciaB)" />
+                    </div>
+                    <div>
+                        <label>Fecha Vencimiento:</label>
+                        <InputDate readonly @bind-Value="@conductor.fechaVencimientoB" />
+                        <ValidationMessage For="@(() => conductor.fechaVencimientoB)" />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label>Licencia tipo A:</label>
+                        <InputNumber @bind-Value="@conductor.licenciaA" />
+                        <ValidationMessage For="@(() => conductor.licenciaA)" />
+                    </div>
+                    <div>
+                        <label>Fecha Vencimiento:</label>
+                        <InputDate readonly disabled @bind-Value="@conductor.fechaVencimientoA" />
+                        <ValidationMessage For="@(() => conductor.fechaVencimientoA)" />
+                    </div>
+                </div>
+
+                <div>
+                    <a style="color:red">*</a>
+                    <label>Fecha de contratacion:</label>
+                    <InputDate readonly disabled @bind-Value="@conductor.fechaDeContratacion" />
+                    <ValidationMessage For="@(() => conductor.fechaDeContratacion)" />
+                </div>
+
+                <div>
+                    <a style="color:red">*</a>
+                    <label>Estado:</label>
+                    <InputText @bind-Value="@conductor.estado" />
+                    <ValidationMessage For="@(() => conductor.estado)" />
+                </div>
+
+            }
         </div>
 
-        <button type="submit" class="btn btn-success">Insertar Conductor</button>
+        <button type="submit" class="btn btn-success">@textoBoton</button>
 
         @*Para que realice las validaciones de los atributos del modelo*@
         <DataAnnotationsValidator />
@@ -77,4 +150,8 @@
     [Parameter] public Conductor conductor { get; set; } = new Conductor();
     [Parameter] public String textoBoton { get; set; } = "Guardar Cambios";
     [Parameter] public EventCallback metodo { get; set; }
+    [Parameter] public int opcion { get; set; }
+
+    public const int insertar = 1;
+    public const int editar = 2;
 }

@@ -2,12 +2,18 @@
 @inject HttpClient _http
 @inject NavigationManager navMan
 
+
 <h3>Insertar Conductor</h3>
 
-<FormularioConductor textoBoton="Insertar Conductor" metodo="@InsertConductor" conductor="@conduct" />
+<FormularioConductor textoBoton="Insertar Conductor"
+                     metodo="@InsertConductor"
+                     conductor="@conduct"
+                     opcion="@FormularioConductor.insertar" />
+
 
 @code {
     Conductor conduct = new Conductor();
+
 
     async Task InsertConductor()
     {
