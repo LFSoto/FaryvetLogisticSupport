@@ -62,7 +62,5 @@
     async Task cargarFacturas()
     {
         facturas = await Http.GetJsonAsync<Factura[]>("Factura");
-        Console.WriteLine("Cargue ");
-        Console.WriteLine(facturas.Length);
     }
 }
