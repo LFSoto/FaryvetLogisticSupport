@@ -3,7 +3,12 @@
 @inject IJSRuntime JS
 
 <body onbeforeunload="DataTableRemove()">
-    <h3>Facturas</h3>
+    <h1 class="main-title">
+        <b>
+            FACTURAS
+        </b>
+    </h1>
+    <FacturasAdvanceSearch />
     @if (facturas == null)
     {
         <text> Cargando... </text>
@@ -14,9 +19,6 @@
     }
     else
     {
-        <div class="test-div">
-            <h6>Busqueda avanzada</h6>
-        </div>
         <table id="datatable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
