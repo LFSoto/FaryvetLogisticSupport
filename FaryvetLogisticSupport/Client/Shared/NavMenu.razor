@@ -1,41 +1,40 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="">Faryvet Logistic Support</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
-</div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav nav-tabs flex-row ">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        @*Vehiculos*@
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="Vehiculo">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Vehiculos
-            </NavLink>
-        </li>
-        @*Conductores*@
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="conductores">
-                <span class="oi oi-person" aria-hidden="true"></span> Conductores
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="Factura">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Facturas
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="FacturaEspecial">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Facturas Especiales
-            </NavLink>
-        </li>
-    </ul>
-</div>
+    <div class="collapseNavMenu" @onclick="ToggleNavMenu">
+        <ul class="nav nav-tabs flex-row ">
+            <li class="nav-item">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="Vehiculo">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Vehiculos
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="conductores">
+                    <span class="oi oi-person" aria-hidden="true"></span> Conductores
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="Factura">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Facturas
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="FacturaEspecial">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Facturas Especiales
+                </NavLink>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 
 @code {
     private bool collapseNavMenu = true;

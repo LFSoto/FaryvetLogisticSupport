@@ -15,7 +15,7 @@ function DataTableRemove() {
 }
 
 function fecha() {
-            var fechaActual = new Date();
+    var fechaActual = new Date();
     var anio = fechaActual.getYear();
             if (anio < 1000) {
         anio += 1900
@@ -47,4 +47,8 @@ reloj.textContent = " " + arrayDia[dia] + " " + diam + " de " + arrayMes[mes] + 
 reloj.innerText = " " + arrayDia[dia] + " " + diam + " de " + arrayMes[mes] + " " + anio + " | " + hora + ":" + minuto;
 
 setTimeout("fecha()", 1000);
+}
+
+function alerta() {
+    alert("Hola");
 }
