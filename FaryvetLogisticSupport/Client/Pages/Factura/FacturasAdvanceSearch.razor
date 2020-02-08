@@ -1,26 +1,54 @@
-﻿<div class="test-div">
+<div class=" main-container">
     <h6>
-        Busqueda avanzada
+        <a class=" href-button" data-toggle= "collapse" href= "#advanceSearch" aria-expanded= "false" aria-controls= "advanceSearch" @onclick= "changeAriaExpandedStatus">
+            Busqueda avanzada
+            @if (!ariaExpandedStatus)
+            {
+                <span class=" span-correction oi oi-caret-bottom oi-aling-rigth"></span>
+            }
+            else
+            {
+                <span class= "span-correction oi oi-caret-top oi-aling-rigth"> </span>
+            }
+        </a>
     </h6>
-    <form>
-        <div class="form-row">
-            <div class="form-group col-3">
-                <label for="startDateSearch">
-                    Buscar desde
-                </label>
-                <input type="date" class="form-control" @bind="startDateSearch"/>
+    <div id= "advanceSearch" class=" collapse">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-3">
+                    <label for="startDateSearch">
+                        Buscar desde
+                    </label>
+                    <input type="date" class="form-control" @bind="startDateSearch"/>
+                </div>
+                <div class="form-group col-3">
+                    <label for="endDateSearch">
+                        Buscar hasta
+                    </label>
+                    <input type="date" class="form-control" @bind="endDateSearch" />
+                </div>
             </div>
-            <div class="form-group col-3">
-                <label for="endDateSearch">
-                    Buscar hasta
-                </label>
-                <input type="date" class="form-control" @bind="endDateSearch" />
+            <div class=" test-div form-row">
+                <div class=" form-group col-10">
+                </div>
+                <div class=" form-group col-2">
+                    <button type=" button" class=" btn btn-primary">
+                        Buscar
+                    </button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 @code {
+    public bool ariaExpandedStatus= false;
+
+    private void changeAriaExpandedStatus (MouseEventArgs e)
+    {
+        ariaExpandedStatus= !ariaExpandedStatus ? true : false;
+    }
+
     DateTime startDateSearch = DateTime.Today.AddDays (-1);
     DateTime endDateSearch = DateTime.Today;
 }

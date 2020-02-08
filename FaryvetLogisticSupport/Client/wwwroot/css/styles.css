@@ -1,6 +1,58 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 /*Estilos de Scrappy*/
 
+.btn-collapse
+{
+    border: none;
+    background: none
+}
+
+.href-button:hover
+{
+   text-decoration: none;
+}
+
+.span-correction
+{
+    top: 4px
+}
+
+@media print, screen and (min-width: 860px)
+{
+    .main-container:not(.has-padding)
+    {
+        width: calc(100% - 48px);
+        max-width: calc(100% - 48px);
+    }
+}
+
+@media print, screen and (min-width: 1084px)
+{
+    .main-container:not(.has-padding)
+    {
+        max-width: calc(100% - 10vw);
+        width: calc(100% - 10vw);
+    }
+}
+
+@media print, screen and (min-width: 1795px)
+{
+    .main-container:not(.has-padding)
+    {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1600px;
+        width: 1600px;
+    }
+}
+
+.main-container
+{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
 .test-div {
     background-color: aquamarine
 }
