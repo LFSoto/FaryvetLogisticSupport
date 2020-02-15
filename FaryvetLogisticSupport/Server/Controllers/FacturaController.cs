@@ -27,8 +27,8 @@ namespace FaryvetLogisticSupport.Server.Controllers
             return await context.FLS_Facturas.Where(F => F.formaDespacho == "CAMION").Take(150).ToListAsync();
         }
 
-        [HttpGet]
-        public async Task <ActionResult <List <Factura>>> GetAdvanceSearch (DateTime startDate, DateTime endDate)
+        [HttpGet ("{startDateSearch}/{endDateSearch}")]
+        public async Task <ActionResult <List <Factura>>> Get (DateTime startDate, DateTime endDate)
         {
             return await context.FLS_Facturas.Where (F => F.fecha >= startDate && F.fecha <= endDate).ToListAsync ();
         }

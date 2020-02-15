@@ -1,18 +1,24 @@
-<div class=" main-container">
-    <h6>
-        <a class=" href-button" data-toggle= "collapse" href= "#advanceSearch" aria-expanded= "false" aria-controls= "advanceSearch" @onclick= "changeAriaExpandedStatus">
-            Busqueda avanzada
-            @if (!ariaExpandedStatus)
-            {
-                <span class=" span-correction oi oi-caret-bottom oi-aling-rigth"></span>
-            }
-            else
-            {
-                <span class= "span-correction oi oi-caret-top oi-aling-rigth"> </span>
-            }
-        </a>
-    </h6>
-    <div id= "advanceSearch" class=" collapse">
+@inject HttpClient Http
+
+<div>
+    <div>
+        <h6>
+            <a class=" href-button" data-toggle= "collapse" href= "#advanceSearch" aria-expanded= "false" aria-controls= "advanceSearch" @onclick= "changeAriaExpandedStatus">
+                Busqueda avanzada
+                @if (!ariaExpandedStatus)
+                {
+                    <span class=" span-correction oi oi-caret-bottom oi-aling-rigth"></span>
+                }
+                else
+                {
+                    <span class= "span-correction oi oi-caret-top oi-aling-rigth"> </span>
+                }
+            </a>
+        </h6>
+    </div>
+    <div class= "card">
+        <div class= "card-body">
+            <div id= "advanceSearch" class=" collapse show">
         <form>
             <div class="form-row">
                 <div class="form-group col-3">
@@ -38,11 +44,13 @@
                 </div>
             </div>
         </form>
+        </div>
+      </div>
     </div>
 </div>
 
 @code {
-    public bool ariaExpandedStatus= false;
+    public bool ariaExpandedStatus= true;
 
     private void changeAriaExpandedStatus (MouseEventArgs e)
     {
@@ -51,4 +59,16 @@
 
     DateTime startDateSearch = DateTime.Today.AddDays (-1);
     DateTime endDateSearch = DateTime.Today;
+
+    public Factura [] F1 {get; set;}
+
+    async Task listBills ( )
+    {
+        F1= await Http.GetJsonAsync <Factura []> ("Factura");
+    }
+
+    protected override async Task OnInitializedAsync ( )
+    {
+        await listBills ( );
+    }
 }

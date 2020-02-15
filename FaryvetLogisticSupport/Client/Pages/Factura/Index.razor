@@ -1,14 +1,8 @@
-﻿@page "/Factura"
-@inject HttpClient Http
+﻿@*@page "/Factura"*@
+@*@inject HttpClient Http*@
 @inject IJSRuntime JS
 
 <body onbeforeunload="DataTableRemove()">
-    <h1 class="main-title">
-        <b>
-            FACTURAS
-        </b>
-    </h1>
-    <FacturasAdvanceSearch />
     @if (facturas == null)
     {
         <text> Cargando... </text>
@@ -60,12 +54,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await cargarFacturas();
         await JS.InvokeAsync<object>("DataTableAdd");
-    }
-
-    async Task cargarFacturas()
-    {
-        facturas = await Http.GetJsonAsync<Factura[]>("Factura");
     }
 }
