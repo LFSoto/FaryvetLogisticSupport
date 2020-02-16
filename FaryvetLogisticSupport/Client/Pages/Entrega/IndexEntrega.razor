@@ -60,27 +60,50 @@
 
         <div class="container">
             <EditForm Model="@entrega" OnValidSubmit="@agregarEntregaBD">
-                <InputSelect @onchange="@filtrarConductores" @bind-Value="@entrega.vehiculo">
-                    <option value="">Seleccione una opción</option>
-                    @foreach (var vehiculo in vehiculosRestriccion)
-                        {
-                        <option value="@vehiculo.placa">@vehiculo.placa @vehiculo.marca @vehiculo.modelo @vehiculo.licenciaRequerida</option>
-                        }
-                </InputSelect>
+                @if (vehiculosRestriccion != null)
+                {
+                    <div>
+                        <a style="color:red">*</a>
+                        <label> Seleccione un vehiculo: </label>
+                        <InputSelect @onchange="@filtrarConductores" @bind-Value="@entrega.vehiculo">
+                            <option value="">Seleccione una opción</option>
+                            @foreach (var vehiculo in vehiculosRestriccion)
+                                    {
+                                <option value="@vehiculo.placa">@vehiculo.placa @vehiculo.marca @vehiculo.modelo @vehiculo.licenciaRequerida</option>
+                                    }
+                        </InputSelect>
+                    </div>
+                }
 
-                <InputSelect @bind-Value="@entrega.chofer">
-                    <option value="">Seleccione una opción</option>
-                    @foreach (var conductor in conductoresRestriccion)
-                        {
-                        <option value="@conductor.cedula">@conductor.cedula @conductor.nombre @conductor.apellido1 @conductor.apellido2</option>
-                        }
-                </InputSelect>
+                @if (conductoresRestriccion != null)
+                {
+                    <div>
+                        <a style="color:red">*</a>
+                        <label> Seleccione un conductor: </label>
+                        <InputSelect @bind-Value="@entrega.chofer">
+                            <option value="">Seleccione una opción</option>
+                            @foreach (var conductor in conductoresRestriccion)
+                                    {
+                                <option value="@conductor.cedula">@conductor.cedula @conductor.nombre @conductor.apellido1 @conductor.apellido2</option>
+                                    }
+                        </InputSelect>
+                    </div>
+                }
 
+            <div>
+                <a style="color:red">*</a>
+                <label> Ingrese la fecha de salida: </label>
                 <InputDate @bind-Value="@entrega.fechaSalida" />
+            </div>
 
+            <div>
+                <label> Comentarios de la entrega: </label>
                 <InputTextArea @bind-Value="@entrega.comentarios" />
+            </div>
 
+            <div>
                 <button type="submit" class="btn btn-success">Crear Entregas</button>
+            </div>
             </EditForm>
         </div>
     }
@@ -161,13 +184,13 @@
     async Task agregarEntregaBD()
     {
         entrega.estado = "Entrega Pendiente";
-        foreach (var factura in facturas)
-        {
-            if (factura.estado == "Asignado")
-            {
-                entrega.Facturas.Add(factura);
-            }
-        }
+        //foreach (var factura in facturas)
+        //{
+        //    if (factura.estado == "Asignado")
+        //    {
+        //        entrega.Facturas.Add(factura);
+        //    }
+        //}
 
         await Http.PostJsonAsync("Entrega", entrega);
 
