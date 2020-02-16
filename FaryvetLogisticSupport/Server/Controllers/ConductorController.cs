@@ -27,6 +27,12 @@ namespace FaryvetLogisticSupport.Server.Controllers
             return await context.FLS_Conductores.ToListAsync();
         }
 
+        [HttpGet("{isDisponible:bool}")]
+        public async Task<ActionResult<List<Conductor>>> Get(bool isDisponible)
+        {
+            return await context.FLS_Conductores.Where(x => x.estado == "Disponible").ToListAsync();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post(Conductor conductor)
         {

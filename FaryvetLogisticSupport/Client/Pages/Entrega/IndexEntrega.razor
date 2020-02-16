@@ -1,6 +1,8 @@
 ﻿@page "/Entregas"
 @inject HttpClient Http
 @inject IJSRuntime JS
+@inject NavigationManager Navigation
+
 <h3>Entregas</h3>
 <body onbeforeunload="DataTableRemove()">
 
@@ -49,30 +51,48 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="container">
-             <h5>
-                 Peso total: @peso KG
-              </h5>             
+            <h5>
+                Peso total: @entrega.peso KG
+            </h5>
         </div>
 
         <div class="container">
-            <EditForm OnValidSubmit="@agregarEntregaBD">
-                <InputSelect >
-
+            <EditForm Model="@entrega" OnValidSubmit="@agregarEntregaBD">
+                <InputSelect @onchange="@filtrarConductores" @bind-Value="@entrega.vehiculo">
+                    <option value="">Seleccione una opción</option>
+                    @foreach (var vehiculo in vehiculosRestriccion)
+                        {
+                        <option value="@vehiculo.placa">@vehiculo.placa @vehiculo.marca @vehiculo.modelo @vehiculo.licenciaRequerida</option>
+                        }
                 </InputSelect>
+
+                <InputSelect @bind-Value="@entrega.chofer">
+                    <option value="">Seleccione una opción</option>
+                    @foreach (var conductor in conductoresRestriccion)
+                        {
+                        <option value="@conductor.cedula">@conductor.cedula @conductor.nombre @conductor.apellido1 @conductor.apellido2</option>
+                        }
+                </InputSelect>
+
+                <InputDate @bind-Value="@entrega.fechaSalida" />
+
+                <InputTextArea @bind-Value="@entrega.comentarios" />
+
+                <button type="submit" class="btn btn-success">Crear Entregas</button>
             </EditForm>
         </div>
-    } 
+    }
 </body>
 
 
 @code {
     public List<Factura> facturas { get; set; }
-    public List<Factura> facturasEntregas { get; set; }
     public List<Conductor> conductores { get; set; }
     public List<Vehiculo> vehiculos { get; set; }
-    public float peso { get; set; } = 0;
+    public List<Vehiculo> vehiculosRestriccion { get; set; }
+    public List<Conductor> conductoresRestriccion { get; set; }
     public Entrega entrega { get; set; } = new Entrega();
 
     protected override async Task OnInitializedAsync()
@@ -90,7 +110,7 @@
 
     async Task cargarConductores()
     {
-        conductores = await Http.GetJsonAsync<List<Conductor>>("Conductor");
+        conductores = await Http.GetJsonAsync<List<Conductor>>($"Conductor/{true:bool}");
     }
 
     async Task cargarVehiculos()
@@ -101,20 +121,56 @@
 
     void agregarEntrega(string id)
     {
-
-        if (facturas.Find(F => F.id == id).estado == "Por Despachar")
+        Factura factura = facturas.Find(F => F.id == id);
+        if (factura.estado == "Por Despachar")
         {
             facturas.Find(F => F.id == id).estado = "Asignado";
-            peso += facturas.Find(F => F.id == id).pesoTotal;
+            entrega.peso += factura.pesoTotal;
+            entrega.costo += factura.montoTotal;
         }
-        else {
-            facturas.Find(F => F.id == id).estado  = "Por Despachar";
-            peso -= facturas.Find(F => F.id == id).pesoTotal;
+        else
+        {
+            facturas.Find(F => F.id == id).estado = "Por Despachar";
+            entrega.peso -= factura.pesoTotal;
+            entrega.costo -= factura.montoTotal;
+        }
+
+        vehiculosRestriccion = vehiculos.FindAll(V => V.capacidadCarga >= entrega.peso);
+    }
+
+    void filtrarConductores()
+    {
+        string placa = entrega.vehiculo;
+        Vehiculo vehiculo = vehiculos.FirstOrDefault(x => x.placa == placa);
+        string licencia = vehiculo.licenciaRequerida;
+
+        switch (licencia[0])
+        {
+            case 'A':
+                conductoresRestriccion = conductores.FindAll(x => x.licenciaA >= Int32.Parse(licencia[1].ToString()));
+                break;
+            case 'B':
+                conductoresRestriccion = conductores.FindAll(x => x.licenciaB >= Int32.Parse(licencia[1].ToString()));
+                break;
+            default:
+                conductoresRestriccion = new List<Conductor>();
+                break;
         }
     }
 
     async Task agregarEntregaBD()
     {
-        
+        entrega.estado = "Entrega Pendiente";
+        foreach (var factura in facturas)
+        {
+            if (factura.estado == "Asignado")
+            {
+                entrega.Facturas.Add(factura);
+            }
+        }
+
+        await Http.PostJsonAsync("Entrega", entrega);
+
+        Navigation.NavigateTo("Entregas");
     }
 }
