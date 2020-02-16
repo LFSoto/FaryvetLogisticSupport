@@ -1,0 +1,120 @@
+﻿@page "/Entregas"
+@inject HttpClient Http
+@inject IJSRuntime JS
+<h3>Entregas</h3>
+<body onbeforeunload="DataTableRemove()">
+
+    @if (facturas == null)
+    {
+        <text> Cargando... </text>
+    }
+    else if (facturas.Count == 0)
+    {
+        <text> No hay facturas </text>
+    }
+    else
+    {
+        <div class="container">
+            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <td> Id </td>
+                        <td> Peso Total</td>
+                        <td> Forma de Cobro</td>
+                        <td> Moneda </td>
+                        <td> Monto Total</td>
+                        <td> Nombre del Cliente </td>
+                        <td> Ubicación </td>
+                        <td> Dirección </td>
+                        <td> Agregar a Entrega</td>
+                        <td> Estado </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var factura in facturas)
+                    {
+                        <tr>
+                            <td> @factura.id </td>
+                            <td> @factura.pesoTotal </td>
+                            <td> @factura.formaCobro </td>
+                            <td> @factura.moneda </td>
+                            <td> @factura.montoTotal </td>
+                            <td> @factura.nombreCliente </td>
+                            <td> @factura.ubicacion </td>
+                            <td> @factura.direccion </td>
+                            <td><input type="checkbox" @onclick="(() => agregarEntrega(factura.id))" /> </td>
+                            <td> @factura.estado</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="container">
+             <h5>
+                 Peso total: @peso KG
+              </h5>             
+        </div>
+
+        <div class="container">
+            <EditForm OnValidSubmit="@agregarEntregaBD">
+                <InputSelect >
+
+                </InputSelect>
+            </EditForm>
+        </div>
+    } 
+</body>
+
+
+@code {
+    public List<Factura> facturas { get; set; }
+    public List<Factura> facturasEntregas { get; set; }
+    public List<Conductor> conductores { get; set; }
+    public List<Vehiculo> vehiculos { get; set; }
+    public float peso { get; set; } = 0;
+    public Entrega entrega { get; set; } = new Entrega();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await cargarFacturas();
+        await cargarConductores();
+        await cargarVehiculos();
+        await JS.InvokeAsync<object>("DataTableAdd");
+    }
+
+    async Task cargarFacturas()
+    {
+        facturas = await Http.GetJsonAsync<List<Factura>>("Factura");
+    }
+
+    async Task cargarConductores()
+    {
+        conductores = await Http.GetJsonAsync<List<Conductor>>("Conductor");
+    }
+
+    async Task cargarVehiculos()
+    {
+        vehiculos = await Http.GetJsonAsync<List<Vehiculo>>($"Vehiculo/{true:bool}");
+    }
+
+
+    void agregarEntrega(string id)
+    {
+
+        if (facturas.Find(F => F.id == id).estado == "Por Despachar")
+        {
+            facturas.Find(F => F.id == id).estado = "Asignado";
+            peso += facturas.Find(F => F.id == id).pesoTotal;
+        }
+        else {
+            facturas.Find(F => F.id == id).estado  = "Por Despachar";
+            peso -= facturas.Find(F => F.id == id).pesoTotal;
+        }
+    }
+
+    async Task agregarEntregaBD()
+    {
+        
+    }
+}

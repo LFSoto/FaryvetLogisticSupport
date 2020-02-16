@@ -41,6 +41,14 @@ namespace FaryvetLogisticSupport.Server.Controllers
             return await context.FLS_Vehiculos.FirstOrDefaultAsync(x => x.placa == placa);
         }
 
+        [HttpGet("{isEntrega:bool}")]
+        public async Task<ActionResult<List<Vehiculo>>> Get(bool isEntrega)
+        {           
+            return await context.FLS_Vehiculos.Where(x=> x.isReparto == isEntrega).ToListAsync();
+        }
+
+
+
         [HttpPut]
         public async Task<ActionResult> Put(Vehiculo vehiculo)
         {

@@ -24,7 +24,7 @@ namespace FaryvetLogisticSupport.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Factura>>> Get()
         {
-            return await context.FLS_Facturas.Where(F => F.formaDespacho != "CAMION").ToListAsync();
+            return await context.FLS_Facturas.Where(F => F.formaDespacho != "CAMION" && F.fecha == DateTime.Now).ToListAsync();
         }
     }
 }
