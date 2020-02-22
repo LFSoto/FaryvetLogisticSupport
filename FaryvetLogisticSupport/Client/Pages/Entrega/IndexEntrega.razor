@@ -184,13 +184,15 @@
     async Task agregarEntregaBD()
     {
         entrega.estado = "Entrega Pendiente";
-        //foreach (var factura in facturas)
-        //{
-        //    if (factura.estado == "Asignado")
-        //    {
-        //        entrega.Facturas.Add(factura);
-        //    }
-        //}
+        entrega.chofer = "1";
+        entrega.vehiculo = "1";
+        foreach (var factura in facturas)
+        {
+            if (factura.estado == "Asignado")
+            {
+                entrega.Facturas.Add(factura);
+            }
+        }
 
         await Http.PostJsonAsync("Entrega", entrega);
 
