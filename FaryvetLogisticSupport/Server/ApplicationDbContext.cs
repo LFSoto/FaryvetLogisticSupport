@@ -17,6 +17,12 @@ namespace FaryvetLogisticSupport.Server
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("FARYVET");
+
+            modelBuilder.Entity<Factura>()
+                .HasKey(x => new { x.entrega });
+
+            modelBuilder.Entity<Entrega>()
+                .HasKey(x => new { x.chofer, x.vehiculo });
         }
 
         public DbSet<Conductor> FLS_Conductores { get; set; }
