@@ -22,15 +22,26 @@ namespace FaryvetLogisticSupport.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Factura>>> Get()
+        public async Task <ActionResult <List <Factura>>> Get ()
+        {
+            return await context.FLS_Facturas.ToListAsync ();
+        }
+
+        [HttpGet("/Entregas")]
+        public async Task<ActionResult<List<Factura>>> GetFromEntregas ()
         {
             return await context.FLS_Facturas.Where(F => F.formaDespacho == "CAMION" && F.estado == "Por Despachar").ToListAsync();
         }
 
-        [HttpGet ("{startDateSearch}/{endDateSearch}")]
-        public async Task <ActionResult <List <Factura>>> Get (DateTime startDate, DateTime endDate)
+        [HttpGet("/AdvanceSearch")]
+        public async Task <ActionResult <List <Factura>>> Get ([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
-            return await context.FLS_Facturas.Where (F => F.fecha >= startDate && F.fecha <= endDate).ToListAsync ();
+            var queryable= context.FLS_Facturas.AsQueryable ();
+
+            queryable= queryable.Where (F => F.fecha >= startDate && F.fecha <= endDate);
+            return await queryable.ToListAsync ();
+
+            //return await context.FLS_Facturas.Where (F => F.fecha >= startDate && F.fecha <= endDate).ToListAsync ();
         }
     }
 }

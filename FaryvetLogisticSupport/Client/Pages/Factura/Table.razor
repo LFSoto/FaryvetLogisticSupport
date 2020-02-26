@@ -7,7 +7,7 @@
     {
         <text> Cargando... </text>
     }
-    else if (facturas.Length == 0)
+    else if (facturas.Count == 0)
     {
         <text> No hay facturas </text>
     }
@@ -50,7 +50,8 @@
 </body>
 
 @code {
-    public Factura[] facturas { get; set; }
+    [Parameter]
+    public List <Factura> facturas { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
