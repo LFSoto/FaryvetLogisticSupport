@@ -3,16 +3,11 @@
 @inject IJSRuntime _js
 
 <body onbeforeunload="DataTableRemove()">
-
-    <h1 class="main-title">
-        <b>
-            CONDUCTORES
-        </b>
-    </h1>
-
+   <h3>Conductores</h3>
     <div>
         <a class="btn btn-primary" href="insertarConductor"> Insertar Conductor </a>
     </div>
+    <br/>
 
     @if (conductores == null)
     {
@@ -48,10 +43,34 @@
                         <td> @conduct.nombre </td>
                         <td> @conduct.apellido1 </td>
                         <td> @conduct.apellido2 </td>
+                        @if (conduct.licenciaB == 0)
+                        {
+                            <td>
+                                No aplica
+                            </td>
+                            <td>
+                                No aplica
+                            </td>
+                        }
+                        else {
                         <td> @conduct.licenciaB </td>
                         <td> @conduct.fechaVencimientoB.ToString("dd/MM/yyyy") </td>
+                        }   
+                        
+                        @if (conduct.licenciaA == 0)
+                        {
+                            <td>
+                                No aplica
+                            </td>
+                            <td>
+                                No aplica
+                            </td>
+                        }
+                        else {
                         <td> @conduct.licenciaA </td>
                         <td> @conduct.fechaVencimientoA.ToString("dd/MM/yyyy") </td>
+                        }       
+
                         <td> @conduct.estado </td>
                         <td> @conduct.fechaDeContratacion.ToString("dd/MM/yyyy") </td>
                         <td>
@@ -81,13 +100,8 @@
     }
 
     async Task EliminarConductor(string name, string cedul)
-    {
-        string mensajeConfirmacion = $"Seguro que desea eliminar el conductor {name} con cedula {cedul}";
-        if (await _js.InvokeAsync<bool>("confirm", mensajeConfirmacion))
-        {
-            await _http.DeleteAsync($"Conductor/{cedul}");
-            await cargarConductores();
-        }
-
-    }
+    {       
+        await _http.DeleteAsync($"Conductor/{cedul}");
+        await cargarConductores();
+   }
 }

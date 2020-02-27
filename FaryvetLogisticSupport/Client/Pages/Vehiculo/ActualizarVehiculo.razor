@@ -10,6 +10,7 @@
 @code {
     [Parameter] public string placa { get; set; }
     Vehiculo vehiculo = new Vehiculo();
+
     protected async override Task OnParametersSetAsync()
     {
         vehiculo = await Http.GetJsonAsync<Vehiculo>($"Vehiculo/{placa}");
