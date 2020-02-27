@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FaryvetLogisticSupport.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,6 +33,12 @@ namespace FaryvetLogisticSupport.Server.Controllers
         public async Task<ActionResult<Entrega>> Get(int id)
         {
             return await context.FLS_Entregas.FirstOrDefaultAsync(x => x.id == id);
+        }
+
+        [HttpGet("{final:bool}")]
+        public async Task<ActionResult<Entrega>> Get(bool final)
+        {
+            return await context.FLS_Entregas.LastOrDefaultAsync();
         }
     }
 }

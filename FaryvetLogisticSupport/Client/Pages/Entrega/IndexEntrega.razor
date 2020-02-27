@@ -112,6 +112,7 @@
 
 @code {
     public List<Factura> facturas { get; set; }
+    public List<Factura> facturasEntregas { get; set; }
     public List<Conductor> conductores { get; set; }
     public List<Vehiculo> vehiculos { get; set; }
     public List<Vehiculo> vehiculosRestriccion { get; set; }
@@ -184,17 +185,27 @@
     async Task agregarEntregaBD()
     {
         entrega.estado = "Entrega Pendiente";
-        entrega.chofer = "1";
-        entrega.vehiculo = "1";
-        foreach (var factura in facturas)
-        {
-            if (factura.estado == "Asignado")
-            {
-                entrega.Facturas.Add(factura);
-            }
-        }
+        entrega.chofer = "0";
+        entrega.vehiculo = "0";
+        //foreach (var factura in facturas)
+        //{
+        //    if (factura.estado == "Asignado")
+        //    {
+        //        facturasEntregas.Add(factura);
+        //    }
+        //}
+
+        facturasEntregas = facturas.FindAll(x => x.estado == "Asignado");
 
         await Http.PostJsonAsync("Entrega", entrega);
+
+        entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{true:bool}");
+
+        //foreach (Factura factura in facturasEntregas)
+        //{
+        //    //factura.entrega = tmp.id;
+        //    await Http.PutJsonAsync("Factura", factura);
+        //}
 
         Navigation.NavigateTo("Entregas");
     }

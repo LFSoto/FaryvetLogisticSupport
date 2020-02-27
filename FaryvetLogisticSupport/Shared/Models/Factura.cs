@@ -11,7 +11,6 @@ namespace FaryvetLogisticSupport.Shared.Models
     {
         public Factura()
         {
-            entrega = 0;
             comentarios = "";
             EntregaNavigation = new Entrega();
             DivisionGeograficaNavigation = new DivisionGeografica();
@@ -19,7 +18,7 @@ namespace FaryvetLogisticSupport.Shared.Models
         [Key]
         [Required]
         public string id { get; set; }
-        public int? entrega { get; set; }
+        public int entrega { get; set; }
         [Required]
         public string formaDespacho { get; set; }
         [Required]

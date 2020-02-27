@@ -19,15 +19,12 @@ namespace FaryvetLogisticSupport.Server
             modelBuilder.HasDefaultSchema("FARYVET");
 
             modelBuilder.Entity<Factura>()
-                .HasKey(x => new { x.entrega });
-
-            modelBuilder.Entity<Factura>()
                 .HasOne(x => x.EntregaNavigation)
                 .WithMany(x => x.Facturas)
                 .HasForeignKey(x => x.entrega);
 
-            modelBuilder.Entity<Entrega>()
-                .HasKey(x => new { x.chofer, x.vehiculo });
+            //modelBuilder.Entity<Entrega>()
+            //    .HasKey(x => new { x.chofer, x.vehiculo });
 
             modelBuilder.Entity<Entrega>()
                 .HasOne(x => x.ConductorNavigation)

@@ -32,5 +32,13 @@ namespace FaryvetLogisticSupport.Server.Controllers
         {
             return await context.FLS_Facturas.Where (F => F.fecha >= startDate && F.fecha <= endDate).ToListAsync ();
         }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(Factura factura)
+        {
+            context.Entry(factura).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
