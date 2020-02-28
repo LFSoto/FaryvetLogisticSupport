@@ -16,7 +16,7 @@
             </a>
         </h6>
     </div>
-    <div id= "advanceSearch" class=" collapse show">
+    <div id= "advanceSearch" class=" collapse">
         <div class= "card">
             <div class= "card-body">
                 <form>
@@ -47,28 +47,51 @@
             </div>
         </div>
     </div>
+    <div id= "table">
+        @*
+        <Table facturas=billsList />
+        *@
+    </div>
 </div>
 
-@code {
-    public bool ariaExpandedStatus= true;
+@code
+{
+    @*GUI code*@
+
+    private bool ariaExpandedStatus= false;
 
     private void changeAriaExpandedStatus (MouseEventArgs e)
     {
         ariaExpandedStatus= !ariaExpandedStatus ? true : false;
     }
 
-    DateTime startDateSearch = DateTime.Today.AddDays (-1);
-    DateTime endDateSearch = DateTime.Today;
+    @*Functionality code*@
 
-    public Factura [] F1 {get; set;}
+    private DateTime startDateSearch= DateTime.Today.AddDays (-1);
+    private DateTime endDateSearch= DateTime.Today;
 
-    async Task listBills ( )
+    public List <Factura> billsList {get; set;}
+
+private async Task LoadBills ( )
+{
+    billsList= await Http.GetJsonAsync <List <Factura>> ("Factura");
+}
+
+private async Task loadBillsFromAdvanceSearch ( )
+{
+    var httpResponse= await Http.GetAsync ($"AdvaceSearch?sDS={startDateSearch}&eDS={endDateSearch}");
+    if (httpResponse.IsSuccessStatusCode)
     {
-        F1= await Http.GetJsonAsync <Factura []> ("Factura");
+        Console.WriteLine (":)");
     }
-
-    protected override async Task OnInitializedAsync ( )
+    else
     {
-        await listBills ( );
+        Console.WriteLine (":(");
     }
+}
+
+protected override async Task OnInitializedAsync ( )
+{
+    await LoadBills ( );
+}
 }
