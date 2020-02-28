@@ -71,6 +71,7 @@
                                     {
                                 <option value="@vehiculo.placa">@vehiculo.placa @vehiculo.marca @vehiculo.modelo @vehiculo.licenciaRequerida</option>
                                     }
+                            /**/
                         </InputSelect>
                     </div>
                 }
@@ -86,25 +87,32 @@
                                     {
                                 <option value="@conductor.cedula">@conductor.cedula @conductor.nombre @conductor.apellido1 @conductor.apellido2</option>
                                     }
+                            /**/
                         </InputSelect>
                     </div>
                 }
 
-            <div>
-                <a style="color:red">*</a>
-                <label> Ingrese la fecha de salida: </label>
-                <InputDate @bind-Value="@entrega.fechaSalida" />
-            </div>
+                <div>
+                    <a style="color:red">*</a>
+                    <label> Ingrese la fecha de salida: </label>
+                    <InputDate @bind-Value="@entrega.fechaSalida" />
+                </div>
 
-            <div>
-                <label> Comentarios de la entrega: </label>
-                <InputTextArea @bind-Value="@entrega.comentarios" />
-            </div>
+                <div>
+                    <label> Comentarios de la entrega: </label>
+                    <InputTextArea @bind-Value="@entrega.comentarios" />
+                </div>
 
-            <div>
-                <button type="submit" class="btn btn-success">Crear Entregas</button>
-            </div>
+                <div>
+                    <button type="submit" class="btn btn-success">Crear Entregas</button>
+                </div>
             </EditForm>
+        </div>
+        <div>
+            @foreach (var factura in facturasEntregas)
+            {
+                <text> @factura.id</text>
+            }
         </div>
     }
 </body>
@@ -112,7 +120,7 @@
 
 @code {
     public List<Factura> facturas { get; set; }
-    public List<Factura> facturasEntregas { get; set; }
+    public List<Factura> facturasEntregas { get; set; } = new List<Factura>();
     public List<Conductor> conductores { get; set; }
     public List<Vehiculo> vehiculos { get; set; }
     public List<Vehiculo> vehiculosRestriccion { get; set; }
@@ -158,7 +166,7 @@
             entrega.peso -= factura.pesoTotal;
             entrega.costo -= factura.montoTotal;
         }
-
+        agregarFacturas();
         vehiculosRestriccion = vehiculos.FindAll(V => V.capacidadCarga >= entrega.peso);
     }
 
@@ -182,31 +190,35 @@
         }
     }
 
+    void agregarFacturas()
+    {
+        facturasEntregas = new List<Factura>();
+        facturasEntregas = facturas.FindAll(x => x.estado == "Asignado");
+    }
+
     async Task agregarEntregaBD()
     {
         entrega.estado = "Entrega Pendiente";
         entrega.chofer = "0";
         entrega.vehiculo = "0";
-        //foreach (var factura in facturas)
-        //{
-        //    if (factura.estado == "Asignado")
-        //    {
-        //        facturasEntregas.Add(factura);
-        //    }
-        //}
 
-        facturasEntregas = facturas.FindAll(x => x.estado == "Asignado");
+
 
         await Http.PostJsonAsync("Entrega", entrega);
 
-        entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{true:bool}");
+        DateTime fechaTMP = entrega.fechaSalida.AddDays(-1);
 
-        //foreach (Factura factura in facturasEntregas)
-        //{
-        //    //factura.entrega = tmp.id;
-        //    await Http.PutJsonAsync("Factura", factura);
-        //}
+        string fecha = fechaTMP.ToString("s");
 
-        Navigation.NavigateTo("Entregas");
+        entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{fecha:Datetime}");
+
+        foreach (var factura in facturasEntregas)
+        {
+            factura.entrega = entrega.id;
+            await Http.DeleteAsync($"Factura/{factura.id}");
+            await Http.PostJsonAsync("Factura", factura);
+        }
+
+        Navigation.NavigateTo("/");
     }
 }

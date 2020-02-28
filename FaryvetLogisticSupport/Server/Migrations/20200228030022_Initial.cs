@@ -114,7 +114,7 @@ namespace FaryvetLogisticSupport.Server.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(nullable: false),
-                    entrega = table.Column<int>(nullable: false),
+                    entrega = table.Column<int>(nullable: true),
                     formaDespacho = table.Column<string>(nullable: false),
                     pesoTotal = table.Column<float>(nullable: false),
                     formaCobro = table.Column<string>(nullable: false),
@@ -136,7 +136,7 @@ namespace FaryvetLogisticSupport.Server.Migrations
                         principalSchema: "FARYVET",
                         principalTable: "FLS_Entregas",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FLS_Facturas_FLS_DisionesGeograficas_ubicacion",
                         column: x => x.ubicacion,

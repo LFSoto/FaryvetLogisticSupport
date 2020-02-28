@@ -40,5 +40,22 @@ namespace FaryvetLogisticSupport.Server.Controllers
             await context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(Factura factura)
+        {
+            context.Add(factura);
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var factura = new Factura { id = id };
+            context.Remove(factura);
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

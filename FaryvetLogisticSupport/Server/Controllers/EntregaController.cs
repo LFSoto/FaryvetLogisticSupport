@@ -26,7 +26,8 @@ namespace FaryvetLogisticSupport.Server.Controllers
         {
             context.Add(entrega);
             await context.SaveChangesAsync();
-            return new CreatedAtRouteResult("obtenerEntrega", new { id = entrega.id }, entrega);
+            return NoContent();
+            //return new CreatedAtRouteResult("obtenerEntrega", new { id = entrega.id }, entrega);
         }
 
         [HttpGet("{id}", Name = "obtenerEntrega")]
@@ -35,10 +36,12 @@ namespace FaryvetLogisticSupport.Server.Controllers
             return await context.FLS_Entregas.FirstOrDefaultAsync(x => x.id == id);
         }
 
-        [HttpGet("{final:bool}")]
-        public async Task<ActionResult<Entrega>> Get(bool final)
+        [HttpGet("{fechaSalida:DateTime}")]
+        public async Task<ActionResult<Entrega>> Get(DateTime fechaSalida)
         {
-            return await context.FLS_Entregas.LastOrDefaultAsync();
+            List<Entrega> entregas = await context.FLS_Entregas.Where(x => x.fechaSalida == fechaSalida).ToListAsync();
+            entregas = entregas.OrderBy(x => x.id).ToList();
+            return entregas.LastOrDefault();
         }
     }
 }

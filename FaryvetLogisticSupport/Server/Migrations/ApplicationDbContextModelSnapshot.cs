@@ -147,7 +147,7 @@ namespace FaryvetLogisticSupport.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("entrega")
+                    b.Property<int?>("entrega")
                         .HasColumnType("int");
 
                     b.Property<string>("estado")
@@ -258,9 +258,7 @@ namespace FaryvetLogisticSupport.Server.Migrations
                 {
                     b.HasOne("FaryvetLogisticSupport.Shared.Models.Entrega", "EntregaNavigation")
                         .WithMany("Facturas")
-                        .HasForeignKey("entrega")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("entrega");
 
                     b.HasOne("FaryvetLogisticSupport.Shared.Models.DivisionGeografica", "DivisionGeograficaNavigation")
                         .WithMany("Facturas")

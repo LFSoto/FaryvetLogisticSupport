@@ -12,13 +12,13 @@ namespace FaryvetLogisticSupport.Shared.Models
         public Factura()
         {
             comentarios = "";
-            EntregaNavigation = new Entrega();
-            DivisionGeograficaNavigation = new DivisionGeografica();
+            //EntregaNavigation = new Entrega();
+            //DivisionGeograficaNavigation = new DivisionGeografica();
         }
         [Key]
         [Required]
         public string id { get; set; }
-        public int entrega { get; set; }
+        public int? entrega { get; set; }
         [Required]
         public string formaDespacho { get; set; }
         [Required]
