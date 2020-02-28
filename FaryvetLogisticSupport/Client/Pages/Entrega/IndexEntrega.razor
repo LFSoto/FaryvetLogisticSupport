@@ -65,7 +65,7 @@
                     <div>
                         <a style="color:red">*</a>
                         <label> Seleccione un vehiculo: </label>
-                        <InputSelect @onchange="@filtrarConductores" @bind-Value="@entrega.vehiculo">
+                        <InputSelect @onclick="@filtrarConductores" @bind-Value="@entrega.vehiculo">
                             <option value="">Seleccione una opción</option>
                             @foreach (var vehiculo in vehiculosRestriccion)
                                     {
@@ -87,7 +87,6 @@
                                     {
                                 <option value="@conductor.cedula">@conductor.cedula @conductor.nombre @conductor.apellido1 @conductor.apellido2</option>
                                     }
-                            /**/
                         </InputSelect>
                     </div>
                 }
@@ -107,12 +106,6 @@
                     <button type="submit" class="btn btn-success">Crear Entregas</button>
                 </div>
             </EditForm>
-        </div>
-        <div>
-            @foreach (var factura in facturasEntregas)
-            {
-                <text> @factura.id</text>
-            }
         </div>
     }
 </body>
@@ -167,26 +160,40 @@
             entrega.costo -= factura.montoTotal;
         }
         agregarFacturas();
-        vehiculosRestriccion = vehiculos.FindAll(V => V.capacidadCarga >= entrega.peso);
+        seleccionarVehiculos();
+    }
+
+    void seleccionarVehiculos()
+    {
+        vehiculosRestriccion = new List<Vehiculo>();
+        foreach(var vehiculo in vehiculos)
+        {
+            if(vehiculo.capacidadCarga >= entrega.peso)
+            {
+                vehiculosRestriccion.Add(vehiculo);
+            }
+        }
     }
 
     void filtrarConductores()
     {
-        string placa = entrega.vehiculo;
-        Vehiculo vehiculo = vehiculos.FirstOrDefault(x => x.placa == placa);
-        string licencia = vehiculo.licenciaRequerida;
+        if (!entrega.vehiculo.Equals("")) {
+            string placa = entrega.vehiculo;
+            Vehiculo vehiculo = vehiculos.FirstOrDefault(x => x.placa == placa);
+            string licencia = vehiculo.licenciaRequerida;
 
-        switch (licencia[0])
-        {
-            case 'A':
-                conductoresRestriccion = conductores.FindAll(x => x.licenciaA >= Int32.Parse(licencia[1].ToString()));
-                break;
-            case 'B':
-                conductoresRestriccion = conductores.FindAll(x => x.licenciaB >= Int32.Parse(licencia[1].ToString()));
-                break;
-            default:
-                conductoresRestriccion = new List<Conductor>();
-                break;
+            switch (licencia[0])
+            {
+                case 'A':
+                    conductoresRestriccion = conductores.FindAll(x => x.licenciaA >= Int32.Parse(licencia[1].ToString()));
+                    break;
+                case 'B':
+                    conductoresRestriccion = conductores.FindAll(x => x.licenciaB >= Int32.Parse(licencia[1].ToString()));
+                    break;
+                default:
+                    conductoresRestriccion = new List<Conductor>();
+                    break;
+            }
         }
     }
 
@@ -199,10 +206,6 @@
     async Task agregarEntregaBD()
     {
         entrega.estado = "Entrega Pendiente";
-        entrega.chofer = "0";
-        entrega.vehiculo = "0";
-
-
 
         await Http.PostJsonAsync("Entrega", entrega);
 
