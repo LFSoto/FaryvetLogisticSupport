@@ -60,7 +60,7 @@
 
         <div class="container">
             <EditForm Model="@entrega" OnValidSubmit="@agregarEntregaBD">
-                @if (vehiculosRestriccion != null)
+                @*@if (vehiculosRestriccion != null)
                 {
                     <div>
                         <a style="color:red">*</a>
@@ -89,7 +89,7 @@
                                     }
                         </InputSelect>
                     </div>
-                }
+                }*@
 
                 <div>
                     <a style="color:red">*</a>
@@ -130,7 +130,7 @@
 
     async Task cargarFacturas()
     {
-        facturas = await Http.GetJsonAsync<List<Factura>>("Factura");
+        facturas = await Http.GetJsonAsync<List<Factura>>("Entregas");
     }
 
     async Task cargarConductores()
@@ -209,7 +209,7 @@
 
         await Http.PostJsonAsync("Entrega", entrega);
 
-        DateTime fechaTMP = entrega.fechaSalida.AddDays(-1);
+        DateTime fechaTMP = entrega.fechaSalida;
 
         string fecha = fechaTMP.ToString("s");
 
