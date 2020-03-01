@@ -33,6 +33,12 @@ namespace FaryvetLogisticSupport.Server.Controllers
             return await context.FLS_Facturas.Where(F => F.formaDespacho == "CAMION" && F.estado == "Por Despachar").ToListAsync();
         }
 
+        [HttpGet("/Entregas/{id:int}")]
+        public async Task<ActionResult<List<Factura>>> GetFromEntregas(int id)
+        {
+            return await context.FLS_Facturas.Where(x => x.entrega == id).ToListAsync();
+        }
+
         [HttpGet("/AdvanceSearch")]
         public async Task <ActionResult <List <Factura>>> Get ([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {

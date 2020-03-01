@@ -1,0 +1,234 @@
+﻿@page "/AgregarEntrega"
+@inject HttpClient Http
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<h3>Entregas</h3>
+<body onbeforeunload="DataTableRemove()">
+
+    @if (facturas == null)
+    {
+        <text> Cargando... </text>
+    }
+    else if (facturas.Count == 0)
+    {
+        <text> No hay facturas </text>
+    }
+    else
+    {
+        <div class="container">
+            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <td> Id </td>
+                        <td> Peso Total</td>
+                        <td> Forma de Cobro</td>
+                        <td> Moneda </td>
+                        <td> Monto Total</td>
+                        <td> Nombre del Cliente </td>
+                        <td> Ubicación </td>
+                        <td> Dirección </td>
+                        <td> Agregar a Entrega</td>
+                        <td> Estado </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var factura in facturas)
+                    {
+                        <tr>
+                            <td> @factura.id </td>
+                            <td> @factura.pesoTotal </td>
+                            <td> @factura.formaCobro </td>
+                            <td> @factura.moneda </td>
+                            <td> @factura.montoTotal </td>
+                            <td> @factura.nombreCliente </td>
+                            <td> @factura.ubicacion </td>
+                            <td> @factura.direccion </td>
+                            <td><input type="checkbox" @onclick="(() => agregarEntrega(factura.id))" /> </td>
+                            <td> @factura.estado</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container">
+            <h5>
+                Peso total: @entrega.peso KG
+            </h5>
+        </div>
+
+        <div class="container">
+            <EditForm Model="@entrega" OnValidSubmit="@agregarEntregaBD">
+                @if (vehiculosRestriccion != null)
+                {
+                    <div>
+                        <a style="color:red">*</a>
+                        <label> Seleccione un vehiculo: </label>
+                        <InputSelect required @onclick="@filtrarConductores" @bind-Value="@entrega.vehiculo">
+                            <option value="">Seleccione una opción</option>
+                            @foreach (var vehiculo in vehiculosRestriccion)
+                                    {
+                                <option value="@vehiculo.placa">@vehiculo.placa @vehiculo.marca @vehiculo.modelo @vehiculo.licenciaRequerida</option>
+                                    }
+                            /**/
+                            /**/
+                            /**/
+                            /**/
+                        </InputSelect>
+                    </div>
+                }
+
+                @if (conductoresRestriccion != null)
+                {
+                    <div>
+                        <a style="color:red">*</a>
+                        <label> Seleccione un conductor: </label>
+                        <InputSelect required @bind-Value="@entrega.chofer">
+                            <option value="">Seleccione una opción</option>
+                            @foreach (var conductor in conductoresRestriccion)
+                                    {
+                                <option value="@conductor.cedula">@conductor.cedula @conductor.nombre @conductor.apellido1 @conductor.apellido2</option>
+                                    }
+                            /**/
+                            /**/
+                            /**/
+                        </InputSelect>
+                    </div>
+                }
+
+                <div>
+                    <a style="color:red">*</a>
+                    <label> Ingrese la fecha de salida: </label>
+                    <InputDate required @bind-Value="@entrega.fechaSalida" />
+                </div>
+
+                <div>
+                    <label> Comentarios de la entrega: </label>
+                    <InputTextArea @bind-Value="@entrega.comentarios" />
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-success">Crear Entregas</button>
+                </div>
+            </EditForm>
+        </div>
+    }
+</body>
+
+
+@code {
+    public List<Factura> facturas { get; set; }
+    public List<Factura> facturasEntregas { get; set; } = new List<Factura>();
+    public List<Conductor> conductores { get; set; }
+    public List<Vehiculo> vehiculos { get; set; }
+    public List<Vehiculo> vehiculosRestriccion { get; set; } = new List<Vehiculo>();
+    public List<Conductor> conductoresRestriccion { get; set; } = new List<Conductor>();
+    public Entrega entrega { get; set; } = new Entrega();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await cargarFacturas();
+        await cargarConductores();
+        await cargarVehiculos();
+        await JS.InvokeAsync<object>("DataTableAdd");
+    }
+
+    async Task cargarFacturas()
+    {
+        facturas = await Http.GetJsonAsync<List<Factura>>("Entregas");
+    }
+
+    async Task cargarConductores()
+    {
+        conductores = await Http.GetJsonAsync<List<Conductor>>($"Conductor/{true:bool}");
+    }
+
+    async Task cargarVehiculos()
+    {
+        vehiculos = await Http.GetJsonAsync<List<Vehiculo>>($"Vehiculo/{true:bool}");
+    }
+
+
+    void agregarEntrega(string id)
+    {
+        Factura factura = facturas.Find(F => F.id == id);
+        if (factura.estado == "Por Despachar")
+        {
+            facturas.Find(F => F.id == id).estado = "Asignado";
+            entrega.peso += factura.pesoTotal;
+            entrega.costo += factura.montoTotal;
+        }
+        else
+        {
+            facturas.Find(F => F.id == id).estado = "Por Despachar";
+            entrega.peso -= factura.pesoTotal;
+            entrega.costo -= factura.montoTotal;
+        }
+        agregarFacturas();
+        seleccionarVehiculos();
+    }
+
+    void seleccionarVehiculos()
+    {
+        vehiculosRestriccion = new List<Vehiculo>();
+        foreach (var vehiculo in vehiculos)
+        {
+            if (vehiculo.capacidadCarga >= entrega.peso)
+            {
+                vehiculosRestriccion.Add(vehiculo);
+            }
+        }
+    }
+
+    void filtrarConductores()
+    {
+        if (!entrega.vehiculo.Equals(""))
+        {
+            string placa = entrega.vehiculo;
+            Vehiculo vehiculo = vehiculos.FirstOrDefault(x => x.placa == placa);
+            string licencia = vehiculo.licenciaRequerida;
+
+            switch (licencia[0])
+            {
+                case 'A':
+                    conductoresRestriccion = conductores.FindAll(x => x.licenciaA >= Int32.Parse(licencia[1].ToString()));
+                    break;
+                case 'B':
+                    conductoresRestriccion = conductores.FindAll(x => x.licenciaB >= Int32.Parse(licencia[1].ToString()));
+                    break;
+                default:
+                    conductoresRestriccion = new List<Conductor>();
+                    break;
+            }
+        }
+    }
+
+    void agregarFacturas()
+    {
+        facturasEntregas = new List<Factura>();
+        facturasEntregas = facturas.FindAll(x => x.estado == "Asignado");
+    }
+
+    async Task agregarEntregaBD()
+    {
+        entrega.estado = "Entrega Pendiente";
+
+        await Http.PostJsonAsync("Entrega", entrega);
+
+        DateTime fechaTMP = entrega.fechaSalida;
+
+        string fecha = fechaTMP.ToString("s");
+
+        entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{fecha:Datetime}");
+
+        foreach (var factura in facturasEntregas)
+        {
+            factura.entrega = entrega.id;
+            await Http.DeleteAsync($"Factura/{factura.id}");
+            await Http.PostJsonAsync("Factura", factura);
+        }
+
+        Navigation.NavigateTo("/");
+    }
+}

@@ -1,0 +1,88 @@
+﻿@page "/FinalizarEntrega/{id:int}"
+@inject HttpClient Http
+@inject IJSRuntime JS
+
+<body onbeforeunload="DataTableRemove()">
+    <h3>Finalizar Entrega</h3>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Entrega</h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="card-text">id: @entrega.id</p>
+                        <p class="card-text">Conductor: @entrega.chofer</p>
+                        <p class="card-text">Vehiculo: @entrega.vehiculo</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="card-text">Peso: @entrega.peso</p>
+                        <p class="card-text">Costo: @entrega.costo</p>
+                        <p class="card-text">Fecha de Salida: @entrega.fechaSalida.ToString("dd-MM-yyyy")</p>
+                    </div>
+                </div>
+                <p class="card-text">comentarios: @entrega.comentarios</p>
+            </div>
+        </div>
+    </div>
+
+    @if (facturas == null)
+    {
+        <text> Cargando... </text>
+    }
+    else if (facturas.Count == 0)
+    {
+        <text> No hay facturas asignadas a la entrega </text>
+    }
+    else
+    {
+<div align="center">
+    <h2>Facturas</h2>
+    <table id="datatable" align="center" class="table table-responsive-sm table-striped table-bordered text-center" style="width:87%">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>Peso Total</td>
+                <td>Forma de Cobro</td>
+                <td>Moneda</td>
+                <td>Monto Total</td>
+                <td>Cliente</td>
+                <td>Ubicación</td>
+                <td>Dirección</td>
+                <td>Comentarios</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var factura in facturas)
+            {
+                <tr>
+                    <td>@factura.id</td>
+                    <td>@factura.pesoTotal</td>
+                    <td>@factura.formaCobro</td>
+                    <td>@factura.moneda</td>
+                    <td>@factura.montoTotal</td>
+                    <td>@factura.nombreCliente</td>
+                    <td>@factura.ubicacion</td>
+                    <td>@factura.direccion</td>
+                    <td>@factura.comentarios</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+    }
+</body>
+
+
+
+@code {
+    [Parameter] public int id { get; set; }
+    Entrega entrega = new Entrega();
+    public List<Factura> facturas { get; set; }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{id}");
+        facturas = await Http.GetJsonAsync<List<Factura>>($"Entregas/{id}");
+        await JS.InvokeAsync<object>("DataTableAdd");
+    }
+}

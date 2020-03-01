@@ -13,8 +13,6 @@ namespace FaryvetLogisticSupport.Shared.Models
         {
             Facturas = new HashSet<Factura>();
             fechaSalida = DateTime.Now;
-            comentarios = "N/A";
-            comentariosLlegada = "N/A";
         }
         [Key]
         [Required]
