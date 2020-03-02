@@ -12,7 +12,7 @@ namespace FaryvetLogisticSupport.Shared.Models
         public Entrega()
         {
             Facturas = new HashSet<Factura>();
-            fechaSalida = DateTime.Now;
+            fechaSalida = DateTime.Now.AddHours(-6);
         }
         [Key]
         [Required]

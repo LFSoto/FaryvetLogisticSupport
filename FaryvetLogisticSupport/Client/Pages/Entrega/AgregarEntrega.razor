@@ -37,7 +37,7 @@
                     {
                         <tr>
                             <td> @factura.id </td>
-                            <td> @factura.pesoTotal </td>
+                            <td> @factura.pesoTotal Kg </td>
                             <td> @factura.formaCobro </td>
                             <td> @factura.moneda </td>
                             <td> @factura.montoTotal </td>
@@ -59,6 +59,12 @@
         </div>
 
         <div class="container">
+            <h5>
+                Monto total: @entrega.costo colones
+            </h5>
+        </div>
+
+        <div class="container">
             <EditForm Model="@entrega" OnValidSubmit="@agregarEntregaBD">
                 @if (vehiculosRestriccion != null)
                 {
@@ -71,6 +77,7 @@
                                     {
                                 <option value="@vehiculo.placa">@vehiculo.placa @vehiculo.marca @vehiculo.modelo @vehiculo.licenciaRequerida</option>
                                     }
+                            /**/
                             /**/
                             /**/
                             /**/
@@ -90,6 +97,7 @@
                                     {
                                 <option value="@conductor.cedula">@conductor.cedula @conductor.nombre @conductor.apellido1 @conductor.apellido2</option>
                                     }
+                            /**/
                             /**/
                             /**/
                             /**/
@@ -219,6 +227,8 @@
         DateTime fechaTMP = entrega.fechaSalida;
 
         string fecha = fechaTMP.ToString("s");
+
+        Console.WriteLine(fecha);
 
         entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{fecha:Datetime}");
 
