@@ -1,26 +1,48 @@
-﻿<div class= "navigator-menu">
-    <header class= "navbar navbar-expand navbar-dark flex-column flex-md-row lf-navbar">
-        @*
-        <div class= "main-container">
-        *@
-            <h5 class= "my-0 font-weight-bold font-color-white">
-                <NavLink class= "font-color-white no-hover" href= "">
-                    Laboratorios FARYVET
-                </NavLink>
-            </h5>
-            <div class= "ml-3 navbar-nav-scroll">
-                <ul class= "navbar-nav lf-navbar-nav flex-row">
-                    <li class= "nav-item">
-                        <NavLink class= "nav-link" href= "">
-                            Inicio
-                        </NavLink>
-                    </li>
-                </ul>
+﻿<div id= "navigator-menu" class= "lf-navbar">
+    <div class= "main-container">
+        <header class= "navbar navbar-expand navbar-dark py-3 flex-column flex-md-row">
+            @*
+            <div class= "main-container">
+            *@
+                <h5 class= "my-0 font-weight-bold font-color-white">
+                    <NavLink class= "font-color-white no-hover" href= "">
+                        Laboratorios FARYVET
+                    </NavLink>
+                </h5>
+                <div class= "ml-3 navbar-nav-scroll">
+                    <ul class= "navbar-nav lf-navbar-nav flex-row">
+                        <li class= "nav-item">
+                            <NavLink class= "nav-link font-weight-bold" href= "/" Match= "NavLinkMatch.All">
+                                Inicio
+                            </NavLink>
+                        </li>
+                        <li class= "nav-item">
+                            <NavLink class= "nav-link font-weight-bold" href= "AgregarEntrega">
+                                Nueva entrega
+                            </NavLink>
+                        </li>
+                        <li class= "nav-item">
+                            <NavLink class= "nav-link font-weight-bold" href= "Entregas">
+                                Gestionar entregas
+                            </NavLink>
+                        </li>
+                        <li class= "nav-item">
+                            <NavLink class= "nav-link font-weight-bold" href= "Facturas">
+                                Visualizar facturas
+                            </NavLink>
+                        </li>
+                        <li class= "nav-item">
+                            <NavLink class= "nav-link font-weight-bold" href= "Vehiculo">
+                                Gestionar vehículos
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
+            @*
             </div>
-        @*
-        </div>
-        *@
-    </header>
+            *@
+        </header>
+    </div>
 </div>
 
 @code {
