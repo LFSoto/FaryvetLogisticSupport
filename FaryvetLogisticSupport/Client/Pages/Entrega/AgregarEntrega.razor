@@ -71,17 +71,12 @@
                     <div>
                         <a style="color:red">*</a>
                         <label> Seleccione un vehiculo: </label>
-                        <InputSelect required @onclick="@filtrarConductores" @bind-Value="@entrega.vehiculo">
+                        <InputSelect required @onfocusout="@filtrarConductores" @bind-Value="@entrega.vehiculo">
                             <option value="">Seleccione una opción</option>
                             @foreach (var vehiculo in vehiculosRestriccion)
                                     {
                                 <option value="@vehiculo.placa">@vehiculo.placa @vehiculo.marca @vehiculo.modelo @vehiculo.licenciaRequerida</option>
                                     }
-                            /**/
-                            /**/
-                            /**/
-                            /**/
-                            /**/
                         </InputSelect>
                     </div>
                 }
@@ -97,10 +92,6 @@
                                     {
                                 <option value="@conductor.cedula">@conductor.cedula @conductor.nombre @conductor.apellido1 @conductor.apellido2</option>
                                     }
-                            /**/
-                            /**/
-                            /**/
-                            /**/
                         </InputSelect>
                     </div>
                 }
