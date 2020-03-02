@@ -3,7 +3,13 @@
 @inject IJSRuntime JS
 
 <body onbeforeunload="DataTableRemove()">
-    <h3>Facturas</h3>
+    <div class="pricing-header px-1 py-3 pt-md-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 font-wight-bold font-color-gray">
+            <strong>
+                Facturas
+            </strong>
+        </h1>
+    </div>
     @if (facturas == null)
     {
         <text> Cargando... </text>
