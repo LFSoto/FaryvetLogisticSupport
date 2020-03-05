@@ -73,39 +73,38 @@
 
         <div class="container">
             <EditForm Model="@entrega" OnValidSubmit="@agregarEntregaBD">
-                @if (vehiculosRestriccion != null)
-                {
-                    <div>
-                        <a style="color:red">*</a>
-                        <label> Seleccione un vehiculo: </label>
-                        <InputSelect required @onfocusout="@filtrarConductores" @bind-Value="@entrega.vehiculo">
-                            <option value="">Seleccione una opción</option>
-                            @foreach (var vehiculo in vehiculosRestriccion)
-                                    {
-                                <option value="@vehiculo.placa">@vehiculo.placa @vehiculo.marca @vehiculo.modelo @vehiculo.licenciaRequerida</option>
-                                    }
-                            /**/
-                            /**/
-                        </InputSelect>
-                    </div>
-                }
 
-                @if (conductoresRestriccion != null)
-                {
-                    <div>
-                        <a style="color:red">*</a>
-                        <label> Seleccione un conductor: </label>
-                        <InputSelect required @bind-Value="@entrega.chofer">
-                            <option value="">Seleccione una opción</option>
+                <div>
+                    <a style="color:red">*</a>
+                    <label> Seleccione un vehiculo: </label>
+                    <InputSelect required @onfocusout="@filtrarConductores" @bind-Value="@entrega.vehiculo">
+                        <option value="">Seleccione una opción</option>
+                        @if (vehiculosRestriccion != null)
+                            {
+                            @foreach (var vehiculo in vehiculosRestriccion)
+                                {
+                                <option value="@vehiculo.placa">@vehiculo.placa @vehiculo.marca @vehiculo.modelo @vehiculo.licenciaRequerida</option>
+                                }
+                            }
+                    </InputSelect>
+                </div>
+
+
+
+                <div>
+                    <a style="color:red">*</a>
+                    <label> Seleccione un conductor: </label>
+                    <InputSelect required @bind-Value="@entrega.chofer">
+                        <option value="">Seleccione una opción</option>
+                        @if (conductoresRestriccion != null)
+                            {
                             @foreach (var conductor in conductoresRestriccion)
-                                    {
+                                {
                                 <option value="@conductor.cedula">@conductor.cedula @conductor.nombre @conductor.apellido1 @conductor.apellido2</option>
-                                    }
-                            /**/
-                            /**/
-                        </InputSelect>
-                    </div>
-                }
+                                }
+                            }
+                    </InputSelect>
+                </div>
 
                 <div>
                     <a style="color:red">*</a>
@@ -129,7 +128,6 @@
 
 @code {
     public List<Factura> facturas { get; set; }
-    public List<Factura> facturasEntregas { get; set; } = new List<Factura>();
     public List<Conductor> conductores { get; set; }
     public List<Vehiculo> vehiculos { get; set; }
     public List<Vehiculo> vehiculosRestriccion { get; set; } = new List<Vehiculo>();
@@ -175,7 +173,6 @@
             entrega.peso -= factura.pesoTotal;
             entrega.costo -= factura.montoTotal;
         }
-        agregarFacturas();
         seleccionarVehiculos();
     }
 
@@ -214,17 +211,12 @@
         }
     }
 
-    void agregarFacturas()
-    {
-        facturasEntregas = new List<Factura>();
-        facturasEntregas = facturas.FindAll(x => x.estado == "Asignado");
-    }
-
     async Task agregarEntregaBD()
     {
-        if (facturasEntregas.Count > 0)
+        if (facturas.FindAll(x => x.estado == "Asignado").Count > 0)
         {
             entrega.estado = "Entrega Pendiente";
+            entrega.costoOperativo = 1;
 
             await Http.PostJsonAsync("Entrega", entrega);
 
@@ -236,17 +228,20 @@
 
             entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{fecha:Datetime}");
 
-            foreach (var factura in facturasEntregas)
+            foreach (var factura in facturas)
             {
-                factura.entrega = entrega.id;
-                await Http.DeleteAsync($"Factura/{factura.id}");
-                await Http.PostJsonAsync("Factura", factura);
+                if (factura.estado == "Asignado")
+                {
+                    factura.entrega = entrega.id;
+                    await Http.PutJsonAsync("Factura", factura);
+                }
             }
 
             Navigation.NavigateTo("/");
         }
         else
-        {await JS.InvokeVoidAsync("alert", "Para Crear una entrega debe tener al menos una factura");
+        {
+            await JS.InvokeVoidAsync("alert", "Para Crear una entrega debe tener al menos una factura");
         }
     }
 }
