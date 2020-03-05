@@ -25,47 +25,47 @@
     }
     else
     {
-<div align="center">
-    <table id="datatable" class="table table-striped table-bordered text-center" style="width:80%">
-        <thead>
-            <tr>
-                <td>id</td>
-                <td>Conductor</td>
-                <td>Vehiculo</td>
-                <td>peso</td>
-                <td>costo</td>
-                <td>comentarios</td>
-                <td>fecha de Salida</td>
-                <td>&nbsp;</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var entrega in entregas)
-            {
-                <tr>
-                    <td>@entrega.id</td>
-                    <td>@entrega.chofer</td>
-                    <td>@entrega.vehiculo</td>
-                    <td>@entrega.peso</td>
-                    <td>@entrega.costo</td>
-                    <td>@entrega.comentarios</td>
-                    <td>@entrega.fechaSalida.ToString("dd-MM-yyyy")</td>
-                    <td>
-                        <a class=" btn btn-success" href="FinalizarEntrega/@entrega.id">
-                            Finalizar entrega
-                        </a>
-                        <button class="btn btn-danger" @onclick="(() => borrarEntrega(entrega.id)) "> Cancelar Entrega </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-            }
+        <div align="center">
+            <table id="datatable" class="table table-striped table-bordered text-center" style="width:80%">
+                <thead>
+                    <tr>
+                        <td>id</td>
+                        <td>Conductor</td>
+                        <td>Vehiculo</td>
+                        <td>peso</td>
+                        <td>costo</td>
+                        <td>comentarios</td>
+                        <td>fecha de Salida</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entrega in entregas)
+                    {
+                        <tr>
+                            <td>@entrega.id</td>
+                            <td>@entrega.chofer</td>
+                            <td>@entrega.vehiculo</td>
+                            <td>@entrega.peso</td>
+                            <td>@entrega.costo</td>
+                            <td>@entrega.comentarios</td>
+                            <td>@entrega.fechaSalida.ToString("dd-MM-yyyy")</td>
+                            <td>
+                                <a class=" btn btn-success" href="FinalizarEntrega/@entrega.id">
+                                    Finalizar entrega
+                                </a>
+                                <button class="btn btn-danger" @onclick="(() => borrarEntrega(entrega.id)) "> Cancelar Entrega </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 
-    </body>
-    @code{
-public List<Entrega> entregas { get; set; }
+</body>
+@code{
+    public List<Entrega> entregas { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -80,6 +80,17 @@ public List<Entrega> entregas { get; set; }
 
     async Task borrarEntrega(int id)
     {
-
+        Console.WriteLine(id);
+        Entrega entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{id}");
+        entrega.estado = "Entrega Cancelada";
+        await Http.PutJsonAsync("Entrega", entrega);
+        List<Factura> facturas = await Http.GetJsonAsync<List<Factura>>($"Entregas/{id}");
+        foreach(var factura in facturas)
+        {
+            factura.estado = "Por Despachar";
+            factura.entrega = null;
+            await Http.PutJsonAsync("Factura", factura);
+        }
+        await cargarEntregas();
     }
-    }
+}

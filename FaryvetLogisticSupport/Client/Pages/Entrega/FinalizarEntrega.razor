@@ -1,6 +1,7 @@
 ﻿@page "/FinalizarEntrega/{id:int}"
 @inject HttpClient Http
 @inject IJSRuntime JS
+@inject NavigationManager Navigation
 
 <body onbeforeunload="DataTableRemove()">
     <div class="pricing-header px-1 py-3 pt-md-3 pb-md-4 mx-auto text-center">
@@ -41,99 +42,105 @@
     }
     else
     {
-<div align="center">
+        <div align="center">
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Facturas</h2>
+                        <table id="datatable" align="center" class="table table-responsive-sm table-striped table-bordered text-center" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <td>id</td>
+                                    <td>Peso Total</td>
+                                    <td>Forma de Cobro</td>
+                                    <td>Moneda</td>
+                                    <td>Monto Total</td>
+                                    <td>Cliente</td>
+                                    <td>Ubicación</td>
+                                    <td>Dirección</td>
+                                    <td>Comentarios</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var factura in facturas)
+                                {
+                                    <tr>
+                                        <td>@factura.id</td>
+                                        <td>@factura.pesoTotal</td>
+                                        <td>@factura.formaCobro</td>
+                                        <td>@factura.moneda</td>
+                                        <td>@factura.montoTotal</td>
+                                        <td>@factura.nombreCliente</td>
+                                        <td>@factura.ubicacion</td>
+                                        <td>@factura.direccion</td>
+                                        <td>@factura.comentarios</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Facturas</h2>
-                <table id="datatable" align="center" class="table table-responsive-sm table-striped table-bordered text-center" style="width:100%">
-                    <thead>
-                        <tr>
-                            <td>id</td>
-                            <td>Peso Total</td>
-                            <td>Forma de Cobro</td>
-                            <td>Moneda</td>
-                            <td>Monto Total</td>
-                            <td>Cliente</td>
-                            <td>Ubicación</td>
-                            <td>Dirección</td>
-                            <td>Comentarios</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var factura in facturas)
-                        {
-                            <tr>
-                                <td>@factura.id</td>
-                                <td>@factura.pesoTotal</td>
-                                <td>@factura.formaCobro</td>
-                                <td>@factura.moneda</td>
-                                <td>@factura.montoTotal</td>
-                                <td>@factura.nombreCliente</td>
-                                <td>@factura.ubicacion</td>
-                                <td>@factura.direccion</td>
-                                <td>@factura.comentarios</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+        <EditForm Model="@entrega" OnValidSubmit="@finalizarEntrega">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div>
+                            <a style="color:red">*</a>
+                            <label> Ingrese el kilometraje de Salida: </label>
+                            <InputNumber @bind-Value="@entrega.kilometrajeSalida" />
+                            <ValidationMessage For="@(() => entrega.kilometrajeSalida)" />
+                        </div>
+
+                        <div>
+                            <a style="color:red">*</a>
+                            <label> Ingrese la fecha de Llegada: </label>
+                            <InputDate @bind-Value="@entrega.fechaLlegada" />
+                            <ValidationMessage For="@(() => entrega.fechaLlegada)" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div>
+                            <a style="color:red">*</a>
+                            <label> Ingrese el kilometraje de Llegada: </label>
+                            <InputNumber @onfocusout="@validarKilometrajeLlegada" @bind-Value="@entrega.kilometrajeLlegada" />
+                            <ValidationMessage For="@(() => entrega.kilometrajeLlegada)" />
+                        </div>
+
+                        <div>
+                            <a style="color:red">*</a>
+                            <label> Ingrese el costo operativo de la entrega: </label>
+                            <InputNumber @bind-Value="@entrega.costoOperativo" />
+                            <ValidationMessage For="@(() => entrega.costoOperativo)" />
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <a style="color:red">*</a>
+                    <label> Se recargó el combustible en la entrega: </label>
+                    <InputCheckbox @bind-Value="@entrega.recargaCombustible" />
+                    <ValidationMessage For="@(() => entrega.recargaCombustible)" />
+                </div>
+
+                <div>
+                    <label> Comentarios de Llegada: </label>
+                    <InputTextArea @bind-Value="@entrega.comentariosLlegada" />
+                </div>
+
+                <div align="center">
+                    <button type="submit" class="btn btn-success">Finalizar Entrega</button>
+                    <a class=" btn btn-danger" href="Entregas">
+                        Cancelar
+                    </a>
+                </div>
             </div>
-        </div>
+            <DataAnnotationsValidator />
+        </EditForm>
     </div>
-</div>
-            }
-<div class="container">
-    <EditForm Model="@entrega" OnValidSubmit="@finalizarEntrega">
-        <div class="card card-body">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div>
-                        <a style="color:red">*</a>
-                        <label> Ingrese el kilometraje de Salida: </label>
-                        <InputNumber @bind-Value="@entrega.kilometrajeSalida" />
-                    </div>
-
-                    <div>
-                        <a style="color:red">*</a>
-                        <label> Ingrese la fecha de Llegada: </label>
-                        <InputDate @bind-Value="@entrega.fechaLlegada" />
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div>
-                        <a style="color:red">*</a>
-                        <label> Ingrese el kilometraje de Llegada: </label>
-                        <InputNumber @bind-Value="@entrega.kilometrajeLlegada" />
-                    </div>
-
-                    <div>
-                        <a style="color:red">*</a>
-                        <label> Ingrese el costo operativo de la entrega: </label>
-                        <InputNumber @bind-Value="@entrega.costoOperativo" />
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <a style="color:red">*</a>
-                <label> Se recargó el combustible en la entrega: </label>
-                <InputCheckbox @bind-Value="@entrega.recargaCombustible" />
-            </div>
-
-            <div>
-                <label> Comentarios de Llegada: </label>
-                <InputTextArea @bind-Value="@entrega.comentariosLlegada" />
-            </div>
-
-            <div align="center">
-                <button type="submit" class="btn btn-success">Finalizar Entrega</button>
-                <a class=" btn btn-danger" href="Entregas">
-                    Cancelar
-                </a>
-            </div>
-        </div>
-    </EditForm>
-</div>
 </body>
 
 
@@ -148,10 +155,35 @@
         entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{id}");
         facturas = await Http.GetJsonAsync<List<Factura>>($"Entregas/{id}");
         await JS.InvokeAsync<object>("DataTableAdd");
+        entrega.fechaLlegada = DateTime.Now.AddHours(-6);
+    }
+
+    async void validarKilometrajeLlegada()
+    {
+        if(entrega.kilometrajeLlegada <= entrega.kilometrajeSalida)
+        {
+            await JS.InvokeVoidAsync("alert", "El kilometraje de llegada debe ser mayor que el kilometraje de salida");
+        }
     }
 
     async Task finalizarEntrega()
     {
+        if (entrega.kilometrajeLlegada > entrega.kilometrajeSalida) {
+            entrega.estado = "Entrega Finalizada";
 
+            await Http.PutJsonAsync("Entrega", entrega);
+
+            foreach (var factura in facturas)
+            {
+                factura.estado = "Entregada";
+                await Http.PutJsonAsync("Factura", factura);
+            }
+
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("alert", "El kilometraje de llegada debe ser mayor que el kilometraje de salida");
+        }
     }
 }

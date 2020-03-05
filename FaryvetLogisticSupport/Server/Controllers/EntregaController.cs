@@ -49,5 +49,13 @@ namespace FaryvetLogisticSupport.Server.Controllers
             entregas = entregas.OrderBy(x => x.id).ToList();
             return entregas.LastOrDefault();
         }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(Entrega entrega)
+        {
+            context.Entry(entrega).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

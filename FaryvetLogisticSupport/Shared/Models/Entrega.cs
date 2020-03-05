@@ -39,7 +39,7 @@ namespace FaryvetLogisticSupport.Shared.Models
         public DateTime fechaSalida { get; set; }
         [Column(TypeName = "date")]
         public DateTime fechaLlegada { get; set; }
-        [Range(0, float.MaxValue, ErrorMessage = "No se admiten valores negativos")]
+        [Range(1, float.MaxValue, ErrorMessage = "No se admiten valores menores a 1")]
         public float costoOperativo { get; set; }
         public bool recargaCombustible { get; set; }
         public string comentariosLlegada { get; set; }
