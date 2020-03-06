@@ -169,17 +169,22 @@
     async Task finalizarEntrega()
     {
         if (entrega.kilometrajeLlegada > entrega.kilometrajeSalida) {
-            entrega.estado = "Entrega Finalizada";
+            if (entrega.fechaLlegada >= entrega.fechaSalida) {
+                entrega.estado = "Entrega Finalizada";
 
-            await Http.PutJsonAsync("Entrega", entrega);
+                await Http.PutJsonAsync("Entrega", entrega);
 
-            foreach (var factura in facturas)
-            {
-                factura.estado = "Entregada";
-                await Http.PutJsonAsync("Factura", factura);
+                foreach (var factura in facturas)
+                {
+                    factura.estado = "Entregada";
+                    await Http.PutJsonAsync("Factura", factura);
+                }
+
+                Navigation.NavigateTo("/");
             }
-
-            Navigation.NavigateTo("/");
+            else {
+                await JS.InvokeVoidAsync("alert", "La fecha de llegada debe ser mayor que la fecha de salida");
+            }
         }
         else
         {

@@ -179,21 +179,27 @@
     void seleccionarVehiculos()
     {
         vehiculosRestriccion = new List<Vehiculo>();
-        foreach (var vehiculo in vehiculos)
-        {
-            if (vehiculo.capacidadCarga >= entrega.peso)
+        conductoresRestriccion = new List<Conductor>();
+        entrega.vehiculo = null; 
+        if (facturas.FindAll(x=>x.estado == "Asignado").Count > 0) { 
+            foreach (var vehiculo in vehiculos)
             {
-                vehiculosRestriccion.Add(vehiculo);
+                if (vehiculo.capacidadCarga >= entrega.peso)
+                {
+                    vehiculosRestriccion.Add(vehiculo);
+                }
             }
         }
     }
 
     void filtrarConductores()
     {
-        if (!entrega.vehiculo.Equals(""))
+        //if (!entrega.vehiculo.Equals(null))
+        //{
+        string placa = entrega.vehiculo;
+        Vehiculo vehiculo = vehiculos.FirstOrDefault(x => x.placa == placa);
+        if (vehiculo != null)
         {
-            string placa = entrega.vehiculo;
-            Vehiculo vehiculo = vehiculos.FirstOrDefault(x => x.placa == placa);
             string licencia = vehiculo.licenciaRequerida;
 
             switch (licencia[0])
@@ -209,6 +215,7 @@
                     break;
             }
         }
+        //}
     }
 
     async Task agregarEntregaBD()
@@ -237,7 +244,7 @@
                 }
             }
 
-            Navigation.NavigateTo("/");
+            Navigation.NavigateTo("/Entregas");
         }
         else
         {
