@@ -80,10 +80,10 @@
 
     async Task borrarEntrega(int id)
     {
-        Console.WriteLine(id);
         Entrega entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{id}");
         entrega.estado = "Entrega Cancelada";
         await Http.PutJsonAsync("Entrega", entrega);
+
         List<Factura> facturas = await Http.GetJsonAsync<List<Factura>>($"Entregas/{id}");
         foreach(var factura in facturas)
         {
@@ -91,6 +91,14 @@
             factura.entrega = null;
             await Http.PutJsonAsync("Factura", factura);
         }
+
+        Conductor conductor = await Http.GetJsonAsync<Conductor>($"Conductor/{entrega.chofer}");
+        conductor.estado = "Disponible";
+        await Http.PutJsonAsync("Conductor", conductor);
+
+        Vehiculo vehiculo = await Http.GetJsonAsync<Vehiculo>($"Vehiculo/{entrega.vehiculo}");
+        vehiculo.estado = "Disponible";
+        await Http.PutJsonAsync("Vehiculo", vehiculo);
         await cargarEntregas();
     }
 }

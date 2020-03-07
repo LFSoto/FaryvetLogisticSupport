@@ -160,7 +160,7 @@
 
     async void validarKilometrajeLlegada()
     {
-        if(entrega.kilometrajeLlegada <= entrega.kilometrajeSalida)
+        if (entrega.kilometrajeLlegada <= entrega.kilometrajeSalida)
         {
             await JS.InvokeVoidAsync("alert", "El kilometraje de llegada debe ser mayor que el kilometraje de salida");
         }
@@ -168,8 +168,10 @@
 
     async Task finalizarEntrega()
     {
-        if (entrega.kilometrajeLlegada > entrega.kilometrajeSalida) {
-            if (entrega.fechaLlegada >= entrega.fechaSalida) {
+        if (entrega.kilometrajeLlegada > entrega.kilometrajeSalida)
+        {
+            if (entrega.fechaLlegada >= entrega.fechaSalida)
+            {
                 entrega.estado = "Entrega Finalizada";
 
                 await Http.PutJsonAsync("Entrega", entrega);
@@ -180,9 +182,18 @@
                     await Http.PutJsonAsync("Factura", factura);
                 }
 
+                Conductor conductor = await Http.GetJsonAsync<Conductor>($"Conductor/{entrega.chofer}");
+                conductor.estado = "Disponible";
+                await Http.PutJsonAsync("Conductor", conductor);
+
+                Vehiculo vehiculo = await Http.GetJsonAsync<Vehiculo>($"Vehiculo/{entrega.vehiculo}");
+                vehiculo.estado = "Disponible";
+                await Http.PutJsonAsync("Vehiculo", vehiculo);
+
                 Navigation.NavigateTo("/");
             }
-            else {
+            else
+            {
                 await JS.InvokeVoidAsync("alert", "La fecha de llegada debe ser mayor que la fecha de salida");
             }
         }
