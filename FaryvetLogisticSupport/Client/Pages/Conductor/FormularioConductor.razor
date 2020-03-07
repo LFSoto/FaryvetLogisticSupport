@@ -96,12 +96,13 @@
                     <label>Estado:</label>
                     @if (textoTitulo == "Actualizar Conductor")
                     {
-                        <InputSelect @bind-Value="@conductor.estado">
-                        <option value="">Seleccione una Licencia</option>
-                        <option value="Disponible">Disponible</option>
-                        <option value="Vacaciones">Vacaciones</option>
-                        <option value="Incapacitado">Incapacitado</option>
-                    </InputSelect>
+                <InputSelect @bind-Value="@conductor.estado">
+                    <option value="">Seleccione una Licencia</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="Realizando Entrega">Realizando Entrega</option>
+                    <option value="Vacaciones">Vacaciones</option>
+                    <option value="Incapacitado">Incapacitado</option>
+                </InputSelect>
                     }
                     else
                     {

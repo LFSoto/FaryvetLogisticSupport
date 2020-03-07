@@ -244,6 +244,14 @@
                 }
             }
 
+            vehiculos.Find(x => x.placa == entrega.vehiculo).estado = "Realizando Entrega";
+
+            await Http.PutJsonAsync("Vehiculo", vehiculos.Find(x => x.placa == entrega.vehiculo));
+
+            conductores.Find(x => x.cedula == entrega.chofer).estado = "Realizando Entrega";
+
+            await Http.PutJsonAsync("Conductor", conductores.Find(x => x.cedula == entrega.chofer));
+
             Navigation.NavigateTo("/Entregas");
         }
         else
