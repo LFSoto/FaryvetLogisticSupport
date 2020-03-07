@@ -24,7 +24,50 @@ namespace FaryvetLogisticSupport.Server.Controllers
         [HttpGet]
         public async Task <ActionResult <List <Factura>>> Get ()
         {
+            Console.WriteLine (":-D");
             return await context.FLS_Facturas.ToListAsync ();
+        }
+
+        [HttpGet("{sDSF:bool}/{sDS:DateTime}/{eDSF:bool}/{eDS:DateTime}")]
+        public async Task <ActionResult <List <Factura>>> Get (bool sDSF, DateTime sDS, bool eDSF, DateTime eDS)
+        {
+            if (sDSF && !eDSF)
+            {
+                return await context.FLS_Facturas.Where (F=> F.fecha >= sDS).ToListAsync ();
+            }
+            if (!sDSF && eDSF)
+            {
+                return await context.FLS_Facturas.Where (F=> F.fecha <= eDS).ToListAsync ();
+            }
+            if (sDSF && eDSF)
+            {
+                return await context.FLS_Facturas.Where (F=> F.fecha >= sDS && F.fecha <= eDS).ToListAsync ();
+            }
+            else
+            {
+                return await context.FLS_Facturas.ToListAsync ();
+            }
+        }
+
+        [HttpGet("{Id}/{sDSF:bool}/{sDS:DateTime}/{eDSF:bool}/{eDS:DateTime}")]
+        public async Task <ActionResult <List <Factura>>> Get ( string Id, bool sDSF, DateTime sDS, bool eDSF, DateTime eDS)
+        {
+            if (sDSF && !eDSF)
+            {
+                return await context.FLS_Facturas.Where (X=> X.id== Id && X.fecha >= sDS).ToListAsync ();
+            }
+            if (!sDSF && eDSF)
+            {
+                return await context.FLS_Facturas.Where (X=> X.id== Id && X.fecha <= eDS).ToListAsync ();
+            }
+            if (sDSF && eDSF)
+            {
+                return await context.FLS_Facturas.Where (X=> X.id == Id && X.fecha >= sDS && X.fecha <= eDS).ToListAsync ();
+            }
+            else
+            { 
+                return await context.FLS_Facturas.Where (X=> X.id== Id).ToListAsync ();
+            }
         }
 
         [HttpGet("/Entregas")]
@@ -39,15 +82,10 @@ namespace FaryvetLogisticSupport.Server.Controllers
             return await context.FLS_Facturas.Where(x => x.entrega == id).ToListAsync();
         }
 
-        [HttpGet("/AdvanceSearch")]
-        public async Task <ActionResult <List <Factura>>> Get ([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
-        {
-            var queryable= context.FLS_Facturas.AsQueryable ();
-
-            queryable= queryable.Where (F => F.fecha >= startDate && F.fecha <= endDate);
-            return await queryable.ToListAsync ();
-
-            //return await context.FLS_Facturas.Where (F => F.fecha >= startDate && F.fecha <= endDate).ToListAsync ();
+        [HttpGet("/AdvanceSearch/{Id}")]
+        public async Task <ActionResult <List <Factura>>> GetFromAdvanceSearch (string Id)
+        {   Console.WriteLine (Id);
+            return await context.FLS_Facturas/*.Where (X => X.entrega == 1)*/.ToListAsync ();
         }
 
         [HttpPut]
