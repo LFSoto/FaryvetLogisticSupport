@@ -39,7 +39,7 @@ namespace FaryvetLogisticSupport.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Entrega>>> Get()
         {
-            return await context.FLS_Entregas.Where(x => x.estado == "Entrega Pendiente").ToListAsync();
+            return await context.FLS_Entregas.Include(x => x.ConductorNavigation).Include(x => x.VehiculoNavigation).Where(x => x.estado == "Entrega Pendiente").ToListAsync();
         }
 
         [HttpGet("{fechaSalida:DateTime}")]

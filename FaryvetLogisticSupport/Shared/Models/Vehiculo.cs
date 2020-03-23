@@ -12,7 +12,6 @@ namespace FaryvetLogisticSupport.Shared.Models
     {
         public Vehiculo()
         {
-            Entregas = new HashSet<Entrega>();
             annioFabricacion = 1970;
             fechaVencimientoCVOSenasa = DateTime.Now;
             fechaVencimientoSalidaPais = DateTime.Now;
@@ -56,7 +55,5 @@ namespace FaryvetLogisticSupport.Shared.Models
 
         [Required(ErrorMessage = "Debe indicar si el vehiculo es de reparto")]
         public bool isReparto { get; set; }
-
-        public virtual ICollection<Entrega> Entregas { get; set; }
     }
 }

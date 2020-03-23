@@ -13,7 +13,6 @@ namespace FaryvetLogisticSupport.Shared.Models
 
         public Conductor()
         {
-            Entregas = new HashSet<Entrega>();
             fechaVencimientoB = DateTime.Now;
             fechaVencimientoA = DateTime.Now;
             fechaDeContratacion = DateTime.Now;
@@ -51,7 +50,5 @@ namespace FaryvetLogisticSupport.Shared.Models
         [Column(TypeName = "date")]
         [CustomDataAnnotationDate]
         public DateTime fechaDeContratacion { get; set; }
-
-        public virtual ICollection<Entrega> Entregas { get; set; }
     }
 }

@@ -11,7 +11,6 @@ namespace FaryvetLogisticSupport.Shared.Models
     {
         public Entrega()
         {
-            Facturas = new HashSet<Factura>();
             fechaSalida = DateTime.Now.AddHours(-6);
         }
         [Key]
@@ -48,6 +47,5 @@ namespace FaryvetLogisticSupport.Shared.Models
         public virtual Conductor ConductorNavigation { get; set; }
         [ForeignKey("vehiculo")]
         public virtual Vehiculo VehiculoNavigation { get; set; }
-        public virtual ICollection<Factura> Facturas { get; set; }
     }
 }

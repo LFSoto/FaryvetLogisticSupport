@@ -44,8 +44,8 @@
                     {
                         <tr>
                             <td>@entrega.id</td>
-                            <td>@entrega.chofer</td>
-                            <td>@entrega.vehiculo</td>
+                            <td>@entrega.chofer @entrega.ConductorNavigation.nombre @entrega.ConductorNavigation.apellido1 @entrega.ConductorNavigation.apellido2</td>
+                            <td>@entrega.vehiculo @entrega.VehiculoNavigation.marca @entrega.VehiculoNavigation.modelo</td>
                             <td>@entrega.peso Kg</td>
                             <td>@entrega.costo colones</td>
                             <td>@entrega.comentarios</td>

@@ -73,13 +73,13 @@ namespace FaryvetLogisticSupport.Server.Controllers
         [HttpGet("/Entregas")]
         public async Task<ActionResult<List<Factura>>> GetFromEntregas ()
         {
-            return await context.FLS_Facturas.Where(F => F.formaDespacho == "CAMION" && F.estado == "Por Despachar").ToListAsync();
+            return await context.FLS_Facturas.Include(x => x.DivisionGeograficaNavigation).Where(F => F.formaDespacho == "CAMION" && F.estado == "Por Despachar").ToListAsync();
         }
 
         [HttpGet("/Entregas/{id:int}")]
         public async Task<ActionResult<List<Factura>>> GetFromEntregas(int id)
         {
-            return await context.FLS_Facturas.Where(x => x.entrega == id).ToListAsync();
+            return await context.FLS_Facturas.Include(x => x.DivisionGeograficaNavigation).Where(x => x.entrega == id).ToListAsync();
         }
 
         [HttpGet("/AdvanceSearch/{Id}")]
