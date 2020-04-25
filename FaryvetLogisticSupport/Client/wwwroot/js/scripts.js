@@ -49,6 +49,9 @@ reloj.innerText = " " + arrayDia[dia] + " " + diam + " de " + arrayMes[mes] + " 
 setTimeout("fecha()", 1000);
 }
 
-function alerta() {
-    alert("Hola");
+function borrarReporte() {
+    var table = $('#datatable').DataTable();
+
+    table
+        .clear();
 }

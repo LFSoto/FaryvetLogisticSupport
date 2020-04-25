@@ -20,118 +20,71 @@ else
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#general">
-                        Mostrar
-                    </button>
+            
+                @foreach (var conductor in conductores)
+                {
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="general" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Reporte</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div>
-                                        <p>Reporte General</p>
-                                    </div>
+                    <tr>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@("p" + conductor.cedula)" @onclick="(() => seleccionarReporte(conductor.cedula))">
+                                Mostrar
+                            </button>
 
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <p class="card-text">Fecha de Inicio del Reporte: @fechaInicio.ToString("dd-MM-yyyy") </p>
-                                            <p class="card-text">Cantidad de Entregas Realizadas: @reportes.Sum(x => x.cantidadEntregas)</p>
-                                            <p class="card-text">Costo Total Transportado: @reportes.Sum(x => x.costo) Colones </p>
-                                            <p class="card-text">Costo Promedio Transportado: @(@reportes.Sum(x => x.costo) / @reportes.Sum(x => x.cantidadEntregas)) Colones </p>
-                                            <p class="card-text">Promedio de Kilometros Recorridos en las Entregas: @(@reportes.Sum(x => x.kilometrajeRecorrido) / @reportes.Sum(x => x.cantidadEntregas)) Km </p>
+                            <!-- Modal -->
+                            <div class="modal fade" id="@("p" + conductor.cedula)" role="dialog" aria-labelledby="@conductor.cedula" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="@conductor.cedula">Reporte</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <p class="card-text">Fecha de Fin del Reporte: @fechaFin.ToString("dd-MM-yyyy")</p>
-                                            <p class="card-text">Peso Total Transportado: @reportes.Sum(x => x.peso) KG</p>
-                                            <p class="card-text">Kilometros Recorridos en las Entregas: @reportes.Sum(x => x.kilometrajeRecorrido) Km</p>
-                                            <p class="card-text">Peso Promedio Transportado: @(@reportes.Sum(x => x.peso) / @reportes.Sum(x => x.cantidadEntregas)) Kg </p>
-                                            <p class="card-text">Cantidad de Choferes que Realizaron Entregas: @reportes.Count </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td>General</td>
-                <td>General</td>
-                <td>General</td>
-            </tr>
-            @foreach (var conductor in conductores)
-            {
-
-                <tr>
-                    <td>
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@("p" + conductor.cedula)" @onclick="(() => seleccionarReporte(conductor.cedula))">
-                            Mostrar
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="@("p" + conductor.cedula)"  role="dialog" aria-labelledby="@conductor.cedula" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="@conductor.cedula">Reporte</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div>
-                                            <p>Cédula: @conductor.cedula</p>
-                                        </div>
-                                        <div>
-                                            <p>Nombre: @conductor.nombre</p>
-                                        </div>
-                                        <div>
-                                            <p>Apellidos: @conductor.apellido1 @conductor.apellido2</p>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <p class="card-text">Fecha de Inicio del Reporte: @fechaInicio.ToString("dd-MM-yyyy") </p>
-                                                <p class="card-text">Cantidad de Entregas Realizadas: @reporte.cantidadEntregas</p>
-                                                <p class="card-text">Costo Total Transportado: @reporte.costo Colones </p>
-                                                <p class="card-text">Costo Promedio Transportado: @(@reporte.costo / @reporte.cantidadEntregas) Colones </p>
-                                                <p class="card-text">Promedio de Kilometros Recorridos en las Entregas: @(@reporte.kilometrajeRecorrido / @reporte.cantidadEntregas) Km </p>
+                                        <div class="modal-body">
+                                            <div>
+                                                <p>Cédula: @conductor.cedula</p>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <p class="card-text">Fecha de Fin del Reporte: @fechaFin.ToString("dd-MM-yyyy")</p>
-                                                <p class="card-text">Peso Total Transportado: @reporte.peso KG</p>
-                                                <p class="card-text">Kilometros Recorridos en las Entregas: @reporte.kilometrajeRecorrido Km</p>
-                                                <p class="card-text">Peso Promedio Transportado: @(@reporte.peso / @reporte.cantidadEntregas) Kg </p>
+                                            <div>
+                                                <p>Nombre: @conductor.nombre</p>
+                                            </div>
+                                            <div>
+                                                <p>Apellidos: @conductor.apellido1 @conductor.apellido2</p>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p class="card-text">Fecha de Inicio del Reporte: @fechaInicio.ToString("dd-MM-yyyy") </p>
+                                                    <p class="card-text">Cantidad de Entregas Realizadas: @reporte.cantidadEntregas</p>
+                                                    <p class="card-text">Costo Total Transportado: @reporte.costo Colones </p>
+                                                    <p class="card-text">Costo Promedio Transportado: @(@reporte.costo / @reporte.cantidadEntregas) Colones </p>
+                                                    <p class="card-text">Promedio de Kilometros Recorridos en las Entregas: @(@reporte.kilometrajeRecorrido / @reporte.cantidadEntregas) Km </p>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="card-text">Fecha de Fin del Reporte: @fechaFin.ToString("dd-MM-yyyy")</p>
+                                                    <p class="card-text">Peso Total Transportado: @reporte.peso KG</p>
+                                                    <p class="card-text">Kilometros Recorridos en las Entregas: @reporte.kilometrajeRecorrido Km</p>
+                                                    <p class="card-text">Peso Promedio Transportado: @(@reporte.peso / @reporte.cantidadEntregas) Kg </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>@conductor.cedula</td>
-                    <td>@conductor.nombre</td>
-                    <td>@conductor.apellido1 @conductor.apellido2</td>
-                </tr>
-            }
+                        </td>
+                        <td>@conductor.cedula</td>
+                        <td>@conductor.nombre</td>
+                        <td>@conductor.apellido1 @conductor.apellido2</td>
+                    </tr>
+                }
         </tbody>
     </table>
 }
+
+
 
 @code {
     public Reporte reporte { get; set; } = new Reporte();
