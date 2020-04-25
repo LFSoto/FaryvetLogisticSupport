@@ -61,6 +61,7 @@
 
     async Task buscar()
     {
+        await JS.InvokeAsync<object>("DataTableRemove");
         fechaInicio = fechaInicioB;
         fechaFin = fechaFinB;
 
@@ -72,7 +73,7 @@
 
         //datos = await Http.GetJsonAsync<object>($"Reportes/{fecha1:Datetime}/{fecha2:Datetime}"); 
 
-        datos = await Http.GetJsonAsync<object>($"Reportes/{"2020-03-06":Datetime}/{"2020-03-06":Datetime}");
+        datos = await Http.GetJsonAsync<object>($"Reportes/{"2020-03-06":Datetime}/{"2020-04-26":Datetime}");
 
 
         reportes = JsonSerializer.Deserialize<List<Reporte>>(datos.ToString());
@@ -84,6 +85,8 @@
             Conductor conductor = await Http.GetJsonAsync<Conductor>($"Conductor/{reporte.chofer}");
             conductores.Add(conductor);
         }
+
+        Console.WriteLine(datos);
 
         await JS.InvokeAsync<object>("DataTableAdd");
     }
