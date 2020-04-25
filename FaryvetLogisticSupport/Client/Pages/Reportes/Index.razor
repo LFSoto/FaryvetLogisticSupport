@@ -1,19 +1,90 @@
 ﻿@page "/Reportes"
 @inject HttpClient Http
+@inject IJSRuntime JS
 
-<h3>Index</h3>
+    <div class="main-container">
+        <body onbeforeunload="DataTableRemove()">
+            <div class="pricing-header px-1 py-3 pt-md-3 pb-md-4 mx-auto text-center">
+                <h1 class="display-4 font-wight-bold font-color-gray">
+                    <strong>
+                        Reportes
+                    </strong>
+                </h1>
+            </div>
+
+            <BusquedaReporte fechaInicio="@fechaInicioB"
+                             fechaFin="@fechaFinB"
+                             metodo="@buscar" />
+
+            <TablasReporte reportes="@reportes"
+                           conductores="@conductores"
+                           fechaInicio="@fechaInicio"
+                           fechaFin="@fechaFin"/>
+
+        </body>
+    </div>
 
 @code {
-    public object entregas { get; set; }
+    public object datos { get; set; }
+    public List<Reporte> reportes { get; set; }
+    public List<Conductor> conductores { get; set; } = new List<Conductor>();
+    public DateTime fechaInicio { get; set; } = DateTime.Now.AddHours(-6).AddDays(-7);
+    public DateTime fechaFin { get; set; } = DateTime.Now.AddHours(-6);
+    public DateTime fechaInicioB { get; set; } = DateTime.Now.AddHours(-6).AddDays(-7);
+    public DateTime fechaFinB { get; set; } = DateTime.Now.AddHours(-6);
 
     protected override async Task OnInitializedAsync()
     {
         await cargarEntregas();
+        await JS.InvokeAsync<object>("DataTableAdd");
     }
 
     async Task cargarEntregas()
     {
-        entregas = await Http.GetJsonAsync<object>("Reportes/2020-03-06/2020-03-06");
-        Console.WriteLine(entregas);
+        string fecha1 = fechaInicio.ToString("s");
+        string fecha2 = fechaFin.ToString("s");
+
+        Console.WriteLine("OK");
+
+        datos = await Http.GetJsonAsync<object>($"Reportes/{fecha1:Datetime}/{fecha2:Datetime}");
+
+        Console.WriteLine("OK1");
+
+        reportes = JsonSerializer.Deserialize<List<Reporte>>(datos.ToString());
+
+        foreach (var reporte in reportes)
+        {
+            Conductor conductor = await Http.GetJsonAsync<Conductor>($"Conductor/{reporte.chofer}");
+            conductores.Add(conductor);
+        }
+    }
+
+    async Task buscar()
+    {
+        fechaInicio = fechaInicioB;
+        fechaFin = fechaFinB;
+
+        string fecha1 = fechaInicioB.ToString("s");
+        string fecha2 = fechaFinB.ToString("s");
+
+        Console.WriteLine(fecha1);
+        Console.WriteLine(fecha2);
+
+        //datos = await Http.GetJsonAsync<object>($"Reportes/{fecha1:Datetime}/{fecha2:Datetime}"); 
+
+        datos = await Http.GetJsonAsync<object>($"Reportes/{"2020-03-06":Datetime}/{"2020-03-06":Datetime}");
+
+
+        reportes = JsonSerializer.Deserialize<List<Reporte>>(datos.ToString());
+
+        Console.WriteLine(reportes.Count);
+
+        foreach (var reporte in reportes)
+        {
+            Conductor conductor = await Http.GetJsonAsync<Conductor>($"Conductor/{reporte.chofer}");
+            conductores.Add(conductor);
+        }
+
+        await JS.InvokeAsync<object>("DataTableAdd");
     }
 }

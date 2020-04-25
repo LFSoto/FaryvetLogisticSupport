@@ -1,0 +1,32 @@
+﻿
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="col">
+                    <p>Fecha de Inicio:</p>
+                    <input type="date" @bind="@fechaInicio" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col">
+                    <p>Fecha de Fin:</p>
+                    <input type="date" @bind="@fechaFin" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col">
+                    <button type="button" class="btn btn-primary" @onclick="@metodo">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public DateTime fechaInicio { get; set; } = DateTime.Now.AddHours(-6).AddDays(-7);
+    [Parameter] public DateTime fechaFin { get; set; } = DateTime.Now.AddHours(-6);
+    [Parameter] public EventCallback metodo { get; set; }
+}
