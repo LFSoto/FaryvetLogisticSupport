@@ -5,13 +5,13 @@
             <div class="col-sm-3">
                 <div class="col">
                     <p>Fecha de Inicio:</p>
-                    <input type="date" @bind="@fechaInicio" />
+                    <input type="date" @bind="@fechaInicio"  @bind:format="yyyy-MM-dd"  />
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="col">
                     <p>Fecha de Fin:</p>
-                    <input type="date" @bind="@fechaFin" />
+                    <input type="date" @bind="@fechaFin" @bind:format="yyyy-MM-dd" />
                 </div>
             </div>
             <div class="col-sm-3">
