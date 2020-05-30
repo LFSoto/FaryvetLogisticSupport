@@ -8,14 +8,24 @@
                         vehiculo="@vehiculo" />
 
 @code {
+    /// <value>Get y Set del atributo placa</value>
     [Parameter] public string placa { get; set; }
+    /// <value>Creación de un objeto tipo Vehiculo</value>
     Vehiculo vehiculo = new Vehiculo();
 
+    /// <summary>
+    /// Sobreescritura del metodo OnParametersSetAsync().
+    /// El metodo hará una petición al controlador de Vehiculo y este le retornará un objeto de tipo vehiculo con la placa.
+    /// </summary>
     protected async override Task OnParametersSetAsync()
     {
         vehiculo = await Http.GetJsonAsync<Vehiculo>($"Vehiculo/{placa}");
     }
 
+    /// <summary>
+    /// El metodo hará una petición al controlador de vehiculos, esto para guardar los cambios de un vehiculo.
+    /// Una vez guardado se enviará a la pagina Vehiculo
+    /// </summary>
     async Task actualizarVehiculo()
     {
         await Http.PutJsonAsync("Vehiculo", vehiculo);

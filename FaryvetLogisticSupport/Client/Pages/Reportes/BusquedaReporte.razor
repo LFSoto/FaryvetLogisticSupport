@@ -26,7 +26,10 @@
 </div>
 
 @code {
+    /// <value>Get y Set del atributo fechaInicio</value>
     [Parameter] public DateTime fechaInicio { get; set; } = DateTime.Now.AddHours(-6).AddDays(-7);
+    /// <value>Get y Set del atributo fechaFin</value>
     [Parameter] public DateTime fechaFin { get; set; } = DateTime.Now.AddHours(-6);
+    /// <value>Get y Set del atributo metodo</value>
     [Parameter] public EventCallback metodo { get; set; }
 }

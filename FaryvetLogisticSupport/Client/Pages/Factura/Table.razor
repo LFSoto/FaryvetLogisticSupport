@@ -50,9 +50,13 @@
 </body>
 
 @code {
-    [Parameter]
-    public List <Factura> facturas { get; set; }
+    /// <value>Get y Set del atributo facturas</value>
+    [Parameter] public List <Factura> facturas { get; set; }
 
+    /// <summary>
+    /// Sobreescritura del metodo OnInitializedAsync().
+    /// El metodo creará el datatable
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await JS.InvokeAsync<object>("DataTableAdd");

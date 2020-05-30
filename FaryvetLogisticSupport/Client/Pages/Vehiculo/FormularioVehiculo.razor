@@ -165,8 +165,12 @@
     </EditForm>
 
 @code {
+    /// <value>Get y Set del atributo vehiculo</value>
     [Parameter] public  Vehiculo vehiculo { get; set; } = new Vehiculo();
+    /// <value>Get y Set del atributo textoBoton</value>
     [Parameter] public String textoBoton { get; set; } = "Guardar Cambios";
+    /// <value>Get y Set del atributo textoTitulo</value>
     [Parameter] public String textoTitulo { get; set; } = "Formulario Vehiculo";
+    /// <value>Get y Set del atributo metodo</value>
     [Parameter] public EventCallback metodo { get; set; }
 }

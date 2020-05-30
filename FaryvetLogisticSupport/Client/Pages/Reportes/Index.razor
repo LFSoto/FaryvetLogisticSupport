@@ -124,20 +124,34 @@
 </div>
 
 @code {
+    /// <value>Get y Set del atributo datos</value>
     public object datos { get; set; }
+    /// <value>Get y Set del atributo reportes</value>
     public List<Reporte> reportes { get; set; }
+    /// <value>Get y Set del atributo conductores</value>
     public List<Conductor> conductores { get; set; } = new List<Conductor>();
+    /// <value>Get y Set del atributo fechaInicio</value>
     public DateTime fechaInicio { get; set; } = DateTime.Now.AddHours(-6).AddDays(-7);
+    /// <value>Get y Set del atributo fechaFin</value>
     public DateTime fechaFin { get; set; } = DateTime.Now.AddHours(-6);
+    /// <value>Get y Set del atributo fechaInicioB</value>
     public DateTime fechaInicioB { get; set; } = DateTime.Now.AddHours(-6).AddDays(-7);
+    /// <value>Get y Set del atributo fechaFinB</value>
     public DateTime fechaFinB { get; set; } = DateTime.Now.AddHours(-6);
 
+    /// <summary>
+    /// Sobreescritura del metodo OnInitializedAsync().
+    /// El metodo llamará a cargarEntrega() y creará el datatable
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await cargarEntregas();
         await JS.InvokeAsync<object>("DataTableAdd");
     }
 
+    /// <summary>
+    /// El metodo hará una petición al controlador de Reportes, esto para inicializar las distintas variables
+    /// </summary>
     async Task cargarEntregas()
     {
         string fecha1 = fechaInicio.ToString("s");
@@ -158,6 +172,9 @@
         }
     }
 
+    /// <summary>
+    /// El metodo hará una petición al controlador de vehiculos, esto para cambiar los valores de los parametros
+    /// </summary>
     async Task buscar()
     {
 

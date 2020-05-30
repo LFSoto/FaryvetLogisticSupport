@@ -57,14 +57,22 @@
 </body>
 
 @code {
+    /// <value>Get y Set del atributo facturas</value>
     public Factura[] facturas { get; set; }
 
+    /// <summary>
+    /// Sobreescritura del metodo OnInitializedAsync().
+    /// El metodo llamará a cargarFacturas() y creará el datatable
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await cargarFacturas();
         await JS.InvokeAsync<object>("DataTableAdd");
     }
 
+    /// <summary>
+    /// El metodo hará una petición al controlador de FacturaEspecial, esto para inicializar el atributo facturas.
+    /// </summary>
     async Task cargarFacturas()
     {
         facturas = await Http.GetJsonAsync<Factura[]>("FacturaEspecial");

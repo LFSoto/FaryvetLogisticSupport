@@ -95,9 +95,12 @@
 @code
 {
     @*GUI code*@
-
+    /// <value>Atributo ariaExpandedStatus</value>
     private bool ariaExpandedStatus= false;
 
+    /// <summary>
+    /// el metodo cambia el estado del atributo ariaExpandedStatus
+    /// </summary>
     private void changeAriaExpandedStatus (MouseEventArgs e)
     {
         ariaExpandedStatus= !ariaExpandedStatus ? true : false;
@@ -105,14 +108,22 @@
 
     @*Functionality code*@
 
+    /// <value>Atributo Id</value>
     private string Id= "";
+    /// <value>Atributo sDSF</value>
     private bool sDSF= true;
+    /// <value>Atributo startDateSearch</value>
     private DateTime startDateSearch= DateTime.Today.AddDays (-7);
+    /// <value>Atributo eDSF</value>
     private bool eDSF= true;
+    /// <value>Atributo endDateSearch</value>
     private DateTime endDateSearch= DateTime.Today;
-
+    /// <value>Get y Set del atributo billsList</value>
     public List <Factura> billsList {get; set;}
 
+    /// <summary>
+    /// El metodo hará una petición al controlador de Factura, esto para inicializar la variable billsList
+    /// </summary>
     private async Task LoadBills ( )
     {
         // billsList= await Http.GetJsonAsync <List <Factura>> ("Factura");
@@ -123,6 +134,9 @@
         billsList= await Http.GetJsonAsync <List <Factura>> ($"Factura/{true:bool}/{sDS:DateTime}/{true:bool}/{eDS:DateTime}");
     }
 
+    /// <summary>
+    /// El metodo hará una petición al controlador de Factura con los distintos atributos, esto para cambiar el valor de la variable billsList
+    /// </summary>
     private async Task loadBillsFromAdvanceSearch (MouseEventArgs e)
     {
         if (startDateSearch.CompareTo (endDateSearch) < 0)
@@ -149,6 +163,10 @@
         }
     }
 
+    /// <summary>
+    /// Sobreescritura del metodo OnInitializedAsync().
+    /// El metodo llamará a LoadBills()
+    /// </summary>
     protected override async Task OnInitializedAsync ( )
     {
         await LoadBills ( );

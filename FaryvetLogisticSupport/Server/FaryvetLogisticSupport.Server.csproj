@@ -5,6 +5,10 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\FLS\FaryvetLogisticSupport\FaryvetLogisticSupport\Server\FaryvetLogisticSupport.Server.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Migrations\20200114013459_Initial.cs" />
     <Compile Remove="Migrations\20200114013459_Initial.Designer.cs" />

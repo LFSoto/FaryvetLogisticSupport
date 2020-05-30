@@ -87,12 +87,21 @@ else
 
 
 @code {
+    /// <value>Get y Set del atributo reporte</value>
     public Reporte reporte { get; set; } = new Reporte();
+    /// <value>Get y Set del atributo reportes</value>
     [Parameter] public List<Reporte> reportes { get; set; }
+    /// <value>Get y Set del atributo conductores</value>
     [Parameter] public List<Conductor> conductores { get; set; }
+    /// <value>Get y Set del atributo fechaInicio</value>
     [Parameter] public DateTime fechaInicio { get; set; } = DateTime.Now.AddHours(-6).AddDays(-7);
+    /// <value>Get y Set del atributo fechaFin</value>
     [Parameter] public DateTime fechaFin { get; set; } = DateTime.Now.AddHours(-6);
 
+    /// <summary>
+    /// El metodo cambiará el valor del reporte con el parametro cedula
+    /// </summary>
+    /// /// <param name="cedula">Cedula del conductor.</param>
     void seleccionarReporte(string cedula)
     {
         Console.WriteLine(cedula);

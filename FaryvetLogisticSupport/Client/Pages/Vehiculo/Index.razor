@@ -91,19 +91,31 @@
 </div>
 
 @code {
+    /// <value>Get y Set del atributo vehiculos</value>
     public Vehiculo[] vehiculos { get; set; }
 
+    /// <summary>
+    /// Sobreescritura del metodo OnInitializedAsync().
+    /// El metodo llamará a cargarVehiculos() y creará el datatable
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await cargarVehiculos();
         await JS.InvokeAsync<object>("DataTableAdd");
     }
 
+    /// <summary>
+    /// El metodo hará una petición al controlador de vehiculos, esto para inicializar la variable vehiculos
+    /// </summary>
     async Task cargarVehiculos()
     {
         vehiculos = await Http.GetJsonAsync<Vehiculo[]>("Vehiculo");
     }
 
+    /// <summary>
+    /// El metodo hará una petición al controlador de vehiculos, esto para borrar un vehiculo.
+    /// Volverá a cargar todos los vehiculos.
+    /// </summary>
     async Task BorrarVehiculo(string placa)
     {
         await Http.DeleteAsync($"Vehiculo/{placa}");

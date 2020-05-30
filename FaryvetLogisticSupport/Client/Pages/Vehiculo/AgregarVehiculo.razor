@@ -10,8 +10,13 @@
                     />
 
 @code {
-        public Vehiculo vehiculo = new Vehiculo {estado = "Disponible"};
+    /// <value>Creación de un objeto tipo Vehiculo</value>
+    public Vehiculo vehiculo = new Vehiculo {estado = "Disponible"};
 
+    /// <summary>
+    /// El metodo hará una petición al controlador de vehiculos, esto para guardar un vehiculo.
+    /// Una vez guardado se enviará a la pagina Vehiculo
+    /// </summary>
     async Task agregarVehiculo()
     {
         await Http.PostJsonAsync("Vehiculo", vehiculo);
