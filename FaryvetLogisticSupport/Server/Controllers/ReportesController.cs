@@ -14,12 +14,20 @@ namespace FaryvetLogisticSupport.Server.Controllers
     public class ReportesController : Controller
     {
         private readonly ApplicationDbContext context;
-
+        /// <summary>
+        /// Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
+        /// </summary>
+        /// <param name="context">Context para la inicializacion del Controller de Reportes.</param>
         public ReportesController(ApplicationDbContext context)
         {
             this.context = context;
         }
-
+        /// <summary>
+        /// Funcion que devuelve una lista de reportes segun un rango de fechas.
+        /// </summary>
+        /// <param name="fechaInicio">Fecha de inicio.</param>
+        /// <param name="fechaFinal">Fecha de finalizacion.</param>
+        /// <returns>Devuelve la lista de reportes segun la fecha.</returns>
         [HttpGet("{fechaInicio:DateTime}/{fechaFinal:DateTime}")]
         public async Task<ActionResult<object>> Get(DateTime fechaInicio, DateTime fechaFinal)
         {

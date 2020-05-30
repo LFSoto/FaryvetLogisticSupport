@@ -4,18 +4,20 @@
             @*
             <div class= "main-container">
             *@
-                <h5 class= "my-0 font-weight-bold font-color-white">
-                    <NavLink class= "font-color-white no-hover" href= "">
-                        Laboratorios FARYVET
-                    </NavLink>
-                </h5>
+            <h5 class="my-0 font-weight-bold font-color-white">
+                <img src="/wwwroot/logo/logo.png" />
+                <NavLink class="font-color-white no-hover" href="">
+
+                    Laboratorios FARYVET
+                </NavLink>
+            </h5>
                 <div class= "ml-4 navbar-nav-scroll">
                     <ul class="navbar-nav lf-navbar-nav flex-row">
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <NavLink class="nav-link font-weight-bold" href="/" Match="NavLinkMatch.All">
                                 Inicio
                             </NavLink>
-                        </li>
+                        </li>*@
                         <li class="nav-item">
                             <NavLink class="nav-link font-weight-bold" href="AgregarEntrega">
                                 Nueva entrega
@@ -27,15 +29,15 @@
                             </NavLink>
                         </li>
                         <li class="nav-item">
-                            <NavLink class="nav-link font-weight-bold text-danger" href="Facturas">
+                            <NavLink class="nav-link font-weight-bold" href="Facturas">
                                 Visualizar facturas
                             </NavLink>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <NavLink class="nav-link font-weight-bold" href="FacturaEspecial">
                                 Visualizar facturas
                             </NavLink>
-                        </li>
+                        </li>*@
                         <li class="nav-item">
                             <NavLink class="nav-link font-weight-bold" href="Vehiculo">
                                 Gestionar vehículos
