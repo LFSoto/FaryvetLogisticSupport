@@ -9,17 +9,23 @@
                      conductor="@conductor" />
 
 @code {
+    /// <param name="cedulaConductor"></param>
     [Parameter] public string cedulaConductor { get; set; }
+    /// <value>Creacion de un objeto de tipo Conductor</value>
     Conductor conductor = new Conductor();
-
+    /// <summary>
+    /// Funcion que recupera un conductor en base a su cedula en el componente.
+    /// </summary>
     protected async override Task OnParametersSetAsync()
     {
         conductor = await _http.GetJsonAsync<Conductor>($"Conductor/{cedulaConductor}");
     }
-
+    /// <summary>
+    /// Funcion que permite editar un conductor desde el componente.
+    /// </summary>
     async Task editConductor()
-    {        
-        await _http.PutJsonAsync("Conductor", conductor);        
+    {
+        await _http.PutJsonAsync("Conductor", conductor);
         navMan.NavigateTo("conductores");
     }
 }

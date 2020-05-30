@@ -122,8 +122,12 @@
 
 
 @code {
+    /// <param name="conductor">Conductor</param>
     [Parameter] public Conductor conductor { get; set; } = new Conductor();
+    /// <param name="textoBoton">Variable que asigna el nombre al boton del componente</param>
     [Parameter] public String textoBoton { get; set; } = "Guardar Cambios";
+    /// <param name="textoTitulo">Variable que asigna el nombre al titulo del componente</param>
     [Parameter] public String textoTitulo { get; set; } = "Formulario Conductor";
+    /// <param name="metodo">Funcion</param>
     [Parameter] public EventCallback metodo { get; set; }
 }

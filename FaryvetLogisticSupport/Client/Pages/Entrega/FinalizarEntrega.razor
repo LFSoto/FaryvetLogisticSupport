@@ -146,10 +146,15 @@
 
 
 @code {
+    /// <value>Get y set del atributo ID.</value>
     [Parameter] public int id { get; set; }
+    /// <value>Creacion de un objeto de tipo entrega.</value>
     Entrega entrega = new Entrega();
+    /// <value>Get y set de la lista de facturas.</value>
     public List<Factura> facturas { get; set; }
-
+    /// <summary>
+    /// Funcion que carga las entregas segun el id.
+    /// </summary>
     protected async override Task OnParametersSetAsync()
     {
         entrega = await Http.GetJsonAsync<Entrega>($"Entrega/{id}");
@@ -157,7 +162,9 @@
         await JS.InvokeAsync<object>("DataTableAdd");
         entrega.fechaLlegada = DateTime.Now.AddHours(-6);
     }
-
+    /// <summary>
+    /// Funcion que valida que el kilometraje de llegada sea estrictamente mayor al de salida.
+    /// </summary>
     async void validarKilometrajeLlegada()
     {
         if (entrega.kilometrajeLlegada <= entrega.kilometrajeSalida)
@@ -165,7 +172,9 @@
             await JS.InvokeVoidAsync("alert", "El kilometraje de llegada debe ser mayor que el kilometraje de salida");
         }
     }
-
+    /// <summary>
+    /// Funcion que permite finalizar una entrega. Cuenta con varias validaciones para permitir la logica de la funcion.
+    /// </summary>
     async Task finalizarEntrega()
     {
         if (entrega.kilometrajeLlegada > entrega.kilometrajeSalida)

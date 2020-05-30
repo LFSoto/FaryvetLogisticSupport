@@ -127,13 +127,22 @@
 
 
 @code {
+    /// <value>Get y set de la lista de facturas.</value>
     public List<Factura> facturas { get; set; }
+    /// <value>Get y set de la lista de conductores.</value>
     public List<Conductor> conductores { get; set; }
+    /// <value>Get y set de la lista de vehiculos.</value>
     public List<Vehiculo> vehiculos { get; set; }
+    /// <value>Get y set de la lista de vehiculos con restriccion.</value>
     public List<Vehiculo> vehiculosRestriccion { get; set; } = new List<Vehiculo>();
+    /// <value>Get y set de la lista de conductores con restriccion.</value>
     public List<Conductor> conductoresRestriccion { get; set; } = new List<Conductor>();
+    /// <value>Get y set de un objeto de tipo entrega.</value>
     public Entrega entrega { get; set; } = new Entrega();
 
+    /// <summary>
+    /// Funcion que carga el componente, con las facturasm conductores y vehiculos.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await cargarFacturas();
@@ -141,23 +150,32 @@
         await cargarVehiculos();
         await JS.InvokeAsync<object>("DataTableAdd");
     }
-
+    /// <summary>
+    /// Funcion que carga las facturas en el componente.
+    /// </summary>
     async Task cargarFacturas()
     {
         facturas = await Http.GetJsonAsync<List<Factura>>("Entregas");
     }
-
+    /// <summary>
+    /// Funcion que carga los conductores en el componente.
+    /// </summary>
     async Task cargarConductores()
     {
         conductores = await Http.GetJsonAsync<List<Conductor>>($"Conductor/{true:bool}");
     }
-
+    /// <summary>
+    /// Funcion que carga los vehiculos en el componente.
+    /// </summary>
     async Task cargarVehiculos()
     {
         vehiculos = await Http.GetJsonAsync<List<Vehiculo>>($"Vehiculo/{true:bool}");
     }
 
-
+    /// <summary>
+    /// Funcion que agrega las facturas que esten por despachar a la entrega. Posteriormente, llama al metodo de cargar los vehiculos.
+    /// </summary>
+    /// <param name="id"></param>
     void agregarEntrega(string id)
     {
         Factura factura = facturas.Find(F => F.id == id);
@@ -175,13 +193,15 @@
         }
         seleccionarVehiculos();
     }
-
+    /// <summary>
+    /// Funcion que carga los vehiculos dependiendo del peso total de los productos de las facturas.
+    /// </summary>
     void seleccionarVehiculos()
     {
         vehiculosRestriccion = new List<Vehiculo>();
         conductoresRestriccion = new List<Conductor>();
-        entrega.vehiculo = null; 
-        if (facturas.FindAll(x=>x.estado == "Asignado").Count > 0) { 
+        entrega.vehiculo = null;
+        if (facturas.FindAll(x=>x.estado == "Asignado").Count > 0) {
             foreach (var vehiculo in vehiculos)
             {
                 if (vehiculo.capacidadCarga >= entrega.peso)
@@ -191,7 +211,9 @@
             }
         }
     }
-
+    /// <summary>
+    /// Funcion que filtra los conductores dependiendo si son aptos para manejar X vehiculo, en base a su licencia.
+    /// </summary>
     void filtrarConductores()
     {
         //if (!entrega.vehiculo.Equals(null))
@@ -217,7 +239,9 @@
         }
         //}
     }
-
+    /// <summary>
+    /// Funcion que agrega las entregas a la base de datos.
+    /// </summary>
     async Task agregarEntregaBD()
     {
         if (facturas.FindAll(x => x.estado == "Asignado").Count > 0)

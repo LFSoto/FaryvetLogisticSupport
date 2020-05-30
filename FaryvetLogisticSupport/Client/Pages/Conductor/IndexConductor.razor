@@ -94,19 +94,29 @@
 </div>
 
 @code {
+    /// <value>Set y get del array de Conductores.</value>
     public Conductor[] conductores { get; set; }
-
+    /// <summary>
+    /// Funcion que inicializa el componente y carga los conductores en la tabla.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await cargarConductores();
         await _js.InvokeAsync<object>("DataTableAdd");
     }
-
+    /// <summary>
+    /// Funcion que carga los conductores en el data table.
+    /// </summary>
     async Task cargarConductores()
     {
         conductores = await _http.GetJsonAsync<Conductor[]>("Conductor");
     }
-
+    /// <summary>
+    /// Funcion que elimina un conductor de la tabla. Posteriormente, carga los conductores.
+    /// </summary>
+    /// <param name="name">Nombre del conductor.</param>
+    /// <param name="cedul">Cedula del conductor.</param>
+    /// <returns>Devuelve la tabla actualizada.</returns>
     async Task EliminarConductor(string name, string cedul)
     {
         await _http.DeleteAsync($"Conductor/{cedul}");

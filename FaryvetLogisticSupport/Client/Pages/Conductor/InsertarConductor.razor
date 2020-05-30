@@ -10,9 +10,12 @@
 
 
 @code {
+    /// <value>Set y get del objeto de Conductor.</value>
     Conductor conductor = new Conductor() { estado = "Disponible"};
 
-
+    /// <summary>
+    /// Funciones que inserta un conductor y navega al indice de conductores.
+    /// </summary>
     async Task InsertConductor()
     {
         await _http.PostJsonAsync("Conductor", conductor);
