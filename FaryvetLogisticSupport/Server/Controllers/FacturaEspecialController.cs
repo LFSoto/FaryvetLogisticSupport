@@ -10,6 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FaryvetLogisticSupport.Server.Controllers
 {
+    /// <summary>
+    /// Clase FacturaEspecialController.
+    /// Controlador para los objectos de tipo Factura.
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class FacturaEspecialController : Controller
