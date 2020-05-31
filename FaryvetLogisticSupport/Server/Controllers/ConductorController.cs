@@ -10,6 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FaryvetLogisticSupport.Server.Controllers
 {
+    /// <summary>
+    /// Clase ConductorController.
+    /// Controlador para los objectos de tipo Conductor.
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class ConductorController : Controller

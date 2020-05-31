@@ -11,6 +11,10 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace FaryvetLogisticSupport.Server.Controllers
 {
+    /// <summary>
+    /// Clase EntregaController.
+    /// Controlador para los objectos de tipo Entrega.
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class EntregaController : Controller

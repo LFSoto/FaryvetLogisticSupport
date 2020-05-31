@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace FaryvetLogisticSupport.Server.Controllers
 {
+    /// <summary>
+    /// Clase ReportesController.
+    /// Controlador para los objectos de tipo Reporte.
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class ReportesController : Controller

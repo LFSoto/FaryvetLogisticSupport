@@ -4,6 +4,44 @@
         <name>FaryvetLogisticSupport.Server</name>
     </assembly>
     <members>
+        <member name="T:FaryvetLogisticSupport.Server.ApplicationDbContext">
+            <summary>
+            Clase ApplicationDbContext.
+            Puente entre las entidades y la base de datos.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.ApplicationDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{FaryvetLogisticSupport.Server.ApplicationDbContext})">
+            <summary>
+            Constructor de la clase ApplicationDbContext
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.ApplicationDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Sobreescritura del metodo OnModelCreating().
+            El metodo creará las tablas en la base de datos en el schema FARYVET
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Server.ApplicationDbContext.FLS_Conductores">
+            <value>Get y Set del atributo FLS_Conductores</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Server.ApplicationDbContext.FLS_DivisionesGeograficas">
+            <value>Get y Set del atributo FLS_DivisionesGeograficas</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Server.ApplicationDbContext.FLS_Entregas">
+            <value>Get y Set del atributo FLS_Entregas</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Server.ApplicationDbContext.FLS_Facturas">
+            <value>Get y Set del atributo FLS_Facturas</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Server.ApplicationDbContext.FLS_Vehiculos">
+            <value>Get y Set del atributo FLS_Vehiculos</value>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Server.Controllers.ConductorController">
+            <summary>
+            Clase ConductorController.
+            Controlador para los objectos de tipo Conductor.
+            </summary>
+        </member>
         <member name="M:FaryvetLogisticSupport.Server.Controllers.ConductorController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
             <summary>
             Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
@@ -52,6 +90,12 @@
              <param name="cedul">Cedula del conductor</param>
              <returns>Retorna HTTP status 204</returns>
         </member>
+        <member name="T:FaryvetLogisticSupport.Server.Controllers.EntregaController">
+            <summary>
+            Clase EntregaController.
+            Controlador para los objectos de tipo Entrega.
+            </summary>
+        </member>
         <member name="M:FaryvetLogisticSupport.Server.Controllers.EntregaController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
             <summary>
             Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
@@ -91,6 +135,12 @@
              </summary> 
              <param name="entrega">Objeto de tipo Entrega.</param>
              <returns>Retorna HTTP status 204.</returns>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Server.Controllers.FacturaController">
+            <summary>
+            Clase FacturaController.
+            Controlador para los objectos de tipo Factura.
+            </summary>
         </member>
         <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
             <summary>
@@ -166,6 +216,12 @@
             <param name="id">Id de la fatura.</param>
             <returns>Retorna HTTP status 204</returns>
         </member>
+        <member name="T:FaryvetLogisticSupport.Server.Controllers.FacturaEspecialController">
+            <summary>
+            Clase FacturaEspecialController.
+            Controlador para los objectos de tipo Factura.
+            </summary>
+        </member>
         <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaEspecialController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
             <summary>
             Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
@@ -177,6 +233,12 @@
             Funcion que devuelve una lista de faturas siempre y cuando su forma de despacho sea 'Camion'.
             </summary>
             <returns>Devuelve una lista de facturas.</returns>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Server.Controllers.ReportesController">
+            <summary>
+            Clase ReportesController.
+            Controlador para los objectos de tipo Reporte.
+            </summary>
         </member>
         <member name="M:FaryvetLogisticSupport.Server.Controllers.ReportesController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
             <summary>
@@ -191,6 +253,12 @@
             <param name="fechaInicio">Fecha de inicio.</param>
             <param name="fechaFinal">Fecha de finalizacion.</param>
             <returns>Devuelve la lista de reportes segun la fecha.</returns>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Server.Controllers.VehiculoController">
+            <summary>
+            Clase VehiculoController.
+            Controlador para los objectos de tipo Vehiculo.
+            </summary>
         </member>
         <member name="M:FaryvetLogisticSupport.Server.Controllers.VehiculoController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
             <summary>
