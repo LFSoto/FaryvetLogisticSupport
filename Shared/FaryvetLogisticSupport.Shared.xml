@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FaryvetLogisticSupport.Shared</name>
+    </assembly>
+    <members>
+        <member name="T:FaryvetLogisticSupport.Shared.CustomDataAnnotation.CustomDataAnnotationDate">
+            <summary>
+            Clase CustomDataAnnotationDate.
+            Modelo para el manejo de excepciones de fecha en la aplicación.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Shared.CustomDataAnnotation.CustomDataAnnotationDate.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Este metodo verifica si la fecha que le llega en value es menor o igual a la fecha actual.
+            </summary>
+            <param name="value">campo de tipo object</param>
+            <param name="validationContext">campo de tipo ValidationContext</param>
+            <returns>retorna un objeto de tipo ValidationResult con el valor Success si es verdadero, en caso contrario retorna un mensaje de error</returns>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Shared.CustomDataAnnotation.CustomDataAnnotationYear">
+            <summary>
+            Clase CustomDataAnnotationYear.
+            Modelo para el manejo de excepciones en el año del vehiculo en la aplicación.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Shared.CustomDataAnnotation.CustomDataAnnotationYear.#ctor">
+            <summary>
+            Constructor de la clase Vehiculo
+            Verifica que el año sea mayor o igual a 1970 y menor o igual al año + 1.
+            </summary>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Shared.Models.Conductor">
+            <summary>
+            Clase Conductor.
+            Modelo para el manejo de conductores en la aplicación.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Shared.Models.Conductor.#ctor">
+            <summary>
+            Constructor de la clase Conductor
+            Inicializa la fechaVencimientoB, fechaVencimientoA y fechaDeContratacion con la fecha actual.
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.cedula">
+            <value>Get y Set del atributo cedula</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.nombre">
+            <value>Get y Set del atributo nombre</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.apellido1">
+            <value>Get y Set del atributo apellido1</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.apellido2">
+            <value>Get y Set del atributo apellido2</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.licenciaB">
+            <value>Get y Set del atributo licenciaB</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.fechaVencimientoB">
+            <value>Get y Set del atributo fechaVencimientoB</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.licenciaA">
+            <value>Get y Set del atributo licenciaA</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.fechaVencimientoA">
+            <value>Get y Set del atributo fechaVencimientoA</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.estado">
+            <value>Get y Set del atributo estado</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Conductor.fechaDeContratacion">
+            <value>Get y Set del atributo fechaDeContratacion</value>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Shared.Models.Entrega">
+            <summary>
+            Clase Entrega.
+            Modelo para el manejo de Entrega en la aplicación.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Shared.Models.Entrega.#ctor">
+            <summary>
+            Constructor de la clase Entrega
+            Inicializa la fechaSalida con la fecha actual de Costa Rica.
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.id">
+            <value>Get y Set del atributo id</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.chofer">
+            <value>Get y Set del atributo chofer</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.vehiculo">
+            <value>Get y Set del atributo vehiculo</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.peso">
+            <value>Get y Set del atributo peso</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.costo">
+            <value>Get y Set del atributo costo</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.comentarios">
+            <value>Get y Set del atributo comentarios</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.estado">
+            <value>Get y Set del atributo estado</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.kilometrajeSalida">
+            <value>Get y Set del atributo kilometrajeSalida</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.kilometrajeLlegada">
+            <value>Get y Set del atributo kilometrajeLlegada</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.fechaSalida">
+            <value>Get y Set del atributo fechaSalida</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.fechaLlegada">
+            <value>Get y Set del atributo fechaLlegada</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.costoOperativo">
+            <value>Get y Set del atributo costoOperativo</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.recargaCombustible">
+            <value>Get y Set del atributo recargaCombustible</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.comentariosLlegada">
+            <value>Get y Set del atributo comentariosLlegada</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.ConductorNavigation">
+            <value>Get y Set del atributo ConductorNavigation</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Entrega.VehiculoNavigation">
+            <value>Get y Set del atributo VehiculoNavigation</value>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Shared.Models.Factura">
+            <summary>
+            Clase Factura.
+            Modelo para el manejo de Factura en la aplicación.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Shared.Models.Factura.#ctor">
+            <summary>
+            Constructor de la clase Entrega
+            Inicializa los comentarios en "".
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.id">
+            <value>Get y Set del atributo id</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.entrega">
+            <value>Get y Set del atributo entrega</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.formaDespacho">
+            <value>Get y Set del atributo formaDespacho</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.pesoTotal">
+            <value>Get y Set del atributo pesoTotal</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.formaCobro">
+            <value>Get y Set del atributo formaCobro</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.moneda">
+            <value>Get y Set del atributo moneda</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.montoTotal">
+            <value>Get y Set del atributo montoTotal</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.nombreCliente">
+            <value>Get y Set del atributo nombreCliente</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.comentarios">
+            <value>Get y Set del atributo comentarios</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.estado">
+            <value>Get y Set del atributo estado</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.ubicacion">
+            <value>Get y Set del atributo ubicacion</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.direccion">
+            <value>Get y Set del atributo direccion</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.fecha">
+            <value>Get y Set del atributo fecha</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.EntregaNavigation">
+            <value>Get y Set del atributo EntregaNavigation</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Factura.DivisionGeograficaNavigation">
+            <value>Get y Set del atributo DivisionGeograficaNavigation</value>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Shared.Models.Reporte">
+            <summary>
+            Clase Reporte.
+            Modelo para el manejo de Reporte en la aplicación.
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Reporte.chofer">
+            <value>Get y Set del atributo chofer</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Reporte.peso">
+            <value>Get y Set del atributo peso</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Reporte.costo">
+            <value>Get y Set del atributo costo</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Reporte.kilometrajeRecorrido">
+            <value>Get y Set del atributo kilometrajeRecorrido</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Reporte.cantidadEntregas">
+            <value>Get y Set del atributo cantidadEntregas</value>
+        </member>
+        <member name="T:FaryvetLogisticSupport.Shared.Models.Vehiculo">
+            <summary>
+            Clase Vehiculo.
+            Modelo para el manejo de Vehiculo en la aplicación.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Shared.Models.Vehiculo.#ctor">
+            <summary>
+            Constructor de la clase Vehiculo
+            Inicializa la fechaVencimientoCVOSenasa y fechaVencimientoSalidaPais con la fecha actual.
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.placa">
+            <value>Get y Set del atributo placa</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.capacidadCarga">
+            <value>Get y Set del atributo capacidadCarga</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.estado">
+            <value>Get y Set del atributo estado</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.CVOSenasa">
+            <value>Get y Set del atributo CVOSenasa</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.fechaVencimientoCVOSenasa">
+            <value>Get y Set del atributo fechaVencimientoCVOSenasa</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.marca">
+            <value>Get y Set del atributo marca</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.modelo">
+            <value>Get y Set del atributo modelo</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.annioFabricacion">
+            <value>Get y Set del atributo annioFabricion</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.licenciaRequerida">
+            <value>Get y Set del atributo licenciaRequerida</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.salidaPais">
+            <value>Get y Set del atributo salidaPais</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.fechaVencimientoSalidaPais">
+            <value>Get y Set del atributo fechaVencimientoSalidaPais</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Shared.Models.Vehiculo.isReparto">
+            <value>Get y Set del atributo isReparto</value>
+        </member>
+    </members>
+</doc>

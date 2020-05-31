@@ -7,18 +7,23 @@ using System.Text;
 namespace FaryvetLogisticSupport.Shared.Models
 {
 
-    /// <summary>
-    /// Clase DivisionGeografica.
-    /// Modelo para el manejo de DivisionGeografica en la aplicación.
-    /// </summary>
+    /* 
+    * @class DivisionGeografica.
+    * @brief Modelo para el manejo de DivisionGeografica en la aplicación.
+    */
+   
     [Table("FLS_DisionesGeograficas")]
     public class DivisionGeografica
     {
-        /// <value>Get y Set del atributo codigoPostal</value>
+        /* 
+         * @brief Get y Set del atributo codigoPostal
+         */
         [Key]
         [Required]
         public int codigoPostal { get; set; }
-        /// <value>Get y Set del atributo ubicacion</value>
+        /* 
+       * @brief Get y Set del atributo ubicacion
+       */
         [Required]
         public string ubicacion { get; set; }
     }

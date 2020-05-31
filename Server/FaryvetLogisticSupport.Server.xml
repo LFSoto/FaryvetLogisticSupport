@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FaryvetLogisticSupport.Server</name>
+    </assembly>
+    <members>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.ConductorController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
+            <summary>
+            Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
+            </summary>
+            <param name="context">Context para la inicializacion del Controller de Conductor.</param>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.ConductorController.Get">
+            <summary>
+            Funcion que devuelve toda la lista de Conductores. 
+            </summary>
+            <returns>Devuelve toda la lista de Conductores en la base de datos.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.ConductorController.Get(System.Boolean)">
+            <summary>
+            Devuleve la lista de Conductores que cumplan con el requisito <paramref name="isDisponible"/>
+            </summary>
+            <param name="isDisponible">Estado de disponibilidad del conductor.</param>
+            <returns>Devuelve una lista de los conductores disponibles si <paramref name="isDisponible"/> es true. Caso contrario, una
+            lista de los conductores sin disponibilidad.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.ConductorController.Post(FaryvetLogisticSupport.Shared.Models.Conductor)">
+            <summary>
+            Agrega un conductor nuevo a la base de datos.
+            </summary>
+            <param name="conductor">Objeto de tipo Conductor.</param>
+            <returns>Devuelve el nuevo Conductor.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.ConductorController.Get(System.String)">
+            <summary>
+            Devuelve un Conductor segun <paramref name="cedula"/>.
+            </summary>
+            <param name="cedula">Cedula del conductor.</param>
+            <returns>Devuelve el objeto de tipo Conductor que coincide con la cedula por parametro.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.ConductorController.Put(FaryvetLogisticSupport.Shared.Models.Conductor)">
+            <summary>
+             Actualiza un conductor de la base de datos. Este recibe como parametro el valor de <paramref name="conductor"/>
+             </summary> 
+             <param name="conductor">Objeto de tipo Conductor.</param>
+             <returns>Retorna HTTP status 204.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.ConductorController.Delete(System.String)">
+            <summary>
+             Elimina un conductor de la base de datos a traves de la cedula.
+             </summary> 
+             <param name="cedul">Cedula del conductor</param>
+             <returns>Retorna HTTP status 204</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.EntregaController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
+            <summary>
+            Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
+            </summary>
+            <param name="context">Context para la inicializacion del Controller de Entrega.</param>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.EntregaController.Post(FaryvetLogisticSupport.Shared.Models.Entrega)">
+            <summary>
+            Funcion que agrega una nueva entrega.
+            </summary>
+            <param name="entrega">Entrega que se agrega a la base de datos.</param>
+            <returns>Retorna HTTP status 204.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.EntregaController.Get(System.Int32)">
+            <summary>
+            Funcion que devuelve una entrega segun el <paramref name="id"/>.
+            </summary>
+            <param name="id">Identificador necesario para la busqueda</param>
+            <returns>Devuelve un objeto de tipo Entrega segun el ID.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.EntregaController.Get">
+            <summary>
+            Funcion que devuleve una lista de entregas que tienen su estado como pendiente.
+            </summary>
+            <returns>Una lista de entregas pendientes.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.EntregaController.Get(System.DateTime)">
+            <summary>
+            Funcion que devuelve una lista ordenada de entregas segun la <paramref name="fechaSalida"/>.
+            </summary>
+            <param name="fechaSalida">Fecha de Salida para el filtro.</param>
+            <returns>Devuelve una lista ordenada de entregas.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.EntregaController.Put(FaryvetLogisticSupport.Shared.Models.Entrega)">
+            <summary>
+             Funcion que actualiza la entrega en la base de datos. Este recibe como parametro el valor de <paramref name="entrega"/>.
+             </summary> 
+             <param name="entrega">Objeto de tipo Entrega.</param>
+             <returns>Retorna HTTP status 204.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
+            <summary>
+            Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
+            </summary>
+            <param name="context">Context para la inicializacion del Controller de Factura.</param>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.Get">
+            <summary>
+            Funcion que devuelve la lista de todas las facturas en la base de datos.
+            </summary>
+            <returns>Devuelve la lista de las facturas.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.Get(System.Boolean,System.DateTime,System.Boolean,System.DateTime)">
+            <summary>
+            Funcion que devuelve una lista de facturas en base a ciertas condiciones.
+            </summary>
+            <param name="sDSF">sDSF</param>
+            <param name="sDS">sDF</param>
+            <param name="eDSF">eDSF</param>
+            <param name="eDS">eDS</param>
+            <returns>Devuelve una lista de facturas.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.Get(System.String,System.Boolean,System.DateTime,System.Boolean,System.DateTime)">
+            <summary>
+            Funcion que devuelve una lista de facturas en base a ciertas condiciones.
+            </summary>
+            <param name="Id">Id</param>
+            <param name="sDSF">sDSF</param>
+            <param name="sDS">sDF</param>
+            <param name="eDSF">eDSF</param>
+            <param name="eDS">eDS</param>
+            <returns>Devuelve una lista de facturas.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.GetFromEntregas">
+            <summary>
+            Funcion que devuelve todas las facturas que su forma de despacho sea 'Camion' y su estado esté por despachar.
+            </summary>
+            <returns>Devuelve una lista de facturas.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.GetFromEntregas(System.Int32)">
+            <summary>
+            Funcion que devuelve las facturas asociadas con el <paramref name="id"/>.
+            </summary>
+            <param name="id">Id de la entrega</param>
+            <returns>Devuelve la lista de facturas por una entrega especifica.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.GetFromAdvanceSearch(System.String)">
+            <summary>
+            Funcion que devuelve una lista de facturas segun el id.
+            </summary>
+            <param name="Id">Id de la factura</param>
+            <returns>Devuelve la lista de facturas seun el id.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.Put(FaryvetLogisticSupport.Shared.Models.Factura)">
+            <summary>
+            Funcion que actualiza una factura.
+            </summary>
+            <param name="factura">Factura actualizada.</param>
+            <returns>Retorna HTTP status 204.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.Post(FaryvetLogisticSupport.Shared.Models.Factura)">
+            <summary>
+            Funcion que agrega una nueva factura a la base de datos.
+            </summary>
+            <param name="factura">Nueva factura.</param>
+            <returns>Retorna HTTP status 204</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaController.Delete(System.String)">
+            <summary>
+            Funcion que elimina una factura de la base de datos segun el id.
+            </summary>
+            <param name="id">Id de la fatura.</param>
+            <returns>Retorna HTTP status 204</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaEspecialController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
+            <summary>
+            Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
+            </summary>
+            <param name="context">Context para la inicializacion del Controller de FacturaEspecial.</param>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.FacturaEspecialController.Get">
+            <summary>
+            Funcion que devuelve una lista de faturas siempre y cuando su forma de despacho sea 'Camion'.
+            </summary>
+            <returns>Devuelve una lista de facturas.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.ReportesController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
+            <summary>
+            Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
+            </summary>
+            <param name="context">Context para la inicializacion del Controller de Reportes.</param>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.ReportesController.Get(System.DateTime,System.DateTime)">
+            <summary>
+            Funcion que devuelve una lista de reportes segun un rango de fechas.
+            </summary>
+            <param name="fechaInicio">Fecha de inicio.</param>
+            <param name="fechaFinal">Fecha de finalizacion.</param>
+            <returns>Devuelve la lista de reportes segun la fecha.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.VehiculoController.#ctor(FaryvetLogisticSupport.Server.ApplicationDbContext)">
+            <summary>
+            Constructor de la clase. Inicializa el context con el valor <paramref name="context"/>.
+            </summary>
+            <param name="context">Context para la inicializacion del Controller de Vehiculos.</param>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.VehiculoController.Get">
+            <summary>
+            Funcion que devuelve todos los vehiculos de la base de datos.
+            </summary>
+            <returns>Devuelve los vehiculos.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.VehiculoController.Post(FaryvetLogisticSupport.Shared.Models.Vehiculo)">
+            <summary>
+            Funcion que agrega un nuevo vehiculo a la base de datos.
+            </summary>
+            <param name="vehiculo">Nuevo vehiculo entrante a la base de datos.</param>
+            <returns>Devuelve el vehiculo nuevo, buscando por placa.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.VehiculoController.Get(System.String)">
+            <summary>
+            Funcion que devuelve un vehiculo segun la <paramref name="placa"/>.
+            </summary>
+            <param name="placa">Identificador del vehiculo.</param>
+            <returns>Devuelve el vehiculo segun la placa.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.VehiculoController.Get(System.Boolean)">
+            <summary>
+            Funcion que devuelve una lista de vehiculos de reparto y si estan disponibles al momento.
+            </summary>
+            <param name="isEntrega">Valor booleano para filtar los vehiculos de reparto.</param>
+            <returns>Devuelve una lista de vehiculos.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.VehiculoController.Put(FaryvetLogisticSupport.Shared.Models.Vehiculo)">
+            <summary>
+            Funcion que actualiza un vehiculo. 
+            </summary>
+            <param name="vehiculo">Objeto de tipo vehiculo.</param>
+            <returns>Retorna HTTP status 204.</returns>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Server.Controllers.VehiculoController.Delete(System.String)">
+            <summary>
+            Funcion que elimina un vehiculo segun la placa.
+            </summary>
+            <param name="id">Placa del vehiculo.</param>
+            <returns>Retorna HTTP status 204.</returns>
+        </member>
+    </members>
+</doc>

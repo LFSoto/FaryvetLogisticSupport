@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FaryvetLogisticSupport.Client</name>
+    </assembly>
+    <members>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Conductor.EditarConductor.cedulaConductor">
+            <param name="cedulaConductor"></param>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Conductor.EditarConductor.conductor">
+            <value>Creacion de un objeto de tipo Conductor</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Conductor.EditarConductor.OnParametersSetAsync">
+            <summary>
+            Funcion que recupera un conductor en base a su cedula en el componente.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Conductor.EditarConductor.editConductor">
+            <summary>
+            Funcion que permite editar un conductor desde el componente.
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Conductor.FormularioConductor.conductor">
+            <param name="conductor">Conductor</param>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Conductor.FormularioConductor.textoBoton">
+            <param name="textoBoton">Variable que asigna el nombre al boton del componente</param>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Conductor.FormularioConductor.textoTitulo">
+            <param name="textoTitulo">Variable que asigna el nombre al titulo del componente</param>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Conductor.FormularioConductor.metodo">
+            <param name="metodo">Funcion</param>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Conductor.IndexConductor.conductores">
+            <value>Set y get del array de Conductores.</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Conductor.IndexConductor.OnInitializedAsync">
+            <summary>
+            Funcion que inicializa el componente y carga los conductores en la tabla.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Conductor.IndexConductor.cargarConductores">
+            <summary>
+            Funcion que carga los conductores en el data table.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Conductor.IndexConductor.EliminarConductor(System.String,System.String)">
+            <summary>
+            Funcion que elimina un conductor de la tabla. Posteriormente, carga los conductores.
+            </summary>
+            <param name="name">Nombre del conductor.</param>
+            <param name="cedul">Cedula del conductor.</param>
+            <returns>Devuelve la tabla actualizada.</returns>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Conductor.InsertarConductor.conductor">
+            <value>Set y get del objeto de Conductor.</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Conductor.InsertarConductor.InsertConductor">
+            <summary>
+            Funciones que inserta un conductor y navega al indice de conductores.
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.facturas">
+            <value>Get y set de la lista de facturas.</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.conductores">
+            <value>Get y set de la lista de conductores.</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.vehiculos">
+            <value>Get y set de la lista de vehiculos.</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.vehiculosRestriccion">
+            <value>Get y set de la lista de vehiculos con restriccion.</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.conductoresRestriccion">
+            <value>Get y set de la lista de conductores con restriccion.</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.entrega">
+            <value>Get y set de un objeto de tipo entrega.</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.OnInitializedAsync">
+            <summary>
+            Funcion que carga el componente, con las facturasm conductores y vehiculos.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.cargarFacturas">
+            <summary>
+            Funcion que carga las facturas en el componente.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.cargarConductores">
+            <summary>
+            Funcion que carga los conductores en el componente.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.cargarVehiculos">
+            <summary>
+            Funcion que carga los vehiculos en el componente.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.agregarEntrega(System.String)">
+            <summary>
+            Funcion que agrega las facturas que esten por despachar a la entrega. Posteriormente, llama al metodo de cargar los vehiculos.
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.seleccionarVehiculos">
+            <summary>
+            Funcion que carga los vehiculos dependiendo del peso total de los productos de las facturas.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.filtrarConductores">
+            <summary>
+            Funcion que filtra los conductores dependiendo si son aptos para manejar X vehiculo, en base a su licencia.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.AgregarEntrega.agregarEntregaBD">
+            <summary>
+            Funcion que agrega las entregas a la base de datos.
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Entrega.FinalizarEntrega.id">
+            <value>Get y set del atributo ID.</value>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Entrega.FinalizarEntrega.entrega">
+            <value>Creacion de un objeto de tipo entrega.</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Entrega.FinalizarEntrega.facturas">
+            <value>Get y set de la lista de facturas.</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.FinalizarEntrega.OnParametersSetAsync">
+            <summary>
+            Funcion que carga las entregas segun el id.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.FinalizarEntrega.validarKilometrajeLlegada">
+            <summary>
+            Funcion que valida que el kilometraje de llegada sea estrictamente mayor al de salida.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.FinalizarEntrega.finalizarEntrega">
+            <summary>
+            Funcion que permite finalizar una entrega. Cuenta con varias validaciones para permitir la logica de la funcion.
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Entrega.IndexEntrega.entregas">
+            <value>Lista de entregas</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.IndexEntrega.OnInitializedAsync">
+            <summary>
+            Funcion que inicializa el componente y carga la tabla de entregas.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.IndexEntrega.cargarEntregas">
+            <summary>
+            Funcion que carga todas la entregas.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Entrega.IndexEntrega.borrarEntrega(System.Int32)">
+            <summary>
+            Funcion que permite borrar una entrega segun su id desde la tabla.
+            </summary>
+            <param name="id">Id de la entrega.</param>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.FacturaEspecial.Index.facturas">
+            <value>Get y Set del atributo facturas</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.FacturaEspecial.Index.OnInitializedAsync">
+            <summary>
+            Sobreescritura del metodo OnInitializedAsync().
+            El metodo llamará a cargarFacturas() y creará el datatable
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.FacturaEspecial.Index.cargarFacturas">
+            <summary>
+            El metodo hará una petición al controlador de FacturaEspecial, esto para inicializar el atributo facturas.
+            </summary>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.ariaExpandedStatus">
+            <value>Atributo ariaExpandedStatus</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.changeAriaExpandedStatus(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            el metodo cambia el estado del atributo ariaExpandedStatus
+            </summary>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.Id">
+            <value>Atributo Id</value>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.sDSF">
+            <value>Atributo sDSF</value>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.startDateSearch">
+            <value>Atributo startDateSearch</value>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.eDSF">
+            <value>Atributo eDSF</value>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.endDateSearch">
+            <value>Atributo endDateSearch</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.billsList">
+            <value>Get y Set del atributo billsList</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.LoadBills">
+            <summary>
+            El metodo har� una petici�n al controlador de Factura, esto para inicializar la variable billsList
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.loadBillsFromAdvanceSearch(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            El metodo har� una petici�n al controlador de Factura con los distintos atributos, esto para cambiar el valor de la variable billsList
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Factura.FacturasAdvanceSearch.OnInitializedAsync">
+            <summary>
+            Sobreescritura del metodo OnInitializedAsync().
+            El metodo llamar� a LoadBills()
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Factura.Table.facturas">
+            <value>Get y Set del atributo facturas</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Factura.Table.OnInitializedAsync">
+            <summary>
+            Sobreescritura del metodo OnInitializedAsync().
+            El metodo creará el datatable
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.BusquedaReporte.fechaInicio">
+            <value>Get y Set del atributo fechaInicio</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.BusquedaReporte.fechaFin">
+            <value>Get y Set del atributo fechaFin</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.BusquedaReporte.metodo">
+            <value>Get y Set del atributo metodo</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.Index.datos">
+            <value>Get y Set del atributo datos</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.Index.reportes">
+            <value>Get y Set del atributo reportes</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.Index.conductores">
+            <value>Get y Set del atributo conductores</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.Index.fechaInicio">
+            <value>Get y Set del atributo fechaInicio</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.Index.fechaFin">
+            <value>Get y Set del atributo fechaFin</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.Index.fechaInicioB">
+            <value>Get y Set del atributo fechaInicioB</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.Index.fechaFinB">
+            <value>Get y Set del atributo fechaFinB</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Reportes.Index.OnInitializedAsync">
+            <summary>
+            Sobreescritura del metodo OnInitializedAsync().
+            El metodo llamará a cargarEntrega() y creará el datatable
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Reportes.Index.cargarEntregas">
+            <summary>
+            El metodo hará una petición al controlador de Reportes, esto para inicializar las distintas variables
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Reportes.Index.buscar">
+            <summary>
+            El metodo hará una petición al controlador de vehiculos, esto para cambiar los valores de los parametros
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.TablasReporte.reporte">
+            <value>Get y Set del atributo reporte</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.TablasReporte.reportes">
+            <value>Get y Set del atributo reportes</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.TablasReporte.conductores">
+            <value>Get y Set del atributo conductores</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.TablasReporte.fechaInicio">
+            <value>Get y Set del atributo fechaInicio</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Reportes.TablasReporte.fechaFin">
+            <value>Get y Set del atributo fechaFin</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Reportes.TablasReporte.seleccionarReporte(System.String)">
+            <summary>
+            El metodo cambiará el valor del reporte con el parametro cedula
+            </summary>
+            /// <param name="cedula">Cedula del conductor.</param>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Vehiculo.ActualizarVehiculo.placa">
+            <value>Get y Set del atributo placa</value>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Vehiculo.ActualizarVehiculo.vehiculo">
+            <value>Creación de un objeto tipo Vehiculo</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Vehiculo.ActualizarVehiculo.OnParametersSetAsync">
+            <summary>
+            Sobreescritura del metodo OnParametersSetAsync().
+            El metodo hará una petición al controlador de Vehiculo y este le retornará un objeto de tipo vehiculo con la placa.
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Vehiculo.ActualizarVehiculo.actualizarVehiculo">
+            <summary>
+            El metodo hará una petición al controlador de vehiculos, esto para guardar los cambios de un vehiculo.
+            Una vez guardado se enviará a la pagina Vehiculo
+            </summary>
+        </member>
+        <member name="F:FaryvetLogisticSupport.Client.Pages.Vehiculo.AgregarVehiculo.vehiculo">
+            <value>Creación de un objeto tipo Vehiculo</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Vehiculo.AgregarVehiculo.agregarVehiculo">
+            <summary>
+            El metodo hará una petición al controlador de vehiculos, esto para guardar un vehiculo.
+            Una vez guardado se enviará a la pagina Vehiculo
+            </summary>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Vehiculo.FormularioVehiculo.vehiculo">
+            <value>Get y Set del atributo vehiculo</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Vehiculo.FormularioVehiculo.textoBoton">
+            <value>Get y Set del atributo textoBoton</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Vehiculo.FormularioVehiculo.textoTitulo">
+            <value>Get y Set del atributo textoTitulo</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Vehiculo.FormularioVehiculo.metodo">
+            <value>Get y Set del atributo metodo</value>
+        </member>
+        <member name="P:FaryvetLogisticSupport.Client.Pages.Vehiculo.Index.vehiculos">
+            <value>Get y Set del atributo vehiculos</value>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Vehiculo.Index.OnInitializedAsync">
+            <summary>
+            Sobreescritura del metodo OnInitializedAsync().
+            El metodo llamará a cargarVehiculos() y creará el datatable
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Vehiculo.Index.cargarVehiculos">
+            <summary>
+            El metodo hará una petición al controlador de vehiculos, esto para inicializar la variable vehiculos
+            </summary>
+        </member>
+        <member name="M:FaryvetLogisticSupport.Client.Pages.Vehiculo.Index.BorrarVehiculo(System.String)">
+            <summary>
+            El metodo hará una petición al controlador de vehiculos, esto para borrar un vehiculo.
+            Volverá a cargar todos los vehiculos.
+            </summary>
+        </member>
+    </members>
+</doc>
